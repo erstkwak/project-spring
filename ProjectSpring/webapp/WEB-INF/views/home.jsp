@@ -1,21 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>프로젝트 시작</title>
-	<style>
-	
-	</style>
-	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	<script>
-		$(function() {
-	
-		});
-	</script>
+  <title>Home</title>
 </head>
 <body>
-	<h1>프로젝트 시작</h1>
+	<h1>Hello world!</h1>
+	<p>The time on the server is ${serverTime}.</p>
 </body>
 </html>
