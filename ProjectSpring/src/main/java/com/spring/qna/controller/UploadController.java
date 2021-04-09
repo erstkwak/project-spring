@@ -22,144 +22,106 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.domain.AttachFileDTO;
 
-import lombok.extern.log4j.Log4j;
+import com.spring.qna.vo.AttachFileVO;
+
 import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
-@Log4j
-public class UploadController {
-
-	@GetMapping("/uploadForm")
-	public void uploadForm() {
-		log.info("upload form");
-	}
-
-	@PostMapping("/uploadFormAction")
-	public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
-		String uploadFolder = "C:\\upload";
-
-		for (MultipartFile multipartFile : uploadFile) {
-			log.info("--------");
-			log.info("Upload File Name: " + multipartFile.getOriginalFilename());
-			log.info("Upload File Size: " + multipartFile.getSize());
-
-			File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
-
+public class UploadController 
+{
+	
+	@RequestMapping(value = "/uploadFormAction", method = RequestMethod.POST)
+	public void upload(MultipartFile[] files, Model model)
+	{
+		String uploadRoot = "C:\\upload";
+		
+		for (MultipartFile multipartFile : files) {
+			File saveFile = new File (uploadRoot, multipartFile.getOriginalFilename());
+			
 			try {
 				multipartFile.transferTo(saveFile);
 			} catch (Exception e) {
-				log.error(e.getMessage());
+				e.printStackTrace();
 			}
 		}
 	}
-
-	@GetMapping("/uploadAjax")
-	public void uploadAjax() {
-		log.info("upload ajax");
-	}
-
-	@PostMapping(value = "uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	
+	@RequestMapping(value = "/uploadAjaxAction", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<AttachFileVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-		
+	public ResponseEntity<List<AttachFileVO>> uploadAjax(MultipartFile[] files)
+	{
 		List<AttachFileVO> list = new ArrayList<>();
 		
-		log.info("update ajax post........");
-
-		String uploadFolder = "C:\\upload";
-		String uploadFolderPath = getFolder();
+		String uploadRoot = "C:\\upload";
+		String uploadFolder = getFolder();
 		
-		File uploadPath = new File(uploadFolder, uploadFolderPath);
-		log.info("upload path: " + uploadPath);
+		File uploadPath = new File(uploadRoot, uploadFolder);
 		
 		if (uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}
-
-		for (MultipartFile multipartFile : uploadFile) {
-			
-			AttachFileVO attachDTO = new AttachFileVO();
-			
-			log.info("--------");
-			log.info("Upload File Name: " + multipartFile.getOriginalFilename());
-			log.info("Upload File Size: " + multipartFile.getSize());
-
-			String uploadFileName = multipartFile.getOriginalFilename();
-
-			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-			log.info("only file name: " + uploadFileName);
-			attachDTO.setFileName(uploadFileName);
+		
+		for (MultipartFile file : files) {
+			AttachFileVO attachFileVO = new AttachFileVO();
+			String filename = file.getOriginalFilename();
+			filename = filename.substring(filename.lastIndexOf("\\") + 1);
+			attachFileVO.setA_filename(filename);
 			
 			UUID uuid = UUID.randomUUID();
+			filename = uuid.toString() + "_" + filename;
 			
-			uploadFileName = uuid.toString() + "_" + uploadFileName;
-
 			try {
-				File saveFile = new File(uploadPath, uploadFileName);
-				multipartFile.transferTo(saveFile);
+				File saveFile = new File(uploadPath, filename);
+				file.transferTo(saveFile);
+				attachFileVO.setA_uuid(uuid.toString());
+				attachFileVO.setA_savepath(uploadFolder);
 				
-				attachDTO.setUuid(uuid.toString());
-				attachDTO.setUploadPath(uploadFolderPath);
-				
-				if (checkImageType(saveFile)) {
-					attachDTO.setImage(true);
-					
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
+				if (checkIsImage(saveFile)) {
+					attachFileVO.setA_isimage(true);
+					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + filename));
+					Thumbnailator.createThumbnail(file.getInputStream(), thumbnail, 100, 100);
 					thumbnail.close();
 				}
-				
-				list.add(attachDTO);
+				list.add(attachFileVO);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-//			File saveFile = new File(uploadFolder, uploadFileName);
-//			File saveFile = new File(uploadPath, uploadFileName);
-
-//			try {
-//				multipartFile.transferTo(saveFile);
-//			} catch (Exception e) {
-//				log.error(e.getMessage());
-//			}
 		}
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	private String getFolder() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String str = sdf.format(date);
-		
-		return str.replace("-", File.separator);
+		return str.replace("_", File.separator);
 	}
-	
-	private boolean checkImageType(File file) {
+		
+	private boolean checkIsImage(File file)
+	{
 		try {
-			String contentType = Files.probeContentType(file.toPath());
-			return contentType.startsWith("image");
-		} catch (IOException e) {
+			String fileType = Files.probeContentType(file.toPath());
+			return fileType.startsWith("image");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return false;
 	}
 	
-	@GetMapping("/display")
+	@RequestMapping("/display")
 	@ResponseBody
-	public ResponseEntity<byte[]> getFile(String fileName) {
-		log.info("fileName: " + fileName);
-		
-		File file = new File("c:\\upload\\" + fileName);
-		log.info("file: " + file);
-		
+	public ResponseEntity<byte[]> getFile(String fileName)
+	{
+		File file = new File("c:\\upload\" + fileName");
 		ResponseEntity<byte[]> result = null;
 		
 		try {
@@ -173,37 +135,30 @@ public class UploadController {
 		return result;
 	}
 	
-	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@RequestMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
-	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) {
-		log.info("download file: " + fileName);
-		
+	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName)
+	{
 		Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
-		log.info("resource: " + resource);
 		
 		if (resource.exists() == false) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
 		String resourceName = resource.getFilename();
-		
 		String resourceOriginalName = resourceName.substring(resourceName.indexOf("_") + 1);
 		
 		HttpHeaders headers = new HttpHeaders();
-		
 		try {
 			String downloadName = null;
 			
 			if (userAgent.contains("Trident")) {
-				log.info("IE browser");
 				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8").replaceAll("\\+", " ");
 			}
 			else if (userAgent.contains("Edge")) {
-				log.info("Edge browser");
 				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8");
 			}
 			else {
-				log.info("Chrome browser");
 				downloadName = new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");
 			}
 			
@@ -214,12 +169,10 @@ public class UploadController {
 		
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 	}
-	
-	@PostMapping("/deleteFile")
+
+	@RequestMapping(value="/deleteFile", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(String fileName, String type) {
-		log.info("deleteFile: " + fileName);
-		
 		File file;
 		
 		try {
@@ -228,8 +181,6 @@ public class UploadController {
 			
 			if (type.equals("image")) {
 				String largeFileName = file.getAbsolutePath().replace("s_", "");
-				log.info("largeFileName: " + largeFileName);
-				
 				file = new File(largeFileName);
 				file.delete();
 			}

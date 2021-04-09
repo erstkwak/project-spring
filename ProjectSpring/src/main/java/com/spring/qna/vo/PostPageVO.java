@@ -13,31 +13,23 @@ public class PostPageVO
 	private boolean prev;
 	private boolean next;
 	
-	public PostPageVO(int total, BoardUtilVO util) {
-		this.total = total;
+	public PostPageVO(UtilVO util, int total) {
 		this.util = util;
-		this.end = 
-	}
-	
-	
-		this.cri = cri;
 		this.total = total;
 
-		this.endPage = (int) (Math.ceil(cri.getPageNum() / 10.0)) * 10;
+		this.end = (int) (Math.ceil(util.getPageNum() / 10.0)) * 10;
 
-		this.startPage = this.endPage - 9;
+		this.start = this.end - 9;
 
-		int realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));
+		int realEnd = (int) (Math.ceil((total * 1.0) / util.getAmount()));
 
-		if (realEnd <= this.endPage) {
-			this.endPage = realEnd;
+		if (realEnd <= this.end) {
+			this.end = realEnd;
 		}
 
-		this.prev = this.startPage > 1;
+		this.prev = this.start > 1;
 
-		this.next = this.endPage < realEnd;
+		this.next = this.end < realEnd;
 	}
-	
-	
 
 }

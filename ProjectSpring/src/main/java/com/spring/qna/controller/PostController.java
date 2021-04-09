@@ -1,127 +1,113 @@
 package com.spring.qna.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.qna.service.PostService;
-import com.spring.qna.vo.SearchVO;
+import com.spring.qna.vo.PostAttachVO;
+import com.spring.qna.vo.PostPageVO;
+import com.spring.qna.vo.PostVO;
+import com.spring.qna.vo.UtilVO;
 
 @Controller
 @RequestMapping("/qna/*")
-public class PostController {
+public class PostController 
+{
 
 	@Autowired
 	private PostService postService;
 
 	@RequestMapping("/list")
-	public void list(SearchVO search, Model model)
+	public void list(UtilVO utilVO, Model model)
 	{
-		model.addAttribute("list", postService.getList(search));
-		model.addAttribute("paging", new Page)
+		model.addAttribute("list", postService.getList(utilVO));
+		model.addAttribute("paging", new PostPageVO(utilVO, postService.getPostCount(utilVO)));
 	}
 	
+	@RequestMapping("/register")
+	public String register(PostVO postVO, RedirectAttributes rttr)
+	{
+		postService.register(postVO);
+		rttr.addFlashAttribute("result", postVO.getP_no());
+		return "redirect:/qna/list";
+	}
 	
-		int total = service.getTotal(cri);
-
-		model.addAttribute("pageMaker", new PageDTO(cri, total));
-
+	@RequestMapping({"/get", "/modify"})
+	public void get(@RequestParam("p_no") Long p_no, @ModelAttribute("utilVO") UtilVO utilVO, Model model)
+	{
+		model.addAttribute("postVO", postService.getOne(p_no));
 	}
 
-	@GetMapping("/register")
-	public void register() {
-	}
-
-	@PostMapping("/register")
-	public String register(BoardVO board, RedirectAttributes rttr) {
-
-		log.info("register: " + board);
-
-		if (board.getAttachList() != null) {
-			board.getAttachList().forEach(attach -> log.info(attach));
-		}
-
-		service.register(board);
-
-		rttr.addFlashAttribute("result", board.getBno());
-
-		return "redirect:/board/list";
-	}
-
-
-
-	@GetMapping({ "/get", "/modify" })
-	public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model) {
-
-		log.info("/get or modify");
-		model.addAttribute("board", service.get(bno));
-	}
-
-
-
-	@PostMapping("/modify")
-	public String modify(BoardVO board, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
-		log.info("modify:" + board);
-
-		if (service.modify(board)) {
+	@RequestMapping("/modify")
+	public String modify(PostVO postVO, @ModelAttribute("utilVO") UtilVO utilVO, RedirectAttributes rttr)
+	{
+		if (postService.modify(postVO)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getAmount());
-		rttr.addAttribute("type", cri.getType());
-		rttr.addAttribute("keyword", cri.getKeyword());
-
-		return "redirect:/board/list";
+		
+		rttr.addAttribute("pageNum", utilVO.getPageNum());
+		rttr.addAttribute("amount", utilVO.getAmount());
+		rttr.addAttribute("type", utilVO.getType());
+		rttr.addAttribute("keyword", utilVO.getKeyword());
+		
+		return "redirect:/qna/list";
 	}
 
-
-
-	@PostMapping("/remove")
-	public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr) {
-
-		log.info("remove..." + bno);
-
-		List<BoardAttachVO> attachList = service.getAttachList(bno);
-
-		if (service.remove(bno)) {
+	
+	@RequestMapping("/remove")
+	public String remove(@RequestParam("p_no") Long p_no, UtilVO utilVO, RedirectAttributes rttr)
+	{
+		List<PostAttachVO> attachList = postService.getAttachList(p_no);
+		
+		if (postService.remove(p_no)) {
 			deleteFiles(attachList);
-			rttr.addFlashAttribute("result", "success");
+			rttr.addAttribute("result", "success");
 		}
-		return "redirect:/board/list" + cri.getListLink();
+		return "redirect:/qna/list" + utilVO.getListLink();
 	}
 
-	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/getAttachList", produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno) {
-		log.info("getAttachList " + bno);
-		return new ResponseEntity<>(service.getAttachList(bno), HttpStatus.OK);
-	};
-
-	private void deleteFiles(List<BoardAttachVO> attachList) {
-		if (attachList == null || attachList.size() == 0) {
+	public ResponseEntity<List<PostAttachVO>> getAttachList(Long p_no)
+	{
+		return new ResponseEntity<>(postService.getAttachList(p_no), HttpStatus.OK);
+	}
+	
+	private void deleteFiles(List<PostAttachVO> attachList)
+	{
+		if (attachList == null || attachList.size() == 0) 
+		{
 			return;
 		}
-
-		log.info("delete attach files........");
-		log.info(attachList);
-
+		
 		attachList.forEach(attach -> {
 			try {
-				Path file = Paths.get(
-						"c:\\upload\\" + attach.getUploadPath() + "\\" + attach.getUuid() + "_" + attach.getFileName());
+				Path file = Paths.get("c:\\upload\\" + attach.getA_savepath() + "\\" + attach.getA_uuid() + "_" + attach.getA_filename());
 				Files.deleteIfExists(file);
-
+				
 				if (Files.probeContentType(file).startsWith("image")) {
-					Path thumbNail = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\_s" + attach.getUuid() + "_"
-							+ attach.getFileName());
+					Path thumbNail = Paths.get("c:\\upload\\" + attach.getA_savepath() + "\\_s" + attach.getA_uuid() + "_" + attach.getA_filename());
 					Files.delete(thumbNail);
 				}
 			} catch (Exception e) {
-				log.error("delete file error" + e.getMessage());
+				e.printStackTrace();
 			}
 		});
+		
 	}
 
 }

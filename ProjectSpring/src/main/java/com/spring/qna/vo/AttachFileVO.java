@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class AttachFileVO {
 
-	private String fileName;
-	private String uploadPath;
-	private String uuid;
-	private boolean image;
+	private String a_filename;
+	private String a_savepath;
+	private String a_uuid;
+	private boolean a_isimage;
 	
 }

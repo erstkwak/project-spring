@@ -1,86 +1,51 @@
 package com.spring.qna.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.domain.Criteria;
-import org.zerock.domain.ReplyPageDTO;
-import org.zerock.domain.ReplyVO;
-import org.zerock.mapper.BoardMapper;
-import org.zerock.mapper.ReplyMapper;
-
-import lombok.Setter;
-import lombok.extern.log4j.Log4j;
+import com.spring.qna.mapper.PostMapper;
+import com.spring.qna.mapper.ReplyMapper;
+import com.spring.qna.vo.ReplyPageVO;
+import com.spring.qna.vo.ReplyVO;
+import com.spring.qna.vo.UtilVO;
 
 @Service
-@Log4j
 public class ReplyServiceImpl implements ReplyService {
 
-  @Setter(onMethod_ = @Autowired)
-  private ReplyMapper mapper;
+	@Autowired
+	private ReplyMapper replyMapper;
 
-  @Setter(onMethod_ = @Autowired)
-  private PostMapper boardMapper;
-  
-  @Transactional
-  public int register(ReplyVO vo) {
+	@Autowired
+	private PostMapper postMapper;
 
-    log.info("register......" + vo);
-    boardMapper.updateReplyCnt(vo.getBno(), 1);
+	@Transactional
+	public int register(ReplyVO replyVO) {
+		postMapper.updateReplyCount(replyVO.getP_no(), 1);
+		return replyMapper.create(replyVO);
+	}
 
-    return mapper.insert(vo);
+	public List<ReplyVO> getList(UtilVO utilVO, Long p_no) {
+		return replyMapper.readList(utilVO, p_no);
+	}
 
-  }
+	public ReplyVO getOne(Long r_no) {
+		return replyMapper.readOne(r_no);
+	}
 
-  @Override
-  public ReplyVO get(Long rno) {
+	public int modify(ReplyVO replyVO) {
+		return replyMapper.update(replyVO);
+	}
 
-    log.info("get......" + rno);
+	@Transactional
+	public int remove(Long r_no) {
+		ReplyVO replyVO = replyMapper.readOne(r_no);
+		postMapper.updateReplyCount(replyVO.getP_no(), -1);
+		return postMapper.delete(r_no);
+	}
 
-    return mapper.read(rno);
-
-  }
-
-  @Override
-  public int modify(ReplyVO vo) {
-
-    log.info("modify......" + vo);
-
-    return mapper.update(vo);
-
-  }
-
-  @Transactional
-  public int remove(Long rno) {
-
-    log.info("remove...." + rno);
-
-    ReplyVO vo = mapper.read(rno);
-    boardMapper.updateReplyCnt(vo.getBno(), -1);
-    
-    return mapper.delete(rno);
-
-  }
-
-  @Override
-  public List<ReplyVO> getList(UtilVO cri, Long bno) {
-
-    log.info("get Reply List of a Board " + bno);
-
-    return mapper.getListWithPaging(cri, bno);
-
-  }
-  
-  @Override
-  public ReplyPageVO getListPage(UtilVO cri, Long bno) {
-       
-    return new ReplyPageVO(
-        mapper.getCountByBno(bno), 
-        mapper.getListWithPaging(cri, bno));
-  }
-
+	public ReplyPageVO getListPage(UtilVO utilVO, Long p_no) {
+		return new ReplyPageVO(replyMapper.getReplyCount(p_no), replyMapper.readList(utilVO, p_no));
+	}
 
 }
-

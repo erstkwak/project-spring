@@ -1,10 +1,13 @@
 package com.spring.qna.mapper;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import com.spring.qna.vo.ReplyVO;
 import com.spring.qna.vo.UtilVO;
 
+@Mapper
 public interface ReplyMapper
 {
 
