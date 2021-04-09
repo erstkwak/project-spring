@@ -4,7 +4,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.spring.qna.service.PostService;
 import com.spring.qna.vo.PostAttachVO;
 import com.spring.qna.vo.PostPageVO;
@@ -25,7 +23,7 @@ import com.spring.qna.vo.UtilVO;
 
 @Controller
 @RequestMapping("/qna/*")
-public class PostController 
+public class PostController
 {
 
 	@Autowired
@@ -34,11 +32,14 @@ public class PostController
 	@RequestMapping("/list")
 	public void list(UtilVO utilVO, Model model)
 	{
-		model.addAttribute("list", postService.getList(utilVO));
+		model.addAttribute("postList", postService.getList(utilVO));
 		model.addAttribute("paging", new PostPageVO(utilVO, postService.getPostCount(utilVO)));
 	}
 	
 	@RequestMapping("/register")
+	public void register() {}
+	
+	@RequestMapping("/registerProc")
 	public String register(PostVO postVO, RedirectAttributes rttr)
 	{
 		postService.register(postVO);
