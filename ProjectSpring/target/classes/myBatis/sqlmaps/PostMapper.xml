@@ -18,12 +18,15 @@
   	SELECT p_no, p_title, p_content, mem_id, p_writedate, p_updatedate, p_replycount
   	FROM
   	  (
-  	     SELECT rownum rn, p_no, p_title, p_content, mem_id, p_writedate, p_updatedate, p_replycount FROM qna_post WHERE
+  	     SELECT rownum rn, p_no, p_title, p_content, mem_id, p_writedate, p_updatedate, p_replycount FROM
+  	     (
+  	        SELECT p_no, p_title, p_content, mem_id, p_writedate, p_updatedate, p_replycount FROM qna_post ORDER BY p_no DESC
+  	     )
+  	     WHERE
   	]]>
   	<include refid="search"></include>     
   	<![CDATA[
   	     rownum <= #{pageNum} * #{amount}
-  	     ORDER BY p_no DESC
   	  )
   	WHERE rn > (#{pageNum} - 1) * #{amount}
   	]]>
