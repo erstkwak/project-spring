@@ -87,13 +87,11 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="infoModalLabel">알림</h4>
+				<h5 class="modal-title" id="infoModalLabel">알림</h5>
 			</div>
-			<div class="modal-body">처리가 완료되었습니다.</div>
+			<h5><div class="modal-body">처리되었습니다.</div></h5>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-primary">지울 버튼</button>
 			</div>
 		</div>
 	</div>
@@ -114,7 +112,7 @@
 				return;
 			}
 			if (parseInt(result) > 0) {
-				$('.modal-body').html(parsseInt(result) + ' 번 글이 추가되었습니다.');
+				$('.modal-body').html(parseInt(result) + ' 번 글이 추가되었습니다.');
 			}
 			$('#infoModal').modal('show');
 		}

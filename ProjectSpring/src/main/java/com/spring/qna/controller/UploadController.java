@@ -25,6 +25,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,25 +37,9 @@ import net.coobird.thumbnailator.Thumbnailator;
 public class UploadController 
 {
 	
-	@RequestMapping(value = "/uploadFormAction", method = RequestMethod.POST)
-	public void upload(MultipartFile[] files, Model model)
-	{
-		String uploadRoot = "C:\\upload";
-		
-		for (MultipartFile multipartFile : files) {
-			File saveFile = new File (uploadRoot, multipartFile.getOriginalFilename());
-			
-			try {
-				multipartFile.transferTo(saveFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	@RequestMapping(value = "/uploadAjaxAction", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/uploadAjaxAction", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<AttachFileVO>> uploadAjax(MultipartFile[] files)
+	public ResponseEntity<List<AttachFileVO>> uploadAjax(@RequestParam(value="uploadFile", required=true) MultipartFile[] files)
 	{
 		List<AttachFileVO> list = new ArrayList<>();
 		
@@ -94,7 +79,7 @@ public class UploadController
 			}
 			
 		}
-		
+	
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
@@ -102,7 +87,7 @@ public class UploadController
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String str = sdf.format(date);
-		return str.replace("_", File.separator);
+		return str.replace("-", File.separator);
 	}
 		
 	private boolean checkIsImage(File file)
@@ -117,11 +102,11 @@ public class UploadController
 		return false;
 	}
 	
-	@RequestMapping("/display")
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<byte[]> getFile(String fileName)
+	public ResponseEntity<byte[]> getFile(@RequestParam("a_filename") String fileName)
 	{
-		File file = new File("c:\\upload\" + fileName");
+		File file = new File("c:\\upload\\" + fileName);
 		ResponseEntity<byte[]> result = null;
 		
 		try {
@@ -135,7 +120,7 @@ public class UploadController
 		return result;
 	}
 	
-	@RequestMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@RequestMapping(value = "/download", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
 	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName)
 	{
