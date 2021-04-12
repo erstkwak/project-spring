@@ -2,551 +2,316 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="form-group">
-<label>Bno</label> <input class="form-control" name='bno' value='<c:out value="${board.bno }"/>'
-readonly="readonly">
-</div>
-
-<div class="form-group">
-<label>Title</label> <input class="form-control" name='title' value='<c:out value="${board.title }"/>'
-readonly="readonly">
-</div>
-
-<div class="form-group">
-<label>Text area</label>
-<textarea class="form-control" rows="3" name='content'
-readonly="readonly"><c:out value="${board.content}" /></textarea>
-</div>
-
-<div class="form-group">
-<label>Writer</label> <input class="form-control" name='writer' value='<c:out value="${board.writer }"/>'
-readonly="readonly">
-</div>
-
-<%-- <button data-oper='modify' class="btn btn-default">
-<a href="/board/modify?bno=<c:out value=" ${board.bno}" />">Modify</a></button>
-<button data-oper='list' class="btn btn-info">
-<a href="/board/list">List</a></button> --%>
-
-
-<button data-oper='modify' class="btn btn-default">Modify</button>
-<button data-oper='list' class="btn btn-info">List</button>
-
-<%-- <form id='operForm' action="/boad/modify" method="get">
-<input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'>
-</form> --%>
-
-
-<form id='operForm' action="/boad/modify" method="get">
-	<input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'> <input type='hidden'
-		name='pageNum' value='<c:out value="${cri.pageNum}"/>'> <input type='hidden' name='amount'
-		value='<c:out value="${cri.amount}"/>'> <input type='hidden' name='keyword'
-		value='<c:out value="${cri.keyword}"/>'> <input type='hidden' name='type'
-		value='<c:out value="${cri.type}"/>'>
-
-</form>
-
-
-
-</div>
-<!--  end panel-body -->
-
-</div>
-<!--  end panel-body -->
-</div>
-<!-- end panel -->
-</div>
-<!-- /.row -->
-
-<div class="bigPictureWrapper">
-	<div class="bigPicture">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <style>
+		.replyListUl li {list-style: none;}
+		.uploadResult {width: 100%;	background-color: gray;}
+		.uploadResult ul {display: flex; flex-flow: row; justify-content: center;	align-items: center;}
+		.uploadResult ul li {list-style: none; padding: 10px;	align-content: center; text-align: center;}
+		.uploadResult ul li img {width: 100px;}
+		.uploadResult ul li span {color: white;}
+		.picturePreviewWrapper {position: absolute;	display: none; justify-content: center;	align-items: center; top: 0%;	width: 100%; height: 100%; background-color: gray; z-index: 100; background: rgba(255, 255, 255, 0.5);}
+		.picturePreview {position: relative; display: flex;	justify-content: center; align-items: center;}
+		.picturePreview img {width: 600px;}
+		.replyPagingDiv {display: flex; justify-content: center; align-items: center;}
+		.replyPagingDiv ul li {list-style: none; display: inline-block;}
+		.page-item.active .page-link {color: #fff; background: #343A40; border-color: #343A40;}
+		.page-link:hover {color: black;}
+		.page-link {color: black;}
+	</style>
+	<title>get.jsp</title>
+</head>
+<body>
+	<div class="form-group">
+		<label for="no">번호</label>
+		<input class="form-control" id="no" name='p_no' value='<c:out value="${postVO.p_no }"/>' readonly="readonly">
 	</div>
-</div>
-
-<style>
-	.uploadResult {
-		width: 100%;
-		background-color: gray;
-	}
-
-	.uploadResult ul {
-		display: flex;
-		flex-flow: row;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.uploadResult ul li {
-		list-style: none;
-		padding: 10px;
-		align-content: center;
-		text-align: center;
-	}
-
-	.uploadResult ul li img {
-		width: 100px;
-	}
-
-	.uploadResult ul li span {
-		color: white;
-	}
-
-	.bigPictureWrapper {
-		position: absolute;
-		display: none;
-		justify-content: center;
-		align-items: center;
-		top: 0%;
-		width: 100%;
-		height: 100%;
-		background-color: gray;
-		z-index: 100;
-		background: rgba(255, 255, 255, 0.5);
-	}
-
-	.bigPicture {
-		position: relative;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.bigPicture img {
-		width: 600px;
-	}
-</style>
-
-<div class="row">
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">Files</div>
-			<div class="panel-body">
-				<div class="uploadResult">
-					<ul>
-					</ul>
+	<div class="form-group">
+		<label for="title">제목</label>
+		<input class="form-control" id="title" name='p_title' value='<c:out value="${postVO.p_title }"/>' readonly="readonly">
+	</div>
+	<div class="form-group">
+		<label for="content">내용</label>
+		<textarea class="form-control" rows="3" id="content" name='content'	readonly="readonly"><c:out value="${postVO.p_content}" /></textarea>
+	</div>
+	<div class="form-group">
+		<label for="writer">작성자</label>
+		<input class="form-control" id="writer" name='mem_id' value='<c:out value="${postVO.mem_id }"/>' readonly="readonly">
+	</div>
+	<button data-oper='modify' class="btn btn-dark">수정</button>
+	<button data-oper='list' class="btn btn-dark">목록</button>
+	<form id='operForm' action="/qna/modify" method="get">
+		<input type='hidden' id='p_no' name='p_no' value='<c:out value="${postVO.p_no}"/>'>
+		<input type='hidden' name='pageNum' value='<c:out value="${utilVO.pageNum}"/>'>
+		<input type='hidden' name='amount' value='<c:out value="${utilVO.amount}"/>'>
+		<input type='hidden' name='keyword'	value='<c:out value="${utilVO.keyword}"/>'>
+		<input type='hidden' name='type' value='<c:out value="${utilVO.type}"/>'>
+	</form>
+	<div class="picturePreviewWrapper">
+		<div class="picturePreview">
+		</div>
+	</div><br>
+	<div class="form-group">
+		<label for="attachFiles">첨부파일</label>
+		<div class="uploadResult" id="attachFiles">
+			<ul></ul>
+		</div> 
+	</div>
+	<div>
+		댓글&nbsp;
+		<button id="addReplyBtn" class="btn btn-dark btn-xs pull-right">댓글쓰기</button><br><br>
+	</div>
+	<div>
+		<ul class="replyListUl list-group"></ul><br>
+	</div>
+	<div class="replyPagingDiv">
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"	aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">댓글</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="rcont">내용</label>
+						<input type="text" class="form-control" id="rcont" name='r_reply' value='댓글 내용'>
+					</div>
+					<div class="form-group">
+						<label for="rwriter">작성자</label>
+						<input type="text" class="form-control" id="rwriter" name='mem_id' value='test'>
+					</div>
+					<div class="form-group">
+						<label for="rdate">작성일</label>
+						<input type="text" class="form-control" id="rdate" name='r_writedate' value='2018-01-01 13:13'>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id='modalModBtn' type="button" class="btn btn-dark">수정</button>
+					<button id='modalRemoveBtn' type="button" class="btn btn-dark">삭제</button>
+					<button id='modalRegisterBtn' type="button" class="btn btn-dark">쓰기</button>
+					<button id='modalCloseBtn' type="button" class="btn btn-dark">닫기</button>
 				</div>
 			</div>
 		</div>
 	</div>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  <script src="/js/reply.js"></script>
+	<script>
+		$(document).ready(function() {
 
-</div>
+			var p_noValue = '<c:out value="${postVO.p_no}"/>';
+			var replyListUl = $(".replyListUl");
+			var pageNum = 1;
+			var replyPage = $(".replyPagingDiv");
+			var modal = $(".modal");
+			var modalInputReply = modal.find("input[name='r_reply']");
+			var modalInputReplyer = modal.find("input[name='mem_id']");
+			var modalInputReplyDate = modal.find("input[name='r_writedate']");
+			var modalModBtn = $("#modalModBtn");
+			var modalRemoveBtn = $("#modalRemoveBtn");
+			var modalRegisterBtn = $("#modalRegisterBtn");
 
-<div class='row'>
+			showList(1);
 
-	<div class="col-lg-12">
+			// 글 조회 시 첨부 파일 목록 불러와 출력
+			(function() {
+				var p_no = '<c:out value="${postVO.p_no}"/>';
+				$.getJSON('/qna/getAttachList', {p_no: p_no}, function(arr) {
+					var str = '';
+					$(arr).each(function(i, attach) {
+						if (attach.a_isimage) {
+							var fileSavePath = encodeURIComponent(attach.a_savepath + '/s_' + attach.a_uuid + '_' + attach.a_filename);
+							str += "<li data-path='" + attach.a_savepath + "' data-uuid='" + attach.a_uuid + "' data-filename='" + attach.a_filename + "' data-type='" + attach.a_isimage + "'>";
+							str += "<div><img src='/display?a_filename=" + fileSavePath + "'></div>";
+							str += "</li>";
+						}
+						else {
+							str += "<li data-path='" + attach.a_savepath + "' data-uuid='" + attach.a_uuid + "' data-filename='" + attach.a_filename + "' data-type='" + attach.a_isimage + "' >";
+							str += "<span> " + attach.a_filename + "</span><br />";
+							str += "<div><img src='/img/attach.png'></div>";
+							str += "</li>";
+						}
+					})
+					$('.uploadResult ul').html(str);
+				});
+			})();
 
-		<!-- /.panel -->
-		<div class="panel panel-default">
-			<!--       <div class="panel-heading">
-<i class="fa fa-comments fa-fw"></i> Reply
-</div> -->
+			// [이벤트] 글 조회 화면에서 버튼 선택에 따른 히든 값 전달
+			var operForm = $('#operForm');
+			$('button[data-oper="modify"]').on('click', function(e) {
+				operForm.attr('action', '/qna/modify').submit();
+			});
+			$('button[data-oper="list"]').on('click', function(e) {
+				operForm.find('#p_no').remove();
+				operForm.attr('action', '/qna/list');
+				operForm.submit();
+			});
 
-			<div class="panel-heading">
-				<i class="fa fa-comments fa-fw"></i> Reply
-				<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New Reply</button>
-			</div>
+			// [이벤트] 첨부파일 클릭 시 확대 보기 or 다운로드
+			$('.uploadResult').on('click', 'li', function(e) {
+				var liObj = $(this);
+				var path = encodeURIComponent(liObj.data('path') + '/' + liObj.data('uuid') + '_' + liObj.data('filename'));
+				if (liObj.data('type')) {
+					showImage(path.replace(new RegExp(/\\/g), '/'));
+				}
+				else {
+					self.location = '/download?fileName=' + path;
+				}
+			});
 
+			// [함수] 섬네일 이미지 클릭 시 크게 보기
+			function showImage(fileSavePath) {
+				$('.picturePreviewWrapper').css('display', 'flex').show();
+				$('.picturePreview').html('<img src="/display?a_filename=' + fileSavePath + '">').animate({width: '100%', height: '100%'}, 500);
+			}
 
-			<!-- /.panel-heading -->
-			<div class="panel-body">
+			// [이벤트] 크게 본 이미지 닫기
+			$('.picturePreviewWrapper').on('click', function(e) {
+				$('.picturePreview').animate({width: '0%', height: '0%'}, 500);
+				setTimeout(function() {
+					$('.picturePreviewWrapper').hide();
+				}, 500);
+			});
 
-				<ul class="chat">
-
-				</ul>
-				<!-- ./ end ul -->
-			</div>
-			<!-- /.panel .chat-panel -->
-
-			<div class="panel-footer"></div>
-
-
-		</div>
-	</div>
-	<!-- ./ end row -->
-</div>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-	aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-group">
-					<label>Reply</label> <input class="form-control" name='reply' value='New Reply!!!!'>
-				</div>
-				<div class="form-group">
-					<label>Replyer</label> <input class="form-control" name='replyer' value='replyer'>
-				</div>
-				<div class="form-group">
-					<label>Reply Date</label> <input class="form-control" name='replyDate' value='2018-01-01 13:13'>
-				</div>
-
-			</div>
-			<div class="modal-footer">
-				<button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
-				<button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
-				<button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
-				<button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
-
-
-<script src="/resources/js/reply.js"></script>
-<script>
-	$(document).ready(function () {
-
-		var bnoValue = '<c:out value="${board.bno}"/>';
-		var replyUL = $(".chat");
-
-		showList(1);
-
-		(function () {
-			var bno = '<c:out value="${board.bno}"/>';
-
-			$.getJSON("/board/getAttachList", { bno: bno }, function (arr) {
-				console.log(arr);
-
-				var str = "";
-
-				$(arr).each(function (i, attach) {
-					if (attach.fileType) {
-						var fileCallPath = encodeURIComponent(attach.uploadPath + "/s_" + attach.uuid + "_" + attach.fileName);
-
-						str += "<li data-path='" + attach.uploadPath + "' data-uuid='" + attach.uuid + "' data-filename='" + attach.fileName + "' data-type='" + attach.fileType + "' ><div>";
-						str += "<img src='/display?fileName=" + fileCallPath + "'>";
-						str += "</div>";
-						str += "</li>";
-					} else {
-						str += "<li data-path='" + attach.uploadPath + "' data-uuid='" + attach.uuid + "' data-filename='" + attach.fileName + "' data-type='" + attach.fileType + "' ><div>";
-						str += "<span> " + attach.fileName + "</span><br />";
-						str += "<img src='/resources/img/attach.png'>";
-						str += "</div>";
-						str += "</li>";
-					}
+			// [이벤트] 댓글 클릭 시 모달 표시
+			$('.replyListUl').on('click', 'li', function(e) {
+				var r_no = $(this).data('r_no');
+				replyService.get(r_no, function(reply) {
+					modalInputReply.val(reply.r_reply);
+					modalInputReplyer.val(reply.mem_id);
+					modalInputReplyDate.val(replyService.displayTime(reply.r_writedate)).attr('readonly', 'readonly');
+					modal.data('r_no', reply.r_no);
+					modal.find('button[id != "modalCloseBtn"]').hide();
+					modalModBtn.show();
+					modalRemoveBtn.show();
+					$('.modal').modal('show');
 				});
 
-				$(".uploadResult ul").html(str);
-
-
-
-
-
-
-			});
-		})();
-
-		$(".uploadResult").on("click", "li", function (e) {
-			console.log("view image");
-
-			var liObj = $(this);
-
-			var path = encodeURIComponent(liObj.data("path") + "/" + liObj.data("uuid") + "_" + liObj.data("filename"));
-
-			if (liObj.data("type")) {
-				showImage(path.replace(new RegExp(/\\/g), "/"));
-			} else {
-				self.location = "/download?fileName=" + path;
-			}
-
-
-		});
-
-		function showImage(fileCallPath) {
-			alert(fileCallPath);
-
-			$(".bigPictureWrapper").css("display", "flex").show();
-			$(".bigPicture").html("<img src='/display?fileName=" + fileCallPath + "'>").animate({ width: '100%', height: '100%' }, 1000);
-		}
-
-		$(".bigPictureWrapper").on("click", function (e) {
-			$(".bigPicture").animate({ width: '0%', height: '0%' }, 1000);
-			setTimeout(function () {
-				$('.bigPictureWrapper').hide();
-			}, 1000);
-
-
-
-		});
-
-
-
-
-
-
-		function showList(page) {
-
-			console.log("show list " + page);
-
-			replyService
-				.getList(
-					{
-						bno: bnoValue,
-						page: page || 1
-					},
-					function (replyCnt, list) {
-
-						console.log("replyCnt: "
-							+ replyCnt);
-						console.log("list: " + list);
-						console.log(list);
-
-						if (page == -1) {
-							pageNum = Math
-								.ceil(replyCnt / 10.0);
-							showList(pageNum);
-							return;
-						}
-
-						var str = "";
-
-						if (list == null
-							|| list.length == 0) {
-							return;
-						}
-
-						for (var i = 0, len = list.length || 0; i < len; i++) {
-							str += "<li class='left clearfix' data-rno='" + list[i].rno + "'>";
-							str += "  <div><div class='header'><strong class='primary-font'>["
-								+ list[i].rno
-								+ "] "
-								+ list[i].replyer
-								+ "</strong>";
-							str += "    <small class='pull-right text-muted'>"
-								+ replyService
-									.displayTime(list[i].replyDate)
-								+ "</small></div>";
-							str += "    <p>"
-								+ list[i].reply
-								+ "</p></div></li>";
-						}
-
-						replyUL.html(str);
-
-						showReplyPage(replyCnt);
-
-					});//end function
-
-		}//end showList
-
-		var pageNum = 1;
-		var replyPageFooter = $(".panel-footer");
-
-		function showReplyPage(replyCnt) {
-
-			var endNum = Math.ceil(pageNum / 10.0) * 10;
-			var startNum = endNum - 9;
-
-			var prev = startNum != 1;
-			var next = false;
-
-			if (endNum * 10 >= replyCnt) {
-				endNum = Math.ceil(replyCnt / 10.0);
-			}
-
-			if (endNum * 10 < replyCnt) {
-				next = true;
-			}
-
-			var str = "<ul class='pagination pull-right'>";
-
-			if (prev) {
-				str += "<li class='page-item'><a class='page-link' href='"
-					+ (startNum - 1)
-					+ "'>Previous</a></li>";
-			}
-
-			for (var i = startNum; i <= endNum; i++) {
-
-				var active = pageNum == i ? "active" : "";
-
-				str += "<li class='page-item " + active + " '><a class='page-link' href='" + i + "'>"
-					+ i + "</a></li>";
-			}
-
-			if (next) {
-				str += "<li class='page-item'><a class='page-link' href='"
-					+ (endNum + 1) + "'>Next</a></li>";
-			}
-
-			str += "</ul></div>";
-
-			console.log(str);
-
-			replyPageFooter.html(str);
-		}
-
-		replyPageFooter.on("click", "li a", function (e) {
-			e.preventDefault();
-			console.log("page click");
-
-			var targetPageNum = $(this).attr("href");
-
-			console.log("targetPageNum: " + targetPageNum);
-
-			pageNum = targetPageNum;
-
-			showList(pageNum);
-		});
-
-		var modal = $(".modal");
-		var modalInputReply = modal.find("input[name='reply']");
-		var modalInputReplyer = modal
-			.find("input[name='replyer']");
-		var modalInputReplyDate = modal
-			.find("input[name='replyDate']");
-
-		var modalModBtn = $("#modalModBtn");
-		var modalRemoveBtn = $("#modalRemoveBtn");
-		var modalRegisterBtn = $("#modalRegisterBtn");
-
-		$("#modalCloseBtn").on("click", function (e) {
-
-			modal.modal('hide');
-		});
-
-		$("#addReplyBtn").on("click", function (e) {
-
-			modal.find("input").val("");
-			modalInputReplyDate.closest("div").hide();
-			modal.find("button[id !='modalCloseBtn']").hide();
-
-			modalRegisterBtn.show();
-
-			$(".modal").modal("show");
-
-		});
-
-		modalRegisterBtn.on("click", function (e) {
-
-			var reply = {
-				reply: modalInputReply.val(),
-				replyer: modalInputReplyer.val(),
-				bno: bnoValue
-			};
-			replyService.add(reply, function (result) {
-
-				alert(result);
-
-				modal.find("input").val("");
-				modal.modal("hide");
-
-				//showList(1);
-				showList(-1);
-
-			});
-
-		});
-
-		//댓글 조회 클릭 이벤트 처리 
-		$(".chat")
-			.on(
-				"click",
-				"li",
-				function (e) {
-
-					var rno = $(this).data("rno");
-
-					replyService
-						.get(
-							rno,
-							function (reply) {
-
-								modalInputReply
-									.val(reply.reply);
-								modalInputReplyer
-									.val(reply.replyer);
-								modalInputReplyDate
-									.val(
-										replyService
-											.displayTime(reply.replyDate))
-									.attr(
-										"readonly",
-										"readonly");
-								modal
-									.data(
-										"rno",
-										reply.rno);
-
-								modal
-									.find(
-										"button[id !='modalCloseBtn']")
-									.hide();
-								modalModBtn
-									.show();
-								modalRemoveBtn
-									.show();
-
-								$(".modal")
-									.modal(
-										"show");
-
-							});
+				// [이벤트] 모달에서 수정 버튼 클릭
+				modalModBtn.on('click', function(e) {
+					var reply = {
+						r_no : modal.data('r_no')
+						, r_reply : modalInputReply.val()
+					};
+					replyService.update(reply, function(result) {
+						modal.modal('hide');
+						showList(pageNum);
+					});
 				});
 
-		modalModBtn.on("click", function (e) {
+				// [이벤트] 모달에서 삭제 버튼 클릭
+				modalRemoveBtn.on('click', function(e) {
+					var r_no = modal.data('r_no');
+					replyService.remove(r_no, function(result) {
+						modal.modal('hide');
+						showList(pageNum);
+					});
+				});
+			});
 
-			var reply = {
-				rno: modal.data("rno"),
-				reply: modalInputReply.val()
-			};
+			// [함수] 댓글 리스트 조회
+			function showList(page) {
+				replyService.getList(
+					{p_no : p_noValue, page : page || 1}
+					, function(replyCount, list) {
 
-			replyService.update(reply, function (result) {
+							console.log("replyCount: " + replyCount);
+							console.log("list: " + list);
+							console.log(list);
 
-				alert(result);
-				modal.modal("hide");
+							if (page == -1) {
+								pageNum = Math.ceil(replyCount / 10.0);
+								showList(pageNum);
+								return;
+							}
+							var str = '';
+							if (list == null || list.length == 0) {
+								return;
+							}
+							for (var i = 0, len = list.length || 0; i < len; i++) {
+								str += '<li class="list-group-item list-group-item-action list-group-item-secondary" data-r_no="' + list[i].r_no + '">';
+								str += '<div>[' + list[i].r_no + '] ' + '<b>' + list[i].mem_id + '</b> ' + replyService.displayTime(list[i].r_writedate) + '</div>';
+								str += '<p>' + list[i].r_reply + '</p></div>';
+								str += '</li>'
+							}
+							replyListUl.html(str);
+							showReplyPage(replyCount);
+						}
+				)
+			}
+
+			// [함수] 댓글 리스트 페이징
+			function showReplyPage(replyCount) {
+				var end = Math.ceil(pageNum / 10.0) * 10;
+				var start = end - 9;
+				var prev = start != 1;
+				var next = false;
+				if (end * 10 >= replyCount) {
+					end = Math.ceil(replyCount / 10.0);
+				}
+				if (end * 10 < replyCount) {
+					next = true;
+				}
+				var str = '<ul class="pagination pull-right">';
+				if (prev) {
+					str += '<li class="page-item"><a class="page-link shadow-none" href="' + (start - 1) + '">이전</a></li>';
+				}
+				for (var i = start; i <= end; i++) {
+					var active = pageNum == i ? "active" : "";
+					str += '<li class="page-item ' + active + '"><a class="page-link shadow-none" href="' + i + '">' + i + '</a></li>';
+				}
+				if (next) {
+					str += '<li class="page-item"><a class="page-link shadow-none" href="' + (end + 1) + '">다음</a></li>';
+				}
+				str += '</ul>';
+				replyPage.html(str);
+			}
+
+			// [이벤트] 댓글 쓰기 버튼 클릭
+			$('#addReplyBtn').on('click', function(e) {
+				modal.find('input').val('');
+				modalInputReplyDate.closest('div').hide();
+				modal.find('button[id != "modalCloseBtn"]').hide();
+				modalRegisterBtn.show();
+				$('.modal').modal('show');
+			});
+
+			// [이벤트] 모달에서 댓글 쓰기 버튼 클릭
+			modalRegisterBtn.on('click', function(e) {
+				var reply = {
+					r_reply : modalInputReply.val()
+					, mem_id : modalInputReplyer.val()
+					, p_no : p_noValue
+				};
+				replyService.add(reply, function(result) {
+					modal.find('input').val('');
+					modal.modal('hide');
+					showList(-1);
+				});
+			});
+
+			// [이벤트] 모달에서 닫기 버튼 클릭
+			$('#modalCloseBtn').on('click', function(e) {
+				modal.modal('hide');
+			});
+
+			// [이벤트] 페이징 버튼들 클릭 시
+			replyPage.on('click', 'li a', function(e) {
+				e.preventDefault();
+				var targetPageNum = $(this).attr('href');
+				pageNum = targetPageNum;
 				showList(pageNum);
-
 			});
 
 		});
-
-		modalRemoveBtn.on("click", function (e) {
-
-			var rno = modal.data("rno");
-
-			replyService.remove(rno, function (result) {
-
-				alert(result);
-				modal.modal("hide");
-				showList(pageNum);
-
-			});
-
-		});
-
-	});
-</script>
-
-
-<script type="text/javascript">
-	$(document).ready(function () {
-
-		var operForm = $("#operForm");
-
-		$("button[data-oper='modify']").on("click", function (e) {
-
-			operForm.attr("action", "/board/modify").submit();
-
-		});
-
-		$("button[data-oper='list']").on("click", function (e) {
-
-			operForm.find("#bno").remove();
-			operForm.attr("action", "/board/list")
-			operForm.submit();
-
-		});
-	});
-</script>
+	</script>
+</body>
+</html>

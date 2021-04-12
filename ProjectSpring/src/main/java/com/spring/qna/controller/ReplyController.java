@@ -30,7 +30,7 @@ public class ReplyController
 		return replyService.register(replyVO) == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@RequestMapping(value="/{r_no}", produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value="/{r_no}", produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
 	public ResponseEntity<ReplyVO> get(@PathVariable("r_no") Long r_no)
 	{
 		return new ResponseEntity<>(replyService.getOne(r_no), HttpStatus.OK);
@@ -44,13 +44,13 @@ public class ReplyController
 		return replyService.modify(replyVO) == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@RequestMapping(value="/{r_no}", produces= {MediaType.TEXT_PLAIN_VALUE}, method = RequestMethod.DELETE)
+	@RequestMapping(value="/{r_no}", produces= MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.DELETE)
 	public ResponseEntity<String> remove(@PathVariable("r_no") Long r_no)
 	{
 		return replyService.remove(r_no) == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@RequestMapping(value="/pages/{p_no}/{page}", produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value="/pages/{p_no}/{page}", produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE}, method = RequestMethod.GET)
 	public ResponseEntity<ReplyPageVO> getList(@PathVariable("page") int page, @PathVariable("p_no") Long p_no)
 	{
 		UtilVO utilVO = new UtilVO(page, 10);

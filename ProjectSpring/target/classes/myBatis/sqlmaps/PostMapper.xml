@@ -41,7 +41,7 @@
 	</update>
 
 	<delete id="delete">
-		DELETE qna_post WHERE p_no = #{p_no}
+		DELETE FROM qna_post WHERE p_no = #{p_no}
 	</delete>
 
 	<select id="getPostCount" resultType="int">

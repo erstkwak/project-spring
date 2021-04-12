@@ -39,7 +39,8 @@
     <div class="uploadPreview">
       <ul></ul>
     </div>
-    <button class="btn btn-dark btn-sm" type="submit">글쓰기</button>
+    <button class="btn btn-dark btn-sm" type="submit">글쓰기</button>&nbsp;
+    <button class="btn btn-dark btn-sm" type="button" id="golist">목록</button>
   </form>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
@@ -150,6 +151,10 @@
         });
         uploadPreviewUl.append(str);
       }
+      
+      $('#golist').on('click', function(e) {
+    	  self.location = '/qna/list';
+      });
 
     });
   </script>

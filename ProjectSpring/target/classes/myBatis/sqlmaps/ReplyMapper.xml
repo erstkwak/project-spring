@@ -3,7 +3,7 @@
 <mapper namespace="com.spring.qna.mapper.ReplyMapper">
 
 	<insert id="create">
-		INSERT INTO qna_reply (r_no, r_reply, mem_id, p_no) VALUES (seq_reply.nextval, #{r_no}, #{r_reply}, #{mem_id}, #{p_no})
+		INSERT INTO qna_reply (r_no, r_reply, mem_id, p_no) VALUES (seq_reply.nextval, #{r_reply}, #{mem_id}, #{p_no})
 	</insert>
 
 	<select id="readList" resultType="com.spring.qna.vo.ReplyVO">
@@ -11,14 +11,16 @@
   	SELECT r_no, r_reply, mem_id, r_writedate, r_updatedate, p_no FROM
   	(
   	   SELECT rownum rn, r_no, r_reply, mem_id, r_writedate, r_updatedate, p_no
-  	   FROM qna_reply WHERE p_no = #{p_no} AND r_no > 0 AND rownum <= #{search.pageNum} * #{search.amount}
+  	   FROM 
+  	   	 (SELECT r_no, r_reply, mem_id, r_writedate, r_updatedate, p_no FROM qna_reply ORDER BY r_no DESC)
+  	   WHERE p_no = #{p_no} AND r_no > 0 AND rownum <= #{utilVO.pageNum} * #{utilVO.amount}
   	)
-  	WHERE rn > (#{search.pageNum} - 1) * #{search.amount}
+  	WHERE rn > (#{utilVO.pageNum} - 1) * #{utilVO.amount}
 		]]>
 	</select>
 
 	<select id="readOne" resultType="com.spring.qna.vo.ReplyVO">
-		SELECT * FROM qna_reply WHERE r_no = #{rno}
+		SELECT * FROM qna_reply WHERE r_no = #{r_no}
 	</select>
 	
 	<update id="update">

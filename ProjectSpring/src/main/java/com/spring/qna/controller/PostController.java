@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,13 +49,13 @@ public class PostController
 		return "redirect:/qna/list";
 	}
 	
-	@RequestMapping({"/get", "/modify"})
+	@RequestMapping(value = {"/get", "/modify"}, method = RequestMethod.GET)
 	public void get(@RequestParam("p_no") Long p_no, @ModelAttribute("utilVO") UtilVO utilVO, Model model)
 	{
 		model.addAttribute("postVO", postService.getOne(p_no));
 	}
 
-	@RequestMapping("/modify")
+	@RequestMapping(value = "/modifyProc", method = RequestMethod.POST)
 	public String modify(PostVO postVO, @ModelAttribute("utilVO") UtilVO utilVO, RedirectAttributes rttr)
 	{
 		if (postService.modify(postVO)) {

@@ -41,7 +41,7 @@ public class ReplyServiceImpl implements ReplyService {
 	public int remove(Long r_no) {
 		ReplyVO replyVO = replyMapper.readOne(r_no);
 		postMapper.updateReplyCount(replyVO.getP_no(), -1);
-		return postMapper.delete(r_no);
+		return replyMapper.delete(r_no);
 	}
 
 	public ReplyPageVO getListPage(UtilVO utilVO, Long p_no) {

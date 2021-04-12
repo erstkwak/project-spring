@@ -13,7 +13,7 @@ public interface ReplyMapper
 
 	public int create(ReplyVO replyVO);
 	
-	public List<ReplyVO> readList(@Param("util") UtilVO util, @Param("p_no") Long p_no);
+	public List<ReplyVO> readList(@Param("utilVO") UtilVO utilVO, @Param("p_no") Long p_no);
 
 	public ReplyVO readOne(Long p_no);
 	
