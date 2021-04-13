@@ -88,20 +88,22 @@
         });
       });
 
-      // [이벤트] 미리보기 클릭 시
+      // [이벤트] 삭제 버튼 클릭
       $('.uploadPreview').on('click', 'button', function(e) {
         var targetFile = $(this).data('file');
         var targetLi = $(this).closest('li');
         var type = $(this).data('type');
-        $.ajax({
-          url : '/deleteFile'
-          , data : {fileName : targetFile, type : type}
-          , dataType : 'text'
-          , type : 'post'
-          , success : function(result) {
-              targetLi.remove();
-            }
-        });
+        if (confirm('첨부파일을 삭제하시겠습니까?')) {
+          $.ajax({
+            url : '/deleteFile'
+            , data : {fileName : targetFile, type : type}
+            , dataType : 'text'
+            , type : 'post'
+            , success : function(result) {
+                targetLi.remove();
+              }
+          });
+        }
       });
 
       // [함수] 파일 첨부 시 유효성 검사
