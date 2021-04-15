@@ -17,5 +17,7 @@
 </head>
 <body>
 	<h1>프로젝트 시작</h1>
-</body>
+   <!-- Header -->
+   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+
 </html>

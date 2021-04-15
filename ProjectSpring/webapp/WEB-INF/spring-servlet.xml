@@ -29,5 +29,17 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
+	
+	<!-- Interceptor 설정 추가  -->
+    <mvc:interceptors>
+       
+       <!--  공통 Interceptor -->
+       <mvc:interceptor>
+         <mvc:mapping path="/loginProcess/**"/>
+         <mvc:exclude-mapping path="/resources/**"/>
+         <bean id="authInterceptor" class="com.spring.interceptor.AuthInterceptor"></bean>       
+       </mvc:interceptor>
+    
+    </mvc:interceptors>
 
 </beans>
