@@ -2,104 +2,120 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-	<style>
-		#wrapper {text-align: center;}
-		#wrapper a {text-decoration: none; color: black;}
-		#searchSelectTag {width: 200px;}
-		#keywordInput {width: 200px;}
-		#test {display: flex; justify-content: center; align-items: center;}
-		#pagingDiv {display: flex; justify-content: center; align-items: center;}
-		#pagingDiv ul li {list-style: none; display: inline-block;}
-		#pagingDiv li.active a {color: #fff; background: #343A40; border-color: #343A40;}
-	</style>
-  <title>list.jsp</title>
-</head>
-<body>
-<div id="wrapper">
-	<table class="table table-hover">
-		<thead class="thead-dark">
-			<tr>
-				<th scope="col">번호</th>
-				<th scope="col">제목</th>
-				<th scope="col">작성자</th>
-				<th scope="col">작성일</th>
-				<th scope="col">수정일</th>
-			</tr>
-		</thead>
-	<c:forEach var="post" items="${postList}">
-		<tr>
-			<td><c:out value="${post.p_no}" /></td>
-			<td><a class='move' href='<c:out value="${post.p_no}"/>'><c:out value="${post.p_title}" /><b> [ <c:out value="${post.p_replycount}" /> ]</b></a></td>
-			<td><c:out value="${post.mem_id}" /></td>
-			<td><fmt:formatDate pattern="yyyy-MM-dd" value="${post.p_writedate}" /></td>
-			<td><fmt:formatDate pattern="yyyy-MM-dd" value="${post.p_updatedate}" /></td>
-		</tr>
-	</c:forEach>
-</table>
+<%@ include file="/WEB-INF/views/include/header.jsp" %>
 
-<form id='searchForm' class="form-group" action="/qna/list" method='get'>
-	<div id="test" class="form-row">
-		<select class="custom-select custom-select-sm" id="searchSelectTag" name='type'>
-			<option value="" <c:out value="${paging.util.type == null ? 'selected' : ''}" />>검색 조건</option>
-			<option value="T" <c:out value="${paging.util.type eq 'T' ? 'selected' : ''}" />>제목</option>
-			<option value="C" <c:out value="${paging.util.type eq 'C' ? 'selected' : ''}" />>내용</option>
-			<option value="W" <c:out value="${paging.util.type eq 'W' ? 'selected' : ''}" />>작성자</option>
-			<option value="TC" <c:out value="${paging.util.type eq 'TC' ? 'selected' : ''}" />>제목 or 내용</option>
-			<option value="TW" <c:out value="${paging.util.type eq 'TW' ? 'selected' : ''}" />>제목 or 작성자</option>
-			<option value="TWC" <c:out value="${paging.util.type eq 'TWC' ? 'selected' : ''}" />>제목 or 내용 or 작성자</option>
-		</select>
-		&nbsp;<input type='text' name='keyword' id="keywordInput" class="form-control form-control-sm" value='<c:out value="${paging.util.keyword}"/>' />
-		<input type='hidden' name='pageNum' value='<c:out value="${paging.util.pageNum}"/>' />
-		<input type='hidden' name='amount' value='<c:out value="${paging.util.amount}"/>' />
-		&nbsp;<button type="button" class="btn btn-dark btn-sm" id="searchBtn">검색</button>
-		&nbsp;<button type="button" class="btn btn-dark btn-sm" id="writeBtn">글쓰기</button>
+<!-- 페이지 소개 이미지 -->
+<section class="image-head-wrapper" style="background-image: url('/img/qnabanner.jpg');">
+	<div class="inner-wrapper">
+		<h1 style="font-size: 30px;">Q&A 게시판</h1>
 	</div>
-</form>
-
-<form id='actionForm' action="/qna/list" method='get'>
-	<input type='hidden' name='pageNum' value='${paging.util.pageNum}'>
-	<input type='hidden' name='amount' value='${paging.util.amount}'>
-	<input type='hidden' name='type' value='<c:out value="${paging.util.type}"/>'>
-	<input type='hidden' name='keyword'	value='<c:out value="${paging.util.keyword}"/>'>
-</form>
-
-<div id="pagingDiv">
-	<ul class="pagination">
-		<c:if test="${paging.prev}">
-			<li class="pagingBtn page-item"><a class="page-link pagingBtn shadow-none" href="${paging.start - 1}">이전</a></li>
-		</c:if>
-		<c:forEach var="num" begin="${paging.start}" end="${paging.end}">
-			<li class="pagingBtn page-item pagingBtn ${paging.util.pageNum == num ? "active" : ""} "><a class="page-link shadow-none" href="${num}">${num}</a></li>
-		</c:forEach>
-		<c:if test="${paging.next}">
-			<li class="pagingBtn page-item"><a class="page-link pagingBtn shadow-none" href="${paging.end + 1}">다음</a></li>
-		</c:if>
-	</ul>
-</div>
-
-<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="infoModalLabel">알림</h5>
+</section>
+<div class="clearfix"></div>
+<!-- 본문 -->
+<section class="blog" id="main">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-sm-10 col-xs-12">
+				<div id="wrapper">
+					<table class="table table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">번호</th>
+								<th scope="col">제목</th>
+								<th scope="col">작성자</th>
+								<th scope="col">작성일</th>
+							</tr>
+						</thead>
+						<c:forEach var="post" items="${postList}">
+							<tr>
+								<td><c:out value="${post.p_no}" /></td>
+								<td><a class='move' href='<c:out value="${post.p_no}"/>'><c:out value="${post.p_title}" /><b> [	<c:out value="${post.p_replycount}" /> ] </b></a></td>
+								<td><c:out value="${post.mem_id}" /></td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd" value="${post.p_writedate}" /></td>
+							</tr>
+						</c:forEach>
+					</table>
+					<form id='searchForm' class="form-group" action="/qna/list" method='get'>
+						<div id="test" class="form-row">
+							<select class="custom-select custom-select-lg" id="searchSelectTag" name='type'>
+								<option value="" <c:out value="${paging.util.type == null ? 'selected' : ''}" />>검색 조건</option>
+								<option value="T" <c:out value="${paging.util.type eq 'T' ? 'selected' : ''}" />>제목</option>
+								<option value="C" <c:out value="${paging.util.type eq 'C' ? 'selected' : ''}" />>내용</option>
+								<option value="W" <c:out value="${paging.util.type eq 'W' ? 'selected' : ''}" />>작성자</option>
+								<option value="TC" <c:out value="${paging.util.type eq 'TC' ? 'selected' : ''}" />>제목 or 내용</option>
+								<option value="TW" <c:out value="${paging.util.type eq 'TW' ? 'selected' : ''}" />>제목 or 작성자</option>
+								<option value="TWC" <c:out value="${paging.util.type eq 'TWC' ? 'selected' : ''}" />>제목 or 내용 or 작성자</option>
+							</select>
+							&nbsp;<input type='text' name='keyword' id="keywordInput" class="form-control form-control-lg"
+								value='<c:out value="${paging.util.keyword}"/>' />
+							<input type='hidden' name='pageNum' value='<c:out value="${paging.util.pageNum}"/>' />
+							<input type='hidden' name='amount' value='<c:out value="${paging.util.amount}"/>' />
+							&nbsp;<button type="button" class="btn btn-dark btn-lg" id="searchBtn">검색</button>
+							&nbsp;<button type="button" class="btn btn-dark btn-lg" id="writeBtn">글쓰기</button>
+						</div>
+					</form>
+					<form id='actionForm' action="/qna/list" method='get'>
+						<input type='hidden' name='pageNum' value='${paging.util.pageNum}'>
+						<input type='hidden' name='amount' value='${paging.util.amount}'>
+						<input type='hidden' name='type' value='<c:out value="${paging.util.type}"/>'>
+						<input type='hidden' name='keyword' value='<c:out value="${paging.util.keyword}"/>'>
+					</form>
+					<div id="pagingDiv">
+						<ul class="pagination">
+							<c:if test="${paging.prev}">
+								<li class="pagingBtn page-item"><a class="page-link pagingBtn shadow-none" href="${paging.start - 1}">이전</a>
+								</li>
+							</c:if>
+							<c:forEach var="num" begin="${paging.start}" end="${paging.end}">
+								<li class="pagingBtn page-item pagingBtn ${paging.util.pageNum == num ? " active" : "" } "><a class="
+									page-link shadow-none" href="${num}">${num}</a></li>
+							</c:forEach>
+							<c:if test="${paging.next}">
+								<li class="pagingBtn page-item"><a class="page-link pagingBtn shadow-none" href="${paging.end + 1}">다음</a>
+								</li>
+							</c:if>
+						</ul>
+					</div>
+					<div class="modal" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="infoModalLabel">알림</h5>
+								</div>
+								<h5>
+									<div class="modal-body">처리되었습니다.</div>
+								</h5>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-dark btn-lg" data-dismiss="modal">닫기</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<h5><div class="modal-body">처리되었습니다.</div></h5>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-			</div>
+			<!-- 사이드 메뉴 -->
+			<aside class="col-md-2 col-sm-2 col-xs-12">
+				<div class="blog-list" id="side-menu">
+					<h4>사이드 메뉴</h4>
+					<ul>
+						<li><a href="#">사이드메뉴 1</a></li>
+						<li><a href="#">사이드메뉴 2</a></li>
+						<li><a href="#">사이드메뉴 3</a></li>
+						<li><a href="#">사이드메뉴 4</a></li>
+						<li><a href="#">사이드메뉴 5</a></li>
+						<li><a href="#">사이드메뉴 6</a></li>
+						<li><a href="#">사이드메뉴 7</a></li>
+					</ul>
+					<div class="clearfix"> </div>
+				</div>
+			</aside>
 		</div>
 	</div>
-</div>
-</div>
+</section>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+
 <script>
 	$(document).ready(function() {
 
@@ -133,6 +149,15 @@
 			actionForm.append("<input type='hidden' name='p_no' value='" + $(this).attr("href") + "'>");
 			actionForm.attr("action",	"/qna/get");
 			actionForm.submit();
+			
+			/*
+			
+			e.preventDefault();
+			e.stopPropagation();
+			//$(actionForm).append("<input type='hidden' name='p_no' value='" +  + "'>");
+			location.href= "/qna/get?p_no=" + $(this).attr("href");
+			
+			*/
 		});
 
 		var searchForm = $('#searchForm');
@@ -151,6 +176,3 @@
 
 	});
 </script>
-
-</body>
-</html>
