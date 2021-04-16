@@ -19,7 +19,12 @@
 	.page-item.active .page-link {color: #fff; background: #343A40; border-color: #343A40;}
 	.page-link:hover {color: black;}
 	.page-link {color: black;}
-	#article-view {font-size: 20px;}
+	#article-body {width: 1000px;}
+	#wrap {display: flex; justify-content: center; align-items: center; font-size: 18px;}
+	.pagination>li>a, .pagination>li>span {color: black;}
+	.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {background-color: black; border-color: black; color: black;}
+	.pagination>.active>a:hover {color: #ffffff;}
+	.form-control {font-size: 16px;}
 </style>
 
 <!-- 페이지 소개 이미지 -->
@@ -29,70 +34,64 @@
 	</div>
 </section>
 <div class="clearfix"></div>
+
+<div id="wrap">
+<div id="article-body">
 <section class="blog" id="main">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10 col-sm-10 col-xs-12">
-				<div id="wrapper">
-					<div id="article-view">
-						<table class="table">
-							<tr>
-								<td>번호</td>
-								<td>
-									<c:out value="${postVO.p_no}" />
-								</td>
-							</tr>
-							<tr>
-								<td>제목</td>
-								<td>
-									<c:out value="${postVO.p_title}" />
-								</td>
-							</tr>
-							<tr>
-								<td>내용</td>
-								<td>
-									<c:out value="${postVO.p_content}" />
-								</td>
-							</tr>
-							<tr>
-								<td>작성자</td>
-								<td>
-									<c:out value="${postVO.mem_id}" />
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<label for="attachFiles">첨부파일</label>
-									<div class="uploadResult" id="attachFiles">
-										<ul></ul>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" style="text-align: center;">
-									<button data-oper='modify' class="btn btn-dark btn-lg">수정</button>
-									<button data-oper='list' class="btn btn-dark btn-lg">목록</button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" style="text-align: left;">댓글&nbsp;<button id="addReplyBtn"
-										class="btn btn-dark btn-lg">댓글쓰기</button></td>
-							</tr>
-							<div>
-								<ul class="replyListUl list-group"></ul><br>
-							</div>
-							<div class="replyPagingDiv">
-							</div>
-							<div class="picturePreviewWrapper">
-								<div class="picturePreview"></div>
-							</div><br>
-						</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
+<div class="form-group">
+	<label for="no">번호</label>
+	<input class="form-control" id="no" name='p_no' value='<c:out value="${postVO.p_no }"/>' readonly="readonly">
+</div>
+<div class="form-group">
+	<label for="title">제목</label>
+	<input class="form-control" id="title" name='p_title' value='<c:out value="${postVO.p_title }"/>' readonly="readonly">
+</div>
+<div class="form-group">
+	<label for="content">내용</label>
+	<textarea class="form-control" rows="3" id="content" name='content'	readonly="readonly"><c:out value="${postVO.p_content}" /></textarea>
+</div>
+<div class="form-group">
+	<label for="writer">작성자</label>
+	<input class="form-control" id="writer" name='mem_id' value='<c:out value="${postVO.mem_id }"/>' readonly="readonly">
+</div>
+<div style="text-align: center;">
+	<button data-oper='modify' class="btn btn-dark btn-lg">수정</button>
+	<button data-oper='remove' class="btn btn-dark btn-lg">삭제</button>
+	<button data-oper='list' class="btn btn-dark btn-lg">목록</button>
+</div>
+<form id='operForm' action="/qna/modify" method="get">
+	<input type='hidden' id='p_no' name='p_no' value='<c:out value="${postVO.p_no}"/>'>
+	<input type='hidden' name='pageNum' value='<c:out value="${utilVO.pageNum}"/>'>
+	<input type='hidden' name='amount' value='<c:out value="${utilVO.amount}"/>'>
+	<input type='hidden' name='keyword'	value='<c:out value="${utilVO.keyword}"/>'>
+	<input type='hidden' name='type' value='<c:out value="${utilVO.type}"/>'>
+</form>
+<div class="picturePreviewWrapper">
+	<div class="picturePreview">
+	</div>
+</div><br>
+<div class="form-group">
+	<label for="attachFiles">첨부파일</label>
+	<div class="uploadResult" id="attachFiles">
+		<ul></ul>
+	</div> 
+</div>
+<div>
+	댓글&nbsp;
+	<button id="addReplyBtn" class="btn btn-dark btn-lg">댓글쓰기</button><br><br>
+</div>
+<div>
+	<ul class="replyListUl list-group"></ul><br>
+</div>
+<div class="replyPagingDiv">
+</div>
+</div>
+
+			<!-- 사이드 메뉴 -->
 			<aside class="col-md-2 col-sm-2 col-xs-12">
 				<div class="blog-list" id="side-menu">
 					<h4>사이드 메뉴</h4>
@@ -108,19 +107,12 @@
 					<div class="clearfix"> </div>
 				</div>
 			</aside>
-		</div>
-	</div>
-</section>
+						</div>
+			</div>
+			</div>
+			</section>
 
-<form id='operForm' action="/qna/modify" method="get">
-	<input type='hidden' id='p_no' name='p_no' value='<c:out value="${postVO.p_no}"/>'>
-	<input type='hidden' name='pageNum' value='<c:out value="${utilVO.pageNum}"/>'>
-	<input type='hidden' name='amount' value='<c:out value="${utilVO.amount}"/>'>
-	<input type='hidden' name='keyword'	value='<c:out value="${utilVO.keyword}"/>'>
-	<input type='hidden' name='type' value='<c:out value="${utilVO.type}"/>'>
-</form>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"	aria-hidden="true">
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"	aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -150,10 +142,14 @@
 		</div>
 	</div>
 </div>
+</div>
 
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 <script src="/js/reply.js"></script>
+
 <script>
 	$(document).ready(function() {
 
@@ -198,6 +194,9 @@
 		var operForm = $('#operForm');
 		$('button[data-oper="modify"]').on('click', function(e) {
 			operForm.attr('action', '/qna/modify').submit();
+		});
+		$('button[data-oper="remove"]').on('click', function(e) {
+			operForm.attr('action', '/qna/remove').submit();
 		});
 		$('button[data-oper="list"]').on('click', function(e) {
 			operForm.find('#p_no').remove();
@@ -344,7 +343,7 @@
 			replyService.add(reply, function(result) {
 				modal.find('input').val('');
 				modal.modal('hide');
-				showList(-1);
+				showList(1); // -1 ?
 			});
 		});
 

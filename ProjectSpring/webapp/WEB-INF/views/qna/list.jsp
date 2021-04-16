@@ -76,7 +76,7 @@
 							</c:if>
 						</ul>
 					</div>
-					<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel"
+					<div class="modal" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel"
 						aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -87,7 +87,7 @@
 									<div class="modal-body">처리되었습니다.</div>
 								</h5>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+									<button type="button" class="btn btn-dark btn-lg" data-dismiss="modal">닫기</button>
 								</div>
 							</div>
 						</div>
@@ -149,6 +149,15 @@
 			actionForm.append("<input type='hidden' name='p_no' value='" + $(this).attr("href") + "'>");
 			actionForm.attr("action",	"/qna/get");
 			actionForm.submit();
+			
+			/*
+			
+			e.preventDefault();
+			e.stopPropagation();
+			//$(actionForm).append("<input type='hidden' name='p_no' value='" +  + "'>");
+			location.href= "/qna/get?p_no=" + $(this).attr("href");
+			
+			*/
 		});
 
 		var searchForm = $('#searchForm');

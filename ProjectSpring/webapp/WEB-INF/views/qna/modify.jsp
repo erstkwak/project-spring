@@ -2,26 +2,37 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
-	<style>
-    .uploadResult {width: 100%; background-color: gray;}
-    .uploadResult ul {display: flex; flex-flow: row; justify-content: center; align-items: center;}
-    .uploadResult ul li {list-style: none; padding: 10px; align-content: center; text-align: center;}
-    .uploadResult ul li img {width: 100px;}
-    .uploadResult ul li span {color: white;}
-    .picturePreviewWrapper {position: absolute; display: none; justify-content: center; align-items: center; top: 0%; width: 100%; height: 100%; background-color: gray; z-index: 100; background: rgba(255, 255, 255, 0.5);}
-    .picturePreview {position: relative; display: flex; justify-content: center; align-items: center;}
-    .picturePreview img {width: 600px;}
-	</style>
-  <title>modify.jsp</title>
-</head>
-<body>
+<%@ include file="/WEB-INF/views/include/header.jsp" %>
+  
+<style>
+  .uploadResult {width: 100%; background-color: gray;}
+  .uploadResult ul {display: flex; flex-flow: row; justify-content: center; align-items: center;}
+  .uploadResult ul li {list-style: none; padding: 10px; align-content: center; text-align: center;}
+  .uploadResult ul li img {width: 100px;}
+  .uploadResult ul li span {color: white;}
+  .picturePreviewWrapper {position: absolute; display: none; justify-content: center; align-items: center; top: 0%; width: 100%; height: 100%; background-color: gray; z-index: 100; background: rgba(255, 255, 255, 0.5);}
+  .picturePreview {position: relative; display: flex; justify-content: center; align-items: center;}
+  .picturePreview img {width: 600px;}
+  #article-body {font-size: 18px;}
+  .form-control {font-size: 16px;}
+</style>
+
+<!-- 페이지 소개 이미지 -->
+<section class="image-head-wrapper" style="background-image: url('/img/qnabanner.jpg');">
+	<div class="inner-wrapper">
+		<h1 style="font-size: 30px;">Q&A 게시판</h1>
+	</div>
+</section>
+<div class="clearfix"></div>
+
+<div id="wrap">
+  <div id="article-body">
+  <section class="blog" id="main">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 col-sm-10 col-xs-12">
+
+
   <form role="form" action="/qna/modifyProc" method="post">
     <div class="form-group">
       <label for="no">번호</label>
@@ -61,34 +72,55 @@
     <div class='picturePreviewWrapper'>
       <div class='picturePreview'></div>
     </div>
-    <button type="submit" data-oper='modify' class="btn btn-dark">수정</button>
-    <button type="submit" data-oper='remove' class="btn btn-dark">삭제</button>
-    <button type="submit" data-oper='list' class="btn btn-dark">목록</button>
+    <div style="text-align: center;">
+      <button type="submit" data-oper='modify' class="btn btn-dark btn-lg">수정</button>
+      <button type="submit" data-oper='list' class="btn btn-dark btn-lg">목록</button>
+    </div>
   </form><br>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+</div>
+<!-- 사이드 메뉴 -->
+<aside class="col-md-2 col-sm-2 col-xs-12">
+  <div class="blog-list" id="side-menu">
+    <h4>사이드 메뉴</h4>
+    <ul>
+      <li><a href="#">사이드메뉴 1</a></li>
+      <li><a href="#">사이드메뉴 2</a></li>
+      <li><a href="#">사이드메뉴 3</a></li>
+      <li><a href="#">사이드메뉴 4</a></li>
+      <li><a href="#">사이드메뉴 5</a></li>
+      <li><a href="#">사이드메뉴 6</a></li>
+      <li><a href="#">사이드메뉴 7</a></li>
+    </ul>
+    <div class="clearfix"> </div>
+  </div>
+</aside>
+</div>
+</div>
+</section>
+
+<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  
   <script>
     $(document).ready(function() {
 
       // [이벤트] 버튼 클릭
-      var form = $('form');
+      var form = $('form[role="form"]');
       $('button').on('click', function(e) {
         e.preventDefault();
         var option = $(this).data('oper');
-        if (option == 'remove') {
-          form.attr('action', '/qna/remove');
-        }
-        else if (option == 'list') {
-          form.attr('action', '/qna/list').attr('method', 'get');
-          var pageNumInput = $('input[name="pageNum"]').clone();
-          var amountInput = $('input[name="amount"]').clone();
-          var keywordInput = $('input[name="keyword"]').clone();
-          var typeInput = $('input[name="type"]').clone();
+        if (option == 'list') {
           form.empty();
-          form.append(pageNum);
-          form.append(amount);
-          form.append(keyword);
-          form.append(typeTag);
+          form.attr('action', '/qna/list').attr('method', 'get');
+          var str = '';
+          str += '<input type=\'hidden\' name=\'pageNum\' value=\'<c:out value="${utilVO.pageNum }"/>\'>';
+          str += '<input type=\'hidden\' name=\'amount\' value=\'<c:out value="${utilVO.amount }"/>\'>';
+          str += '<input type=\'hidden\' name=\'keyword\' value=\'<c:out value="${utilVO.keyword }"/>\'>';
+          str += '<input type=\'hidden\' name=\'type\' value=\'<c:out value="${utilVO.type }"/>\'>';
+          form.append(str).submit();
         }
         else if (option == 'modify') {
           var str = '';

@@ -32,7 +32,7 @@ public class PostController
 	private PostService postService;
 
 	@RequestMapping("/list")
-	public void list(UtilVO utilVO, Model model)
+	public void list(UtilVO utilVO, Model model, RedirectAttributes rttr)
 	{
 		model.addAttribute("postList", postService.getList(utilVO));
 		model.addAttribute("paging", new PostPageVO(utilVO, postService.getPostCount(utilVO)));
@@ -45,7 +45,6 @@ public class PostController
 	public String register(PostVO postVO, RedirectAttributes rttr)
 	{
 		postService.register(postVO);
-		rttr.addFlashAttribute("result", postVO.getP_no());
 		return "redirect:/qna/list";
 	}
 	
@@ -66,7 +65,6 @@ public class PostController
 		rttr.addAttribute("amount", utilVO.getAmount());
 		rttr.addAttribute("type", utilVO.getType());
 		rttr.addAttribute("keyword", utilVO.getKeyword());
-		
 		return "redirect:/qna/list";
 	}
 
