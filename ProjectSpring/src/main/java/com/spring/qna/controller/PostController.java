@@ -57,10 +57,7 @@ public class PostController
 	@RequestMapping(value = "/modifyProc", method = RequestMethod.POST)
 	public String modify(PostVO postVO, @ModelAttribute("utilVO") UtilVO utilVO, RedirectAttributes rttr)
 	{
-		if (postService.modify(postVO)) {
-			rttr.addFlashAttribute("result", "success");
-		}
-		
+		postService.modify(postVO);
 		rttr.addAttribute("pageNum", utilVO.getPageNum());
 		rttr.addAttribute("amount", utilVO.getAmount());
 		rttr.addAttribute("type", utilVO.getType());
@@ -74,10 +71,8 @@ public class PostController
 	{
 		List<PostAttachVO> attachList = postService.getAttachList(p_no);
 		
-		if (postService.remove(p_no)) {
-			deleteFiles(attachList);
-			rttr.addAttribute("result", "success");
-		}
+		postService.remove(p_no);
+		deleteFiles(attachList);
 		return "redirect:/qna/list" + utilVO.getListLink();
 	}
 
