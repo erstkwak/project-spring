@@ -12,6 +12,9 @@
 	<mvc:resources location="/WEB-INF/resources/js/" mapping="/js/**" />
 	<mvc:resources location="/WEB-INF/resources/img/" mapping="/img/**" />
 	<mvc:resources location="/WEB-INF/resources/images/" mapping="/images/**" />
+	<mvc:resources location="/WEB-INF/resources/font-awesome/" mapping="/font-awesome/**" />
+	<mvc:resources location="/WEB-INF/resources/fonts/" mapping="/fonts/**" />
+	<mvc:resources location="/WEB-INF/resources/webfonts/" mapping="/webfonts/**" />
 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />

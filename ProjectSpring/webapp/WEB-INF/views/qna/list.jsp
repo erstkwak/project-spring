@@ -2,7 +2,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ include file="/WEB-INF/views/include/header.jsp" %>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
+
+<style>
+	/* 게시판 스타일 */
+	th, td {text-align: center;}
+	th:nth-child(1) {width: 100px;}
+	th:nth-child(2) {width: 200px;}
+	th:nth-child(3) {width: 100px;}
+	th:nth-child(4) {width: 100px;}
+	th:nth-child(5) {width: 100px;}
+	/* 검색폼 스타일 */
+	#searchDiv {display: flex; justify-content: center; align-items: center;}
+	#searchSelectTag {width: 200px;}
+	#keywordInput {width: 200px;}
+	/* 페이징 스타일 */
+	#pagingDiv {display: flex; justify-content: center; align-items: center;}
+	#pagingDiv a {color: black;}
+	#pagingDiv ul li {list-style: none; display: inline-block;}
+	#pagingDiv li.active a {color: #fff; background: #343A40; border-color: #343A40;}
+</style>
 
 <!-- 페이지 소개 이미지 -->
 <section class="image-head-wrapper" style="background-image: url('/img/qnabanner.jpg');">
@@ -36,8 +55,8 @@
 						</c:forEach>
 					</table>
 					<form id='searchForm' class="form-group" action="/qna/list" method='get'>
-						<div id="test" class="form-row">
-							<select class="custom-select custom-select-lg" id="searchSelectTag" name='type'>
+						<div id="searchDiv" class="form-row">
+							<select class="custom-select" id="searchSelectTag" name='type'>
 								<option value="" <c:out value="${paging.util.type == null ? 'selected' : ''}" />>검색 조건</option>
 								<option value="T" <c:out value="${paging.util.type eq 'T' ? 'selected' : ''}" />>제목</option>
 								<option value="C" <c:out value="${paging.util.type eq 'C' ? 'selected' : ''}" />>내용</option>
@@ -46,12 +65,12 @@
 								<option value="TW" <c:out value="${paging.util.type eq 'TW' ? 'selected' : ''}" />>제목 or 작성자</option>
 								<option value="TWC" <c:out value="${paging.util.type eq 'TWC' ? 'selected' : ''}" />>제목 or 내용 or 작성자</option>
 							</select>
-							&nbsp;<input type='text' name='keyword' id="keywordInput" class="form-control form-control-lg"
+							&nbsp;<input type='text' name='keyword' id="keywordInput" class="form-control"
 								value='<c:out value="${paging.util.keyword}"/>' />
 							<input type='hidden' name='pageNum' value='<c:out value="${paging.util.pageNum}"/>' />
 							<input type='hidden' name='amount' value='<c:out value="${paging.util.amount}"/>' />
-							&nbsp;<button type="button" class="btn btn-dark btn-lg" id="searchBtn">검색</button>
-							&nbsp;<button type="button" class="btn btn-dark btn-lg" id="writeBtn">글쓰기</button>
+							&nbsp;<button type="button" class="btn btn-dark" id="searchBtn">검색</button>
+							&nbsp;<button type="button" class="btn btn-dark" id="writeBtn">글쓰기</button>
 						</div>
 					</form>
 					<form id='actionForm' action="/qna/list" method='get'>
@@ -87,7 +106,7 @@
 									<div class="modal-body">처리되었습니다.</div>
 								</h5>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-dark btn-lg" data-dismiss="modal">닫기</button>
+									<button type="button" class="btn btn-dark" data-dismiss="modal">닫기</button>
 								</div>
 							</div>
 						</div>
@@ -114,8 +133,10 @@
 	</div>
 </section>
 
-<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 <script>
 	$(document).ready(function() {
 
@@ -151,12 +172,10 @@
 			actionForm.submit();
 			
 			/*
-			
 			e.preventDefault();
 			e.stopPropagation();
 			//$(actionForm).append("<input type='hidden' name='p_no' value='" +  + "'>");
 			location.href= "/qna/get?p_no=" + $(this).attr("href");
-			
 			*/
 		});
 

@@ -310,6 +310,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     </script>
   </head>
   <body>
+  
+  <%@ include file="/WEB-INF/views/includes/header.jsp" %>
+  
     <article class="container">
       <div class="page-header">
         <div class="col-md-6 col-md-offset-3">
@@ -474,5 +477,5 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </form>
       </div>
     </article>
-  </body>
-</html>
+
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>

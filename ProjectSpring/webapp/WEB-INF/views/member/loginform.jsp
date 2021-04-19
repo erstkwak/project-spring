@@ -30,7 +30,7 @@ $(document).ready(function(){
 </head>
 <body>
    <!-- Header -->
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
    
    <h3>회원 로그인 창</h3>
      <section id="container">
@@ -62,5 +62,4 @@ $(document).ready(function(){
 	   <a href="/join">회원가입</a>    | 
 	   <a href="#">고객 센터</a>
    
-</body>
-</html>
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
