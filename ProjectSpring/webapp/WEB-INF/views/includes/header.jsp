@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="/fonts/antonio-exotic/stylesheet.css">
   <link rel="stylesheet" href="/css/lightbox.min.css">
   <link rel="stylesheet" href="/css/responsive.css">
+  <style>
+  	.cl-effect-10 a {font-size: 18px;}
+  </style>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/lightbox-plus-jquery.min.js"></script>
@@ -82,12 +85,11 @@
                 </div>
                 <div class="collapse navigation navbar-collapse navbar-ex1-collapse remove-space">
                   <ul class="list-unstyled nav1 cl-effect-10">
-                    <li><a data-hover="메뉴1" href="about.html"><span>메뉴1</span></a></li>
-                    <li><a data-hover="메뉴2" href="rooms.html"><span>메뉴2</span></a></li>
-                    <li><a data-hover="메뉴3" href="gallery.html"><span>메뉴3</span></a></li>
-                    <li><a data-hover="메뉴4" href="dinning.html"><span>메뉴4</span></a></li>
-                    <li><a data-hover="메뉴5" href="news.html"><span>메뉴5</span></a></li>
-                    <li><a data-hover="메뉴6" href="contact.html"><span>메뉴6</span></a></li>
+                    <li><a data-hover="메뉴1" href="/menus/about"><span>메뉴1</span></a></li>
+                    <li><a data-hover="메뉴2" href="/menus/rooms"><span>메뉴2</span></a></li>
+                    <li><a data-hover="메뉴3" href="/menus/gallery"><span>메뉴3</span></a></li>
+                    <li><a data-hover="메뉴4" href="/menus/dinning"><span>메뉴4</span></a></li>
+                    <li><a data-hover="메뉴5" href="/menus/news"><span>메뉴5</span></a></li>
                     <li><a data-hover="Q&A" href="/qna/list"><span>Q&A</span></a>
                     </li>
                   </ul>

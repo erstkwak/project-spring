@@ -76,6 +76,5 @@
     <span><i aria-hidden="true" class="fa fa-angle-up fa-lg"></i></span>
     <span>위로</span>
   </a>
-  </div>
 </body>
 </html>
