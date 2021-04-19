@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.qna.mapper.PostMapper">
+
+	<insert id="create">
+		INSERT INTO qna_post (p_no, p_title, p_content, mem_id) VALUES (seq_post.nextval, #{p_title}, #{p_content}, #{mem_id})
+	</insert>
+
+	<insert id="createSelectKey">
+		<selectKey keyProperty="p_no" order="BEFORE" resultType="long">
+			SELECT seq_post.nextval FROM dual
+		</selectKey>
+		INSERT INTO qna_post (p_no, p_title, p_content, mem_id) VALUES (#{p_no}, #{p_title}, #{p_content}, #{mem_id})
+	</insert>
+
+	<select id="readList" resultType="com.spring.qna.vo.PostVO">
+  	<![CDATA[
+  	SELECT p_no, p_title, p_content, mem_id, p_writedate, p_updatedate, p_replycount
+  	FROM
+  	  (
+  	     SELECT rownum rn, p_no, p_title, p_content, mem_id, p_writedate, p_updatedate, p_replycount FROM
+  	     (
+  	        SELECT p_no, p_title, p_content, mem_id, p_writedate, p_updatedate, p_replycount FROM qna_post ORDER BY p_no DESC
+  	     )
+  	     WHERE
+  	]]>
+  	<include refid="search"></include>     
+  	<![CDATA[
+  	     rownum <= #{pageNum} * #{amount}
+  	  )
+  	WHERE rn > (#{pageNum} - 1) * #{amount}
+  	]]>
+	</select>
+
+	<select id="readOne" resultType="com.spring.qna.vo.PostVO">
+		SELECT * FROM qna_post WHERE p_no = #{p_no}
+	</select>
+	
+	<update id="update">
+		UPDATE qna_post SET p_title = #{p_title}, p_content = #{p_content}, mem_id = #{mem_id}, p_updateDate = sysdate WHERE p_no = #{p_no}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM qna_post WHERE p_no = #{p_no}
+	</delete>
+
+	<select id="getPostCount" resultType="int">
+		SELECT COUNT(*) FROM qna_post WHERE
+		<include refid="search"></include>
+		p_no > 0
+	</select>
+
+	<update id="updateReplyCount">
+		UPDATE qna_post SET p_replycount = p_replycount + #{amount} WHERE p_no = #{p_no}
+	</update>
+
+	<sql id="search">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							p_title LIKE '%' || #{keyword} || '%'
+						</when>
+						<when test="type == 'C'.toString()">
+							p_content LIKE '%' || #{keyword} || '%'
+						</when>
+						<when test="type == 'W'.toString()">
+							mem_id LIKE '%' || #{keyword} || '%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+</mapper>

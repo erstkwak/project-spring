@@ -4,20 +4,13 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>프로젝트 시작</title>
-	<style>
-	
-	</style>
-	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	<script>
-		$(function() {
-	
-		});
-	</script>
+  <title>Spring 프로젝트</title>
 </head>
 <body>
-	<h1>프로젝트 시작</h1>
+
    <!-- Header -->
    <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
+	<a href="/qna/list">게시판</a>
+</body>
 </html>
