@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.qna.mapper.PostAttachMapper">
+
+	<insert id="create">
+		INSERT INTO qna_attach (a_uuid, a_savepath, a_filename, a_isimage, p_no) VALUES (#{a_uuid}, #{a_savepath}, #{a_filename}, #{a_isimage}, #{p_no})
+	</insert>
+
+	<select id="read" resultType="com.spring.qna.vo.PostAttachVO">
+		SELECT * FROM qna_attach WHERE p_no = #{p_no}
+	</select>
+
+	<delete id="deleteList">
+		DELETE qna_attach WHERE p_no = #{p_no}
+	</delete>
+
+	<delete id="deleteOne">
+		DELETE FROM qna_attach WHERE a_uuid = #{a_uuid}
+	</delete>
+
+	<select id="getOldFiles" resultType="com.spring.qna.vo.PostAttachVO">
+		SELECT * FROM qna_attach WHERE a_savepath = TO_CHAR(sysdate - 1, 'yyyy\mm\dd')
+	</select>
+
+</mapper>
