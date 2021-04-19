@@ -7,6 +7,10 @@
   <title>Spring 프로젝트</title>
 </head>
 <body>
+
+   <!-- Header -->
+   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+
 	<a href="/qna/list">게시판</a>
 </body>
 </html>
