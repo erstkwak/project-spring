@@ -41,7 +41,7 @@
                 <br><br>
                 <c:choose>
                   <c:when test="${isLogOn == true and not empty login}">
-                    ${login.mem_name} 님
+                  	<li style="font-size: 16px;">${login.mem_name} 님</li>
                     <li><a href="/logout">로그아웃</a></li>
                     <li><a href="/mypage">마이페이지</a></li>
                   </c:when>
@@ -51,12 +51,10 @@
                   </c:otherwise>
                 </c:choose>
                 <c:if test="${isLogOn == true and login.mem_id=='admin'}">
-                  관리자로 로그인 하셨습니다
                   <li><a href="/admin">관리자</a></li>
                 </c:if>
                 <li><a href="#">장바구니</a></li>
                 <li><a href="#">공지사항</a></li>
-                <li><a href="#">사이트맵</a></li>
               </ul>
             </div>
           </div>

@@ -6,6 +6,9 @@
 
 <style>
 	#get-body {font-size: 16px;}
+	.form-control {font-size: 16px;}
+	#article-body {width: 1000px;}
+	#wrap {display: flex; justify-content: center; align-items: center;}
 	.replyListUl li {list-style: none;}
 	.uploadResult {width: 100%;	background-color: gray;}
 	.uploadResult ul {display: flex; flex-flow: row; justify-content: center;	align-items: center;}
@@ -20,12 +23,9 @@
 	.page-item.active .page-link {color: #fff; background: #343A40; border-color: #343A40;}
 	.page-link:hover {color: black;}
 	.page-link {color: black;}
-	#article-body {width: 1000px;}
-	#wrap {display: flex; justify-content: center; align-items: center;}
 	.pagination>li>a, .pagination>li>span {color: black;}
 	.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {background-color: black; border-color: black; color: black;}
 	.pagination>.active>a:hover {color: #ffffff;}
-	.form-control {font-size: 16px;}
 </style>
 
 <section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
