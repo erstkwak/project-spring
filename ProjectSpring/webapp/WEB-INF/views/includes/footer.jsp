@@ -9,9 +9,9 @@
   <footer>
     <div class="container">
       <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12 width-set-50">
+        <div class="col-md-6 col-sm-6 col-xs-12 width-set-50">
           <div class="footer-details">
-            <h4>Get in touch</h4>
+            <h4>사이트 정보</h4>
             <ul class="list-unstyled footer-contact-list">
               <li>
                 <i class="fa fa-map-marker fa-lg"></i>
@@ -34,34 +34,37 @@
               <a href="#"><i class="fa fa-youtube-play"></i></a>
             </div>
             <div class="input-group" id="subscribe">
-              <input type="text" class="form-control subscribe-box" value="" name="subscribe" placeholder="EMAIL ID">
-              <span class="input-group-btn">
+              <input type="text" class="form-control subscribe-box" value="" name="subscribe" placeholder="이메일 주소 입력" style="width: 250px;">
+              <span class="input-group-btn" style="float: left;">
                 <button type="button" class="btn subscribe-button"><i class="fa fa-paper-plane fa-lg"></i></button>
               </span>
             </div>
           </div>
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-12 width-50 width-set-50">
+        <div class="col-md-6 col-sm-6 col-xs-12 width-50 width-set-50">
           <div class="footer-details">
-            <h4>explore</h4>
-            <ul class="list-unstyled footer-links">
-              <li class="active"><a>링크1</a></li>
-              <li><a href="about.html">링크2</a></li>
-              <li><a href="rooms.html">링크3</a></li>
-              <li><a href="gallery.html">링크4</a></li>
-              <li><a href="#">링크5</a></li>
-              <li><a href="news.html">링크6</a></li>
-              <li><a href="contact.html">링크7</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-6 col-sm-12 col-xs-12">
-          <div class="footer-details">
-            <h4>Now On Instagram</h4>
-            <div class="row">
-              <div class="instagram-images">
-                <div id="instafeed"></div>
-              </div>
+            <h4>링크</h4>
+            <div class="col-md-3 col-sm-3 col-xs-6">
+	            <ul class="list-unstyled footer-links">
+	              <li class="active"><a>링크</a></li>
+	              <li><a href="about.html">링크</a></li>
+	              <li><a href="rooms.html">링크</a></li>
+	              <li><a href="gallery.html">링크</a></li>
+	              <li><a href="#">링크</a></li>
+	              <li><a href="news.html">링크</a></li>
+	              <li><a href="contact.html">링크</a></li>
+	            </ul>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-6">
+	            <ul class="list-unstyled footer-links">
+	              <li class="active"><a>링크</a></li>
+	              <li><a href="about.html">링크</a></li>
+	              <li><a href="rooms.html">링크</a></li>
+	              <li><a href="gallery.html">링크</a></li>
+	              <li><a href="#">링크</a></li>
+	              <li><a href="news.html">링크</a></li>
+	              <li><a href="contact.html">링크</a></li>
+	            </ul>
             </div>
           </div>
         </div>

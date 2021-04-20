@@ -1,15 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>로그인</title>
-<style></style>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<!-- 부트스트랩 -->
-<link rel="stylesheet" href="/css/bootstrap.min.css">
+
 <script>
 $(document).ready(function(){
 	// 취소
@@ -26,11 +20,6 @@ $(document).ready(function(){
 	});
 })
 </script>
-
-</head>
-<body>
-   <!-- Header -->
-<%@ include file="/WEB-INF/views/includes/header.jsp" %>
    
    <h3>회원 로그인 창</h3>
      <section id="container">

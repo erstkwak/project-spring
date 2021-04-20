@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="/css/lightbox.min.css">
   <link rel="stylesheet" href="/css/responsive.css">
   <style>
-  	.cl-effect-10 a {font-size: 18px;}
+  	.cl-effect-10 a {font-size: 16px;}
   </style>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
@@ -55,6 +55,8 @@
                   <li><a href="/admin">관리자</a></li>
                 </c:if>
                 <li><a href="#">장바구니</a></li>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="#">사이트맵</a></li>
               </ul>
             </div>
           </div>
@@ -85,11 +87,11 @@
                 </div>
                 <div class="collapse navigation navbar-collapse navbar-ex1-collapse remove-space">
                   <ul class="list-unstyled nav1 cl-effect-10">
-                    <li><a data-hover="메뉴1" href="/menus/about"><span>메뉴1</span></a></li>
-                    <li><a data-hover="메뉴2" href="/menus/rooms"><span>메뉴2</span></a></li>
-                    <li><a data-hover="메뉴3" href="/menus/gallery"><span>메뉴3</span></a></li>
-                    <li><a data-hover="메뉴4" href="/menus/dinning"><span>메뉴4</span></a></li>
-                    <li><a data-hover="메뉴5" href="/menus/news"><span>메뉴5</span></a></li>
+                    <li><a data-hover="소개" href="/menus/about"><span>소개</span></a></li>
+                    <li><a data-hover="캠핑장 검색" href="/menus/rooms"><span>캠핑장 검색</span></a></li>
+                    <li><a data-hover="캠핑 후기" href="/menus/gallery"><span>캠핑 후기</span></a></li>
+                    <li><a data-hover="메뉴" href="/menus/dinning"><span>메뉴</span></a></li>
+                    <li><a data-hover="캠핑용품 구매" href="/menus/news"><span>캠핑용품 구매</span></a></li>
                     <li><a data-hover="Q&A" href="/qna/list"><span>Q&A</span></a>
                     </li>
                   </ul>
@@ -97,7 +99,7 @@
               </nav>
             </div>
             <div class="col-md-2  col-sm-4 col-xs-12 hidden-sm">
-              <div class="text-right"><button type="button" class="book-now-btn">예약하기</button></div>
+              <div class="text-right"><button type="button" class="book-now-btn">임시 버튼</button></div>
             </div>
           </div>
         </div>

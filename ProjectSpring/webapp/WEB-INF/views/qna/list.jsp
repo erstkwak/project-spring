@@ -4,12 +4,9 @@
 
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">  -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap">
 <style>
 	/* 본문 */
-	#list-body {font-family:'Noto Sans KR', sans-serif; font-size: 16px;}
+	#list-body {font-size: 16px;}
 	tr, th, td {text-align: center;}
 	td:nth-of-type(2) {text-align: left;}
 	/* 검색폼 스타일 */
@@ -24,91 +21,90 @@
 	.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {color: black;}
 </style>
 
+<section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
+	<div class="inner-wrapper">
+		<h1 style="font-size: 35px;">Q&A 게시판</h1>
+	</div>
+</section>
+<div class="clearfix"></div>
+
 <div id="list-body">
-	<section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
-		<div class="inner-wrapper">
-			<h1 style="font-size: 35px;">Q&A 게시판</h1>
-		</div>
-	</section>
-	<div class="clearfix"></div>
-	
-	<section class="blog" id="main">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 col-sm-12 col-xs-12">
-					<div id="wrapper">
-						<table class="table table-hover">
-							<thead">
-								<tr class="active">
-									<th scope="col">번호</th>
-									<th scope="col">제목</th>
-									<th scope="col">작성자</th>
-									<th scope="col">작성일</th>
-								</tr>
-							</thead>
-							<c:forEach var="post" items="${postList}">
-								<tr>
-									<td><c:out value="${post.p_no}" /></td>
-									<td><a class='move' href='<c:out value="${post.p_no}"/>'><c:out value="${post.p_title}" /><b> [	<c:out value="${post.p_replycount}" /> ] </b></a></td>
-									<td><c:out value="${post.mem_id}" /></td>
-									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${post.p_writedate}" /></td>
-								</tr>
-							</c:forEach>
-						</table>
-						<form id='searchForm' class="form-group" action="/qna/list" method='get'>
-							<div id="searchDiv" class="form-row">
-								<select class="custom-select" id="searchSelectTag" name='type'>
-									<option value="" <c:out value="${paging.util.type == null ? 'selected' : ''}" />>검색 조건</option>
-									<option value="T" <c:out value="${paging.util.type eq 'T' ? 'selected' : ''}" />>제목</option>
-									<option value="C" <c:out value="${paging.util.type eq 'C' ? 'selected' : ''}" />>내용</option>
-									<option value="W" <c:out value="${paging.util.type eq 'W' ? 'selected' : ''}" />>작성자</option>
-									<option value="TC" <c:out value="${paging.util.type eq 'TC' ? 'selected' : ''}" />>제목 or 내용</option>
-									<option value="TW" <c:out value="${paging.util.type eq 'TW' ? 'selected' : ''}" />>제목 or 작성자</option>
-									<option value="TWC" <c:out value="${paging.util.type eq 'TWC' ? 'selected' : ''}" />>제목 or 내용 or 작성자</option>
-								</select>
-								&nbsp;<input type='text' name='keyword' id="keywordInput" class="form-control"
-									value='<c:out value="${paging.util.keyword}"/>' />
-								<input type='hidden' name='pageNum' value='<c:out value="${paging.util.pageNum}"/>' />
-								<input type='hidden' name='amount' value='<c:out value="${paging.util.amount}"/>' />
-								&nbsp;<button type="button" class="btn btn-default" id="searchBtn">검색</button>
-								&nbsp;<button type="button" class="btn btn-default" id="writeBtn">글쓰기</button>
-							</div>
-						</form>
-						<form id='actionForm' action="/qna/list" method='get'>
-							<input type='hidden' name='pageNum' value='${paging.util.pageNum}'>
-							<input type='hidden' name='amount' value='${paging.util.amount}'>
-							<input type='hidden' name='type' value='<c:out value="${paging.util.type}"/>'>
-							<input type='hidden' name='keyword' value='<c:out value="${paging.util.keyword}"/>'>
-						</form>
-						<div id="pagingDiv">
-							<ul class="pagination">
-								<c:if test="${paging.prev}">
-									<li class="pagingBtn page-item"><a class="page-link pagingBtn shadow-none" href="${paging.start - 1}">이전</a>
-									</li>
-								</c:if>
-								<c:forEach var="num" begin="${paging.start}" end="${paging.end}">
-									<li class="pagingBtn page-item pagingBtn ${paging.util.pageNum == num ? " active" : "" } "><a class="
-										page-link shadow-none" href="${num}">${num}</a></li>
-								</c:forEach>
-								<c:if test="${paging.next}">
-									<li class="pagingBtn page-item"><a class="page-link pagingBtn shadow-none" href="${paging.end + 1}">다음</a>
-									</li>
-								</c:if>
-							</ul>
+<section class="blog" id="main">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div id="wrapper">
+					<table class="table table-hover">
+						<thead">
+							<tr class="active">
+								<th scope="col">번호</th>
+								<th scope="col">제목</th>
+								<th scope="col">작성자</th>
+								<th scope="col">작성일</th>
+							</tr>
+						</thead>
+						<c:forEach var="post" items="${postList}">
+							<tr>
+								<td><c:out value="${post.p_no}" /></td>
+								<td><a class='move' href='<c:out value="${post.p_no}"/>'><c:out value="${post.p_title}" /><b> [	<c:out value="${post.p_replycount}" /> ] </b></a></td>
+								<td><c:out value="${post.mem_id}" /></td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd" value="${post.p_writedate}" /></td>
+							</tr>
+						</c:forEach>
+					</table>
+					<form id='searchForm' class="form-group" action="/qna/list" method='get'>
+						<div id="searchDiv" class="form-row">
+							<select class="custom-select input-group-lg" id="searchSelectTag" name='type'>
+								<option value="" <c:out value="${paging.util.type == null ? 'selected' : ''}" />>검색 조건</option>
+								<option value="T" <c:out value="${paging.util.type eq 'T' ? 'selected' : ''}" />>제목</option>
+								<option value="C" <c:out value="${paging.util.type eq 'C' ? 'selected' : ''}" />>내용</option>
+								<option value="W" <c:out value="${paging.util.type eq 'W' ? 'selected' : ''}" />>작성자</option>
+								<option value="TC" <c:out value="${paging.util.type eq 'TC' ? 'selected' : ''}" />>제목 or 내용</option>
+								<option value="TW" <c:out value="${paging.util.type eq 'TW' ? 'selected' : ''}" />>제목 or 작성자</option>
+								<option value="TWC" <c:out value="${paging.util.type eq 'TWC' ? 'selected' : ''}" />>제목 or 내용 or 작성자</option>
+							</select>
+							&nbsp;<input type='text' name='keyword' id="keywordInput" class="form-control"
+								value='<c:out value="${paging.util.keyword}"/>' />
+							<input type='hidden' name='pageNum' value='<c:out value="${paging.util.pageNum}"/>' />
+							<input type='hidden' name='amount' value='<c:out value="${paging.util.amount}"/>' />
+							&nbsp;<button type="button" class="btn btn-default" id="searchBtn">검색</button>
+							&nbsp;<button type="button" class="btn btn-default" id="writeBtn">글쓰기</button>
 						</div>
-						<div class="modal" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="infoModalLabel">알림</h5>
-									</div>
-									<h5>
-										<div class="modal-body">처리되었습니다.</div>
-									</h5>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-									</div>
+					</form>
+					<form id='actionForm' action="/qna/list" method='get'>
+						<input type='hidden' name='pageNum' value='${paging.util.pageNum}'>
+						<input type='hidden' name='amount' value='${paging.util.amount}'>
+						<input type='hidden' name='type' value='<c:out value="${paging.util.type}"/>'>
+						<input type='hidden' name='keyword' value='<c:out value="${paging.util.keyword}"/>'>
+					</form>
+					<div id="pagingDiv">
+						<ul class="pagination">
+							<c:if test="${paging.prev}">
+								<li class="pagingBtn page-item"><a class="page-link pagingBtn shadow-none" href="${paging.start - 1}">이전</a>
+								</li>
+							</c:if>
+							<c:forEach var="num" begin="${paging.start}" end="${paging.end}">
+								<li class="pagingBtn page-item pagingBtn ${paging.util.pageNum == num ? " active" : "" } "><a class="
+									page-link shadow-none" href="${num}">${num}</a></li>
+							</c:forEach>
+							<c:if test="${paging.next}">
+								<li class="pagingBtn page-item"><a class="page-link pagingBtn shadow-none" href="${paging.end + 1}">다음</a>
+								</li>
+							</c:if>
+						</ul>
+					</div>
+					<div class="modal" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="infoModalLabel">알림</h5>
+								</div>
+								<h5>
+									<div class="modal-body">처리되었습니다.</div>
+								</h5>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 								</div>
 							</div>
 						</div>
@@ -116,7 +112,8 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
 </div>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
@@ -156,15 +153,6 @@
 			actionForm.append("<input type='hidden' name='p_no' value='" + $(this).attr("href") + "'>");
 			actionForm.attr("action",	"/qna/get");
 			actionForm.submit();
-			
-			/*
-			
-			e.preventDefault();
-			e.stopPropagation();
-			//$(actionForm).append("<input type='hidden' name='p_no' value='" +  + "'>");
-			location.href= "/qna/get?p_no=" + $(this).attr("href");
-			
-			*/
 		});
 
 		var searchForm = $('#searchForm');
