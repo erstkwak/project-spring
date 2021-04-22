@@ -23,7 +23,7 @@
 
 <section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
 	<div class="inner-wrapper">
-		<h1 style="font-size: 35px;">Q&A 게시판</h1>
+		<h1 style="font-size: 35px;">문의 게시판</h1>
 	</div>
 </section>
 <div class="clearfix"></div>
@@ -68,7 +68,9 @@
 							<input type='hidden' name='pageNum' value='<c:out value="${paging.util.pageNum}"/>' />
 							<input type='hidden' name='amount' value='<c:out value="${paging.util.amount}"/>' />
 							&nbsp;<button type="button" class="btn btn-default" id="searchBtn">검색</button>
-							&nbsp;<button type="button" class="btn btn-default" id="writeBtn">글쓰기</button>
+							<c:if test="${isLogOn == true and not empty login}">
+								&nbsp;<button type="button" class="btn btn-default" id="writeBtn">글쓰기</button>
+              </c:if>
 						</div>
 					</form>
 					<form id='actionForm' action="/qna/list" method='get'>

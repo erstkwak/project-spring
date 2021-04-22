@@ -56,7 +56,6 @@
           dataType: "json",
           success: function (data) {
             console.log(data)
-            alert(data);
             if (data == '0') {
                 $("#id_check").text("사용가능한 아이디 입니다.");
                 $("#id_check").css("color", "blue");
@@ -363,8 +362,8 @@
                   <!-- 성별 -->
                   <div class="form-group">
                     <label for="mem_gender">성별</label>
-                    <input type="checkbox" id="mem_gender" name="mem_gender" value="남" />남
-                    <input type="checkbox" id="mem_gender" name="mem_gender" value="여" />여
+                    <input type="radio" id="mem_gender" name="mem_gender" value="남" />남
+                    <input type="radio" id="mem_gender" name="mem_gender" value="여" />여
                   </div>
             
                   <div class="form-group">

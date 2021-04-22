@@ -22,7 +22,7 @@
 
 <section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
 	<div class="inner-wrapper">
-		<h1 style="font-size: 35px;">Q&A 게시판</h1>
+		<h1 style="font-size: 35px;">문의 게시판</h1>
 	</div>
 </section>
 <div class="clearfix"></div>

@@ -34,10 +34,10 @@
           <div class="col-md-6">
             <div class="social-grid">
               <ul class="list-unstyled text-right" style="color: white;">
-                <li><a><i class="fa fa-facebook"></i></a></li>
-                <li><a><i class="fa fa-twitter"></i></a></li>
-                <li><a><i class="fa fa-linkedin"></i></a></li>
-                <li><a><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com/?lang=ko"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="https://kr.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
+                <li><a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
                 <br><br>
                 <c:choose>
                   <c:when test="${isLogOn == true and not empty login}">
@@ -88,16 +88,16 @@
                     <li><a data-hover="소개" href="/menus/about"><span>소개</span></a></li>
                     <li><a data-hover="캠핑장 검색" href="/menus/rooms"><span>캠핑장 검색</span></a></li>
                     <li><a data-hover="캠핑 후기" href="/menus/gallery"><span>캠핑 후기</span></a></li>
-                    <li><a data-hover="메뉴" href="/menus/dinning"><span>메뉴</span></a></li>
+                    <!-- <li><a data-hover="메뉴" href="/menus/dinning"><span>메뉴</span></a></li> -->
                     <li><a data-hover="캠핑용품 구매" href="/menus/news"><span>캠핑용품 구매</span></a></li>
-                    <li><a data-hover="Q&A" href="/qna/list"><span>Q&A</span></a>
+                    <li><a data-hover="문의하기" href="/qna/list"><span>문의하기</span></a>
                     </li>
                   </ul>
                 </div>
               </nav>
             </div>
             <div class="col-md-2  col-sm-4 col-xs-12 hidden-sm">
-              <div class="text-right"><button type="button" class="book-now-btn">임시 버튼</button></div>
+              <!-- <div class="text-right"><button type="button" class="book-now-btn">임시 버튼</button></div> -->
             </div>
           </div>
         </div>

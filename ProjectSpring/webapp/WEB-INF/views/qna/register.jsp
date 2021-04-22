@@ -19,7 +19,7 @@
 
 <section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
 	<div class="inner-wrapper">
-		<h1 style="font-size: 35px;">Q&A 게시판</h1>
+		<h1 style="font-size: 35px;">문의 게시판</h1>
 	</div>
 </section>
 <div class="clearfix"></div>
@@ -43,7 +43,7 @@
 								</div>
 								<div class="form-group">
 									<label for="mem_id">작성자</label>
-									<input class="form-control" name='mem_id' id="mem_id" value="test" readonly>
+									<input class="form-control" name='mem_id' id="mem_id" value="${login.mem_id}" readonly>
 								</div>
 								<div class="form-group">
 									<label for="uploadFile">파일 첨부</label>
