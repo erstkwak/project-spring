@@ -8,8 +8,12 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/images/icons/favicon.png">
-  <title>GoCamping :: 캠핑 커뮤니티</title>
+  <meta name="keywords"    content="캠핑, 캠핑장, 캠핑장 찾기, 캠핑 후기, 캠핑 커뮤니티, 캠핑용품, 캠핑용품 구입">
+	<meta name="description" content="캠핑장 위치 검색, 캠핑 후기 공유, 캠핑용품 쇼핑 등의 서비스를 제공하는 캠핑 관련 커뮤니티입니다.">
+	<meta name="robots"      content="all">
+	<meta name="author"      content="팀 프로젝트: 곽대희, 송현우, 이동준, 최성완 (가나다 순)">
+	<meta name="date"        content="2021-04-30T09:00+09:00"> 
+  <title>GoCamping :: 캠핑장 위치 검색, 캠핑 후기 공유, 캠핑용품 구입 등 캠핑 관련 커뮤니티</title>
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/style.css">
@@ -67,7 +71,7 @@
           <div class="row">
             <div class="col-md-2 col-sm-6 col-xs-6">
               <div id="logo">
-                <a href="/"><span>고 </span>캠핑</a>
+                <a href="/"><span>고&nbsp;</span>캠핑</a>
               </div>
             </div>
             <div class="col-sm-6 visible-sm">
