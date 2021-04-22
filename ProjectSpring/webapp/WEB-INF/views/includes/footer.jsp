@@ -11,19 +11,19 @@
       <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12 width-set-50">
           <div class="footer-details">
-            <h4>사이트 정보</h4>
+            <h4>Go Camping</h4>
             <ul class="list-unstyled footer-contact-list">
               <li>
                 <i class="fa fa-map-marker fa-lg"></i>
-                <p>701 Old York Drive Richmond USA.</p>
+                <p>부산시 부산진구</p>
               </li>
               <li>
                 <i class="fa fa-phone fa-lg"></i>
-                <p><a href="tel:+1-202-555-0100"> +1-202-555-0100</a></p>
+                <p><a href="tel:051-123-4567"> 051-123-4567</a></p>
               </li>
               <li>
                 <i class="fa fa-envelope-o fa-lg"></i>
-                <p><a href="mailto:demo@info.com"> demo@info.com</a></p>
+                <p><a href="mailto:admin@gocamping.com"> admin@gocamping.com</a></p>
               </li>
             </ul>
             <div class="footer-social-icon">

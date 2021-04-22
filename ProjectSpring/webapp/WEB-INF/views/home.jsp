@@ -13,21 +13,21 @@
   </ol>
   <div class="carousel-inner">
     <div class="item active">
-      <img src="images/banner.png" style="width:100%; height: 500px" alt="First slide">
-      <div class="carousel-caption">
-        <h1>슬라이드1<br>내용1</h1>
+      <img src="images/slideimage3.jpg" style="width:100%; height: 500px" alt="First slide">
+      <div class="carousel-caption" >
+        <a href="/menus/rooms"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;캠핑장 위치가 궁금하신가요?&nbsp;</span></a>
       </div>
     </div>
     <div class="item">
-      <img src="images/banner2.png" style="width:100%; height: 500px" alt="Second slide">
+      <img src="images/slideimage2.jpg" style="width:100%; height: 500px" alt="Second slide">
       <div class="carousel-caption">
-        <h1>슬라이드2<br>내용2</h1>
+				<a href="/menus/gallery"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;이용하신 분들의 후기를 살펴보세요!&nbsp;</span></a>
       </div>
     </div>
     <div class="item">
-      <img src="images/banner3.png" style="width:100%; height: 500px" alt="Third slide">
+      <img src="images/slideimage1.jpg" style="width:100%; height: 500px" alt="Third slide">
       <div class="carousel-caption">
-        <h1>슬라이드3<br>내용3</h1>
+				<a href="/menus/news"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;캠핑용품은 여기서 구매하세요!&nbsp;</span></a>
       </div>
     </div>
   </div>
@@ -47,33 +47,33 @@
       <div class="col-md-3 col-sm-3 col-xs-6 width-50">
         <div class="service-details text-center">
           <div class="service-image">
-            <img alt="image" class="img-responsive" src="images/icons/wifi.png">
+            <img alt="image" class="img-responsive" src="images/icons/tent.png" width="48" height="48">
           </div>
-          <h4><a>서비스1</a></h4>
+          <h4><a href="/menus/rooms">캠핑장 검색</a></h4>
         </div>
       </div>
       <div class="col-md-3 col-sm-3 col-xs-6 width-50">
         <div class="service-details text-center">
           <div class="service-image">
-            <img alt="image" class="img-responsive" src="images/icons/key.png">
+            <img alt="image" class="img-responsive" src="images/icons/community.png" width="48" height="48">
           </div>
-          <h4><a>서비스2</a></h4>
+          <h4><a href="/menus/gallery">캠핑 후기</a></h4>
         </div>
       </div>
       <div class="col-md-3 col-sm-3 col-xs-6 mt-25">
         <div class="service-details text-center">
           <div class="service-image">
-            <img alt="image" class="img-responsive" src="images/icons/car.png">
+            <img alt="image" class="img-responsive" src="images/icons/shop.png" width="48" height="48">
           </div>
-          <h4><a>서비스3</a></h4>
+          <h4><a href="/menus/news">캠핑용품 구매</a></h4>
         </div>
       </div>
       <div class="col-md-3 col-sm-3 col-xs-6 mt-25">
         <div class="service-details text-center">
           <div class="service-image">
-            <img alt="image" class="img-responsive" src="images/icons/user.png">
+            <img alt="image" class="img-responsive" src="images/icons/qna.png" width="48" height="48">
           </div>
-          <h4><a>서비스4</a></h4>
+          <h4><a href="/qna/list">문의 게시판</a></h4>
         </div>
       </div>
     </div>
@@ -86,37 +86,33 @@
     <div class="row">
       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
         <div class="gallery-image">
-          <img class="img-responsive" src="images/room1.png">
+          <img class="img-responsive" src="images/gall1.jpg">
           <div class="overlay">
-            <a class="info pop example-image-link img-responsive" href="images/room1.png" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
-            <p><a>갤러리1</a></p>
+            <a class="info pop example-image-link img-responsive" href="images/gall1.jpg" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
           </div>
         </div>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
         <div class="gallery-image">
-          <img class="img-responsive" src="images/room2.png">
+          <img class="img-responsive" src="images/gall2.jpg">
           <div class="overlay">
-            <a class="info pop example-image-link img-responsive" href="images/room2.png" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
-            <p><a>갤러리2</a></p>
+            <a class="info pop example-image-link img-responsive" href="images/gall2.jpg" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
           </div>
         </div>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
         <div class="gallery-image">
-          <img class="img-responsive" src="images/room3.png">
+          <img class="img-responsive" src="images/gall3.jpg">
           <div class="overlay">
-            <a class="info pop example-image-link img-responsive" href="images/room3.png" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
-            <p><a>갤러리3</a></p>
+            <a class="info pop example-image-link img-responsive" href="images/gall3.jpg" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
           </div>
         </div>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
         <div class="gallery-image">
-          <img class="img-responsive" src="images/room4.png">
+          <img class="img-responsive" src="images/gall4.jpg">
           <div class="overlay">
-            <a class="info pop example-image-link img-responsive" href="images/room4.png" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
-            <p><a>갤러리4</a></p>
+            <a class="info pop example-image-link img-responsive" href="images/gall4.jpg" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
           </div>
         </div>
       </div>
@@ -131,9 +127,9 @@
       <div class="row">
         <div class="col-md-5 col-sm-6 col-xs-12">
           <div class="vacation-offer-details">
-            <h1>배너</h1>
-            <h4>배너 내용</h4>
-            <button type="button" class="btn btn-default">버튼</button>
+            <h1>날씨 API 추가할 공간</h1>
+            <h4>날씨 API</h4>
+            <button type="button" class="btn btn-default">임시 버튼</button>
           </div>
         </div>
       </div>
@@ -149,15 +145,13 @@
         <div class="side-A">
           <div class="product-thumb">
             <div class="image">
-              <a><img src="images/category1.png" class="img-responsive" alt="image"></a>
+              <a><img src="images/campingitem1.jpg" class="img-responsive" alt="image" width="280px" height="280px"></a>
             </div>
           </div>
         </div>
         <div class="side-B">
           <div class="product-desc-side">
-            <h3><a>더보기1</a></h3>
-            <p>내용1</p>
-            <div class="links"><a href="single-blog.html">링크1</a></div>
+            <h3><a href="/menus/news">텐트, 침낭 구입</a></h3>
           </div>
         </div>
       </div>
@@ -166,15 +160,13 @@
         <div class="side-A">
           <div class="product-thumb">
             <div class="image">
-              <a><img alt="image" class="img-responsive" src="images/category2.png"></a>
+							<a><img src="images/campingitem2.jpg" class="img-responsive" alt="image" width="280px" height="280px"></a>
             </div>
           </div>
         </div>
         <div class="side-B">
           <div class="product-desc-side">
-            <h3><a>더보기2</a></h3>
-            <p>내용2</p>
-            <div class="links"><a href="single-blog.html">링크2</a></div>
+            <h3><a href="/menus/news">버너, 랜턴, 화로 구입</a></h3>
           </div>
         </div>
       </div>
@@ -182,16 +174,13 @@
       <div class="col-md-6 col-sm-12 col-xs-12 remove-padd-right">
         <div class="side-A">
           <div class="product-desc-side">
-            <h3><a>더보기3</a></h3>
-            <p>내용3</p>
-            <div class="links"><a href="single-blog.html">링크3</a></div>
+            <h3><a href="/menus/news">취사도구, 소품 구입</a></h3>
           </div>
         </div>
         <div class="side-B">
           <div class="product-thumb">
             <div class="image txt-rgt">
-              <a class="arrow-left"><img src="images/category3.png" class="img-responsive" alt="imaga"></a>
-            </div>
+             <a><img src="images/campingitem3.jpg" class="img-responsive" alt="image" width="280px" height="280px"></a>            </div>
           </div>
         </div>
       </div>
@@ -199,16 +188,13 @@
       <div class="col-md-6 col-sm-12 col-xs-12 remove-padd-left">
         <div class="side-A">
           <div class="product-desc-side">
-            <h3><a>더보기4</a></h3>
-            <p>내용4</p>
-            <div class="links"><a href="single-blog.html">링크4</a></div>
+            <h3><a href="/menus/news">간식거리 구입</a></h3>
           </div>
         </div>
         <div class="side-B">
           <div class="product-thumb txt-rgt">
             <div class="image">
-              <a class="arrow-left"><img src="images/category4.png" class="img-responsive" alt="imaga"></a>
-            </div>
+              <a><img src="images/campingitem4.jpg" class="img-responsive" alt="image" width="280px" height="280px"></a></div>
           </div>
         </div>
       </div>
@@ -231,7 +217,7 @@
         <div class="carousel-inner" role="listbox">
           <div class="item active">
             <div class="blog-box">
-              <p>내용1</p>
+              <p>캠핑장 검색 서비스를 통해 좋은 캠핑장을 찾았습니다 !</p>
             </div>
             <div class="blog-view-box">
               <div class="media">
@@ -239,15 +225,15 @@
                   <img src="images/client1.png" class="media-object">
                 </div>
                 <div class="media-body">
-                  <h3 class="media-heading blog-title">제목1</h3>
-                  <h5 class="blog-rev">소제목1</h5>
+                  <h3 class="media-heading blog-title">김지성</h3>
+                  <h5 class="blog-rev">부산시 남구</h5>
                 </div>
               </div>
             </div>
           </div>
           <div class="item">
             <div class="blog-box">
-              <p>내용2</p>
+              <p>캠핑 하기 전에 캠핑 후기를 읽고 많은 도움을 받았어요 !</p>
             </div>
             <div class="blog-view-box">
               <div class="media">
@@ -255,15 +241,15 @@
                   <img src="images/client2.png" class="media-object">
                 </div>
                 <div class="media-body">
-                  <h3 class="media-heading blog-title">제목2</h3>
-                  <h5 class="blog-rev">소제목2</h5>
+                  <h3 class="media-heading blog-title">서지석</h3>
+                  <h5 class="blog-rev">부산시 동래구</h5>
                 </div>
               </div>
             </div>
           </div>
           <div class="item">
             <div class="blog-box">
-              <p>내용3</p>
+              <p>캠핑할 때 필요한 물건들을 한 번에 구입가능해서 편리했어요 !</p>
             </div>
             <div class="blog-view-box">
               <div class="media">
@@ -271,8 +257,8 @@
                   <img src="images/client3.png" class="media-object">
                 </div>
                 <div class="media-body">
-                  <h3 class="media-heading blog-title">제목3</h3>
-                  <h5 class="blog-rev">소제목3</h5>
+                  <h3 class="media-heading blog-title">김지훈 님</h3>
+                  <h5 class="blog-rev">부산시 수영구</h5>
                 </div>
               </div>
             </div>
@@ -291,16 +277,16 @@
       <div class="view-set-block">
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="event-blog-image">
-            <img alt="image" class="img-responsive" src="images/blog1.png">
+            <img alt="image" class="img-responsive" src="images/campreview1.jpg" width="600px" height="300px">
           </div>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12 side-in-image">
           <div class="event-blog-details">
-            <h4><a href="single-blog.html">제목</a></h4>
-            <h5>글쓴이 <a><i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>좋아요</a><a><i aria-hidden="true" class="fa fa-comment-o fa-lg"></i>댓글</a></h5>
-            <p>내용1</p>
-            <p>내용2</p>
-            <a class="btn btn-default" href="single-blog.html">더보기</a>
+            <h4><a href="menus/gallery">캠핑 후기입니다 ...</a></h4>
+            <h5> jihoon143 <a><i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>좋아요</a><a><i aria-hidden="true" class="fa fa-comment-o fa-lg"></i>댓글</a></h5>
+            <p>이 캠핑장 추천합니다.</p>
+            <p>주변이 쾌적하고 한적해서 힐링 됐어요 ! ...</p>
+            <a class="btn btn-default" href="menus/gallery">자세히</a>
           </div>
         </div>
       </div>
@@ -309,16 +295,16 @@
       <div class="view-set-block">
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="event-blog-image">
-            <img alt="image" class="img-responsive" src="images/blog2.png">
+            <img alt="image" class="img-responsive" src="images/campreview2.jpg" width="600px" height="300px">
           </div>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12 side-in-image">
           <div class="event-blog-details">
-            <h4><a href="single-blog.html">제목</a></h4>
-            <h5>글쓴이 <a><i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>좋아요</a><a><i aria-hidden="true" class="fa fa-comment-o fa-lg"></i>댓글</a></h5>
-            <p>내용1</p>
-            <p>내용2</p>
-            <a class="btn btn-default" href="single-blog.html">Read More</a>
+            <h4><a href="menus/gallery">캠핑 후기 올립니다</a></h4>
+            <h5>lee2532 <a><i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>좋아요</a><a><i aria-hidden="true" class="fa fa-comment-o fa-lg"></i>댓글</a></h5>
+            <p>여기 괜찮네요.</p>
+            <p>처음 가본 곳인데 마음에 듭니다. 특히 ...</p>
+            <a class="btn btn-default" href="menus/gallery">자세히</a>
           </div>
         </div>
       </div>
