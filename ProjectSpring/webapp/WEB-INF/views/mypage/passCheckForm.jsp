@@ -32,7 +32,7 @@ $(document).ready(function(){
 <body>
 
    <!-- Header -->
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
    
    <caption><h2>비밀번호 확인</h2></caption>
    <form action="passCheck" method="post">
@@ -56,5 +56,5 @@ $(document).ready(function(){
 		<button class="cancle btn btn-danger" type="button">취소</button>
 	  </div>   
   </form>   
-</body>
-</html>
+  
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>

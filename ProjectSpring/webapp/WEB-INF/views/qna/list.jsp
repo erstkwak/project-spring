@@ -2,24 +2,41 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ include file="/WEB-INF/views/include/header.jsp" %>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
-<!-- 페이지 소개 이미지 -->
-<section class="image-head-wrapper" style="background-image: url('/img/qnabanner.jpg');">
+<style>
+	/* 본문 */
+	#list-body {font-size: 16px;}
+	tr, th, td {text-align: center;}
+	td:nth-of-type(2) {text-align: left;}
+	/* 검색폼 스타일 */
+	#searchDiv {display: flex; justify-content: center; align-items: center;}
+	#searchSelectTag {width: 200px;}
+	#keywordInput {width: 200px;}
+	/* 페이징 스타일 */
+	#pagingDiv {display: flex; justify-content: center; align-items: center;}
+	#pagingDiv ul li {list-style: none; display: inline-block;}
+	#pagingDiv li.active a {color: #fff; background: #343A40; border-color: #343A40;}
+	.pagination>li>a, .pagination>li>span {color: black;}
+	.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {color: black;}
+</style>
+
+<section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
 	<div class="inner-wrapper">
-		<h1 style="font-size: 30px;">Q&A 게시판</h1>
+		<h1 style="font-size: 35px;">Q&A 게시판</h1>
 	</div>
 </section>
 <div class="clearfix"></div>
-<!-- 본문 -->
+
+<div id="list-body">
 <section class="blog" id="main">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10 col-sm-10 col-xs-12">
+			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div id="wrapper">
 					<table class="table table-hover">
-						<thead class="thead-dark">
-							<tr>
+						<thead">
+							<tr class="active">
 								<th scope="col">번호</th>
 								<th scope="col">제목</th>
 								<th scope="col">작성자</th>
@@ -36,8 +53,8 @@
 						</c:forEach>
 					</table>
 					<form id='searchForm' class="form-group" action="/qna/list" method='get'>
-						<div id="test" class="form-row">
-							<select class="custom-select custom-select-lg" id="searchSelectTag" name='type'>
+						<div id="searchDiv" class="form-row">
+							<select class="custom-select input-group-lg" id="searchSelectTag" name='type'>
 								<option value="" <c:out value="${paging.util.type == null ? 'selected' : ''}" />>검색 조건</option>
 								<option value="T" <c:out value="${paging.util.type eq 'T' ? 'selected' : ''}" />>제목</option>
 								<option value="C" <c:out value="${paging.util.type eq 'C' ? 'selected' : ''}" />>내용</option>
@@ -46,12 +63,12 @@
 								<option value="TW" <c:out value="${paging.util.type eq 'TW' ? 'selected' : ''}" />>제목 or 작성자</option>
 								<option value="TWC" <c:out value="${paging.util.type eq 'TWC' ? 'selected' : ''}" />>제목 or 내용 or 작성자</option>
 							</select>
-							&nbsp;<input type='text' name='keyword' id="keywordInput" class="form-control form-control-lg"
+							&nbsp;<input type='text' name='keyword' id="keywordInput" class="form-control"
 								value='<c:out value="${paging.util.keyword}"/>' />
 							<input type='hidden' name='pageNum' value='<c:out value="${paging.util.pageNum}"/>' />
 							<input type='hidden' name='amount' value='<c:out value="${paging.util.amount}"/>' />
-							&nbsp;<button type="button" class="btn btn-dark btn-lg" id="searchBtn">검색</button>
-							&nbsp;<button type="button" class="btn btn-dark btn-lg" id="writeBtn">글쓰기</button>
+							&nbsp;<button type="button" class="btn btn-default" id="searchBtn">검색</button>
+							&nbsp;<button type="button" class="btn btn-default" id="writeBtn">글쓰기</button>
 						</div>
 					</form>
 					<form id='actionForm' action="/qna/list" method='get'>
@@ -87,35 +104,22 @@
 									<div class="modal-body">처리되었습니다.</div>
 								</h5>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-dark btn-lg" data-dismiss="modal">닫기</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- 사이드 메뉴 -->
-			<aside class="col-md-2 col-sm-2 col-xs-12">
-				<div class="blog-list" id="side-menu">
-					<h4>사이드 메뉴</h4>
-					<ul>
-						<li><a href="#">사이드메뉴 1</a></li>
-						<li><a href="#">사이드메뉴 2</a></li>
-						<li><a href="#">사이드메뉴 3</a></li>
-						<li><a href="#">사이드메뉴 4</a></li>
-						<li><a href="#">사이드메뉴 5</a></li>
-						<li><a href="#">사이드메뉴 6</a></li>
-						<li><a href="#">사이드메뉴 7</a></li>
-					</ul>
-					<div class="clearfix"> </div>
-				</div>
-			</aside>
 		</div>
 	</div>
 </section>
+</div>
 
-<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 <script>
 	$(document).ready(function() {
 
@@ -149,15 +153,6 @@
 			actionForm.append("<input type='hidden' name='p_no' value='" + $(this).attr("href") + "'>");
 			actionForm.attr("action",	"/qna/get");
 			actionForm.submit();
-			
-			/*
-			
-			e.preventDefault();
-			e.stopPropagation();
-			//$(actionForm).append("<input type='hidden' name='p_no' value='" +  + "'>");
-			location.href= "/qna/get?p_no=" + $(this).attr("href");
-			
-			*/
 		});
 
 		var searchForm = $('#searchForm');

@@ -14,9 +14,9 @@
 <body>
 
    <!-- Header -->
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
    
    <!-- 회원 조회 -->
    <a href="/memberList">회원조회</a>
-</body>
-</html>
+
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>

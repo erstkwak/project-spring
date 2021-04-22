@@ -181,6 +181,9 @@
 </script>
 </head>
 <body>
+
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
+
   <article class="container">
     <div class="page-header">
       <div class="col-md-6 col-md-offset-3">
@@ -264,24 +267,5 @@
       </form>
     </div>
   </article>
-
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>

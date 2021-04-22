@@ -15,7 +15,7 @@
 </head>
 <body>
    <!-- Header -->
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
    
   <caption>회원리스트</caption>
   <table class="table table-striped table-bordered">
@@ -55,5 +55,5 @@
     </c:if> 
     </ul>
   </div>
-</body>
-</html>
+  
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>

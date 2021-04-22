@@ -31,7 +31,7 @@ $(document).ready(function(){
 <body>
 
    <!-- Header -->
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
    
   <section id="container">
     <form action="/memberDelete" method="post">
@@ -60,6 +60,5 @@ $(document).ready(function(){
     </form>
 
   </section>
-   
-</body>
-</html>
+  
+   <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

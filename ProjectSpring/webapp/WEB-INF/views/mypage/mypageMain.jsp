@@ -32,7 +32,7 @@ $(function() {
 <body>
 
    <!-- Header -->
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
    
    <!-- 회원 정보 조회 -->
    <table>
@@ -62,5 +62,4 @@ $(function() {
      </tr>
    </table>
    
-</body>
-</html>
+   <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
