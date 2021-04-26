@@ -1,288 +1,319 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<style type="text/css">
-  td{
-    border: 1px solid #000000;
-    border-collapse: collapse;
-  }
-	#updateForm-body {
-		margin-bottom: 0px;
-		padding-bottom: 100px;
-		padding-top: 100px;
-		font-size: 16px;
-		background-color: #e9e9e9;
-	}
-	#article-body {
-		text-align: left;
-	}
-	form {
-		width: 400px;
-		margin: 0 auto;
-	}
-	.form-control {
-		font-size: 16px;
-	}
-</style>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<style type="text/css">
-  td{
-    border: 1px solid #000000;
-    border-collapse: collapse;
-  }
+<style>
+	.blog-block {margin-bottom: 100px;}
 </style>
-<script type="text/javascript">
-	// 모든 공백 정규식
-	var empJ = /\s/g;
-	// 비밀번호 정규식 
-	var pwJ = /^[A-Za-z0-9]{4,12}$/; 
-	// 이메일 검사 정규식 
-	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; 
-	// 휴대폰 번호 정규식 
-	var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
 
-	var address = $('#mem_detailaddress');
-	
-	$(document).ready(function(){
-		var address = $('#mem_detailaddress');
-		
-			// 비밀번호가 같은경우 && 비밀번호 정규식
-			if (($('#mem_pw').val() == ($('#mem_pw2').val())) && pwJ.test($('#mem_pw').val())) {
-				inval_Arr[1] = true;
-			} else {
-				inval_Arr[1] = false;
-				alert('비밀번호를 확인하세요.');
-				return false;
-			}
-			
-			// 이메일 정규식
-			if(mailJ.test($('#mem_email').val())){
-				console.log(mailJ.test($('#mem_email').val()));
-				inval_Arr[4] = true;
-			} else {
-				inval_Arr[4] = false;
-				alert('이메일을 확인하세요');
-				return false;
-			}
-			
-			// 휴대폰번호 정규식
-			if (phoneJ.test($('#mem_phone').val())) {
-				console.log(phoneJ.test($('#mem_phone').val()));
-				inval_Arr[5] = true;
-			} else {
-				inval_Arr[5] = false;
-				alert('휴대폰 번호를 확인하세요.');
-				return false
-			}
-			
-			// 주소확인
-			if(address.val() == ''){
-				inval_Arr[7] = false;
-				alert('주소를 확인하세요.');
-				return false;
-			} else 
-				inval_Arr[7] = true;
-			
-			// 전체 유효성 검사
-			var validAll = true;
-			for(var i = 0; i < inval_Arr.length; i++){
-				if(inval_Arr[i] == false){
-					validAll = false;
-				}
-			}
-			
-			if(validAll == true){ // 유효성 모두 통과
-				alert('GoCamping 가족이 되어주셔서 감사합니다.');
-			} else {
-				alert('정보를 다시 확인하세요.')
-			}
-		}); //$('form').on('submit' end
-		
-		
-		$('#mem_pw').blur(function(){
-			if(pwJ.test($('#mem_pw').val())){
-				colsole.log('true');
-				$('#pw_check').text('');
-			} else {
-				console.log('false');
-				$('#pw_check').text('4~12자의 숫자, 문자로만 사용 가능합니다.');
-				$('#pw_check').css('color', 'red');
-			}
-		});
-		
-		// 1~2 패스워드 일치 확인
-		$('#mem_pw2').blur(function(){
-			if($('#mem_pw').val() != $(this).val()){
-				$('#pw2_check').text('비밀번호가 일치하지 않습니다.');
-				$('#pw2_check').css('color', 'red');
-			} else {
-				$('#pw2_check').text('');
-			}
-		});
-		
-		$('#mem_email').blur(function(){
-			if (mailJ.test($('this').val())){
-				$('#email_check').text('');
-			} else {
-				$('#email_check').text('이메일 양식을 확인해 주세요');
-				$('#email_check').css('color', 'red');
-			}
-		});
-		
-		
-		// 핸드폰
-		$('#mem_phone').blur(function(){
-			if(phoneJ.test($('this').val())){
-				console.log(phoneJ.test($(this).val()));
-				$('#phone_check').text('');
-			} else {
-				$('#phone_check').text('휴대폰번호를 확인해 주세요.');
-				$('#phone_check').css('color', 'red');
-			}
-		}); // 핸드폰 phoneJ 유효성 검사 end
-				
-	
-	function execPostcode(){
-		new daum.Postcode({
-			oncomplete: function(data){
-				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var fullRoadAddr  = data.roadAddress; // 주소 변수
-                var extraRoadAddr = ''; // 참고항목 변수
-				
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다. 
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){ 
-                	extraRoadAddr += data.bname; 
-                }
-             	
-                // 건물명이 있고, 공동주택일 경우 추가한다. 
-             	if(data.buildingName !== '' && data.apartment === 'Y'){ 
-             		extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName); 
-             	} 
-             	
-             	// 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다. 
-             	if(extraRoadAddr !== ''){ 
-             		extraRoadAddr = ' (' + extraRoadAddr + ')'; 
-             	} 
-             	
-             	// 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다. 
-             	if(fullRoadAddr !== ''){ 
-             		fullRoadAddr += extraRoadAddr; 
-             	} 
-             	
-             	// 우편번호와 주소 정보를 해당 필드에 넣는다. 
-             	console.log(data.zonecode); 
-             	console.log(fullRoadAddr);
-
-             	$("[name=mem_zipcode]").val(data.zonecode); 
-             	$("[name=mem_zipcode]").val(fullRoadAddr);
-
-             	document.getElementById('mem_zipcode').value = data.zonecode; //5자리 새우편번호 사용 
-             	document.getElementById('mem_address').value = fullRoadAddr;
-
-			} 
-		}).open();
-	}
-
-</script>
-
-<div id="updateForm-body">
-	<div id="wrap">
-		<div id="article-body">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<form action="updateMember" method="get" role="form" id="usercheck" name="member">
-						<legend style="text-align: center;">회원정보 수정</legend>
-							<!-- 아이디 -->
-							<div class="form-group">
-								<label for="id">아이디</label>
-								<input type="text" class="form-control" id="mem_id" name="mem_id" value="${update.mem_id}" readonly />
-								<!-- <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button> -->
-								<div class="eheck_font" id="id_check"></div>
-							</div>
-							<!-- 비밀번호 -->
-							<div class="form-group">
-								<label for="pw">새 비밀번호</label>
-								<input type="password" class="form-control" id="mem_pw" name="mem_pw" value="${update.mem_pw}" />
-								<div class="eheck_font" id="pw_check"></div>
-							</div>
-							<!-- 비밀번호 확인 -->
-							<div class="form-group">
-								<label for="pw2">비밀번호 확인</label>
-								<input type="password" class="form-control" id="mem_pw2" name="mem_pw2"
-									placeholder="Confirm Password" />
-								<div class="eheck_font" id="pw2_check"></div>
-							</div>
-							<!-- 이름 -->
-							<div class="form-group">
-								<label for="mem_name">이름</label>
-								<input type="text" class="form-control" id="mem_name" name="mem_name" value="${update.mem_name}"
-									readonly />
-								<div class="eheck_font" id="name_check"></div>
-							</div>
-							<!-- 생년월일 -->
-							<div class="form-group">
-								<label for="mem_birth">생년월일</label>
-								<input type="tel" class="form-control" id="mem_birth" name="mem_birth" value="${update.mem_birth}"
-									readonly />
-								<div class="eheck_font" id="birth_check"></div>
-							</div>
-							<!-- 이메일 주소 -->
-							<div class="form-group">
-								<label for="mem_email">이메일 주소</label>
-								<input type="email" class="form-control" id="mem_email" name="mem_email" value="${update.mem_email}" />
-								<div class="eheck_font" id="email_check"></div>
-							</div>
-							<!-- 휴대폰 번호 -->
-							<div class="form-group">
-								<label for="mem_phone">휴대폰 번호('-'없이 번호만 입력해주세요)</label>
-								<input type="tel" class="form-control" id="mem_phone" name="mem_phone" value="${update.mem_phone}" />
-								<div class="eheck_font" id="phone_check"></div>
-							</div>
-							<!-- 성별 -->
-							<div class="form-group">
-								<label for="mem_gender">성별</label>
-								<input type="text" class="form-control" style="width: 40%; display: inline;" id="mem_gender"
-									name="mem_gender" value="${update.mem_gender}" readonly>
-							</div>
-							<!-- 포인트 -->
-							<div class="form-group">
-								<label for="mem_point">포인트</label>
-								<input type="text" class="form-control" style="width: 40%; display: inline;" id="mem_point"
-									name="mem_point" value="${update.mem_point}">
-							</div>
-							<div class="form-group">
-								<input class="form-control" style="width: 40%; display: inline;" value="${update.mem_zipcode}"
-									name="mem_zipcode" id="mem_zipcode" type="text" readonly="readonly" />
-								<button type="button" class="btn btn-default" onclick="execPostcode();"><i class="fa fa-search"></i>우편번호
-									찾기</button>
-							</div>
-							<div class="form-group">
-								<input class="form-control" style="top: 5px;" value="${update.mem_address}" name="mem_address"
-									id="mem_address" type="text" readonly="readonly" />
-							</div>
-							<div class="form-group">
-								<input class="form-control" value="${update.mem_detailaddress}" name="mem_detailaddress"
-									id="mem_detailaddress" />
-							</div>
-							<div class="form-group text-center">
-								<button type="submit" class="btn btn-primary">수정하기</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<!-- 캐러셀1 -->
+<div id="myCarousel1" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel1" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel1" data-slide-to="1"></li>
+    <li data-target="#myCarousel1" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="images/slideimage3.jpg" style="width:100%; height: 500px" alt="First slide">
+      <div class="carousel-caption" >
+        <a href="/menus/rooms"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;캠핑장 위치가 궁금하신가요?&nbsp;</span></a>
+      </div>
+    </div>
+    <div class="item">
+      <img src="images/slideimage2.jpg" style="width:100%; height: 500px" alt="Second slide">
+      <div class="carousel-caption">
+				<a href="/menus/gallery"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;이용하신 분들의 후기를 살펴보세요!&nbsp;</span></a>
+      </div>
+    </div>
+    <div class="item">
+      <img src="images/slideimage1.jpg" style="width:100%; height: 500px" alt="Third slide">
+      <div class="carousel-caption">
+				<a href="/menus/news"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;캠핑용품은 여기서 구매하세요!&nbsp;</span></a>
+      </div>
+    </div>
+  </div>
+  <a class="left carousel-control" href="#myCarousel1" data-slide="prev">
+    <img src="images/icons/left-arrow.png" onmouseover="this.src = 'images/icons/left-arrow-hover.png'" onmouseout="this.src = 'images/icons/left-arrow.png'" alt="left">
+  </a>
+  <a class="right carousel-control" href="#myCarousel1" data-slide="next">
+    <img src="images/icons/right-arrow.png" onmouseover="this.src = 'images/icons/right-arrow-hover.png'" onmouseout="this.src = 'images/icons/right-arrow.png'" alt="left">
+  </a>
 </div>
-  
+<div class="clearfix"></div>
+
+<!-- 제공 서비스 4개 -->
+<section class="service-block">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-3 col-xs-6 width-50">
+        <div class="service-details text-center">
+          <div class="service-image">
+            <img alt="image" class="img-responsive" src="images/icons/tent.png" width="48" height="48">
+          </div>
+          <h4><a href="/menus/rooms">캠핑장 검색</a></h4>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6 width-50">
+        <div class="service-details text-center">
+          <div class="service-image">
+            <img alt="image" class="img-responsive" src="images/icons/community.png" width="48" height="48">
+          </div>
+          <h4><a href="/menus/gallery">캠핑 후기</a></h4>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6 mt-25">
+        <div class="service-details text-center">
+          <div class="service-image">
+            <img alt="image" class="img-responsive" src="images/icons/shop.png" width="48" height="48">
+          </div>
+          <h4><a href="/menus/news">캠핑용품 구매</a></h4>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6 mt-25">
+        <div class="service-details text-center">
+          <div class="service-image">
+            <img alt="image" class="img-responsive" src="images/icons/qna.png" width="48" height="48">
+          </div>
+          <h4><a href="/qna/list">문의 게시판</a></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 갤러리 사진 4개 -->
+<section class="gallery-block gallery-front">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="gallery-image">
+          <img class="img-responsive" src="images/gall1.jpg">
+          <div class="overlay">
+            <a class="info pop example-image-link img-responsive" href="images/gall1.jpg" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="gallery-image">
+          <img class="img-responsive" src="images/gall2.jpg">
+          <div class="overlay">
+            <a class="info pop example-image-link img-responsive" href="images/gall2.jpg" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="gallery-image">
+          <img class="img-responsive" src="images/gall3.jpg">
+          <div class="overlay">
+            <a class="info pop example-image-link img-responsive" href="images/gall3.jpg" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="gallery-image">
+          <img class="img-responsive" src="images/gall4.jpg">
+          <div class="overlay">
+            <a class="info pop example-image-link img-responsive" href="images/gall4.jpg" data-lightbox="example-1"><i class="fa fa-search" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 배너 -->
+<section class="vacation-offer-block">
+  <div class="vacation-offer-bgbanner">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 col-sm-6 col-xs-12">
+          <div class="vacation-offer-details">
+            <h1>날씨 API 추가할 공간</h1>
+            <h4>날씨 API</h4>
+            <button type="button" class="btn btn-default">임시 버튼</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 더보기 4 x 2 -->
+<section class="resort-overview-block">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-12 col-xs-12 remove-padd-right">
+        <div class="side-A">
+          <div class="product-thumb">
+            <div class="image">
+              <a><img src="images/campingitem1.jpg" class="img-responsive" alt="image" width="280px" height="280px"></a>
+            </div>
+          </div>
+        </div>
+        <div class="side-B">
+          <div class="product-desc-side">
+            <h3><a href="/menus/news">텐트, 침낭 구입</a></h3>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="col-md-6 col-sm-12 col-xs-12 remove-padd-left">
+        <div class="side-A">
+          <div class="product-thumb">
+            <div class="image">
+							<a><img src="images/campingitem2.jpg" class="img-responsive" alt="image" width="280px" height="280px"></a>
+            </div>
+          </div>
+        </div>
+        <div class="side-B">
+          <div class="product-desc-side">
+            <h3><a href="/menus/news">버너, 랜턴, 화로 구입</a></h3>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="col-md-6 col-sm-12 col-xs-12 remove-padd-right">
+        <div class="side-A">
+          <div class="product-desc-side">
+            <h3><a href="/menus/news">취사도구, 소품 구입</a></h3>
+          </div>
+        </div>
+        <div class="side-B">
+          <div class="product-thumb">
+            <div class="image txt-rgt">
+             <a><img src="images/campingitem3.jpg" class="img-responsive" alt="image" width="280px" height="280px"></a>            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="col-md-6 col-sm-12 col-xs-12 remove-padd-left">
+        <div class="side-A">
+          <div class="product-desc-side">
+            <h3><a href="/menus/news">간식거리 구입</a></h3>
+          </div>
+        </div>
+        <div class="side-B">
+          <div class="product-thumb txt-rgt">
+            <div class="image">
+              <a><img src="images/campingitem4.jpg" class="img-responsive" alt="image" width="280px" height="280px"></a></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 캐러셀2 -->
+<section class="blog-block-slider">
+  <div class="blog-block-slider-fix-image">
+    <div id="myCarousel2" class="carousel slide" data-ride="carousel">
+      <div class="container">
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel2" data-slide-to="1"></li>
+          <li data-target="#myCarousel2" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <div class="blog-box">
+              <p>캠핑장 검색 서비스를 통해 좋은 캠핑장을 찾았습니다 !</p>
+            </div>
+            <div class="blog-view-box">
+              <div class="media">
+                <div class="media-left">
+                  <img src="images/icons/person.png" width="80px" height="80px" class="media-object">
+                </div>
+                <div class="media-body">
+                  <h3 class="media-heading blog-title">김지성</h3>
+                  <h5 class="blog-rev">부산시 남구</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="blog-box">
+              <p>캠핑 하기 전에 캠핑 후기를 읽고 많은 도움을 받았어요 !</p>
+            </div>
+            <div class="blog-view-box">
+              <div class="media">
+                <div class="media-left">
+                  <img src="images/icons/person.png" width="80px" height="80px" class="media-object">
+                </div>
+                <div class="media-body">
+                  <h3 class="media-heading blog-title">서지석</h3>
+                  <h5 class="blog-rev">부산시 동래구</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="blog-box">
+              <p>캠핑할 때 필요한 물건들을 한 번에 구입가능해서 편리했어요 !</p>
+            </div>
+            <div class="blog-view-box">
+              <div class="media">
+                <div class="media-left">
+                  <img src="images/icons/person.png" width="80px" height="80px" class="media-object">
+                </div>
+                <div class="media-body">
+                  <h3 class="media-heading blog-title">김지훈</h3>
+                  <h5 class="blog-rev">부산시 수영구</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</section>
+
+<!-- 포스트 -->
+<section class="blog-block">
+  <div class="container">
+    <div class="row offspace-45">
+      <div class="view-set-block">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="event-blog-image">
+            <img alt="image" class="img-responsive" src="images/campreview1.jpg" width="600px" height="300px">
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 side-in-image">
+          <div class="event-blog-details">
+            <h4><a href="menus/gallery">캠핑 후기입니다 ...</a></h4>
+            <h5> jihoon143 <a><i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>좋아요</a><a><i aria-hidden="true" class="fa fa-comment-o fa-lg"></i>댓글</a></h5>
+            <p>이 캠핑장 추천합니다.</p>
+            <p>주변이 쾌적하고 한적해서 힐링 됐어요 ! ...</p>
+            <a class="btn btn-default" href="menus/gallery">자세히</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row offspace-45">
+      <div class="view-set-block">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="event-blog-image">
+            <img alt="image" class="img-responsive" src="images/campreview2.jpg" width="600px" height="300px">
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 side-in-image">
+          <div class="event-blog-details">
+            <h4><a href="menus/gallery">캠핑 후기 올립니다</a></h4>
+            <h5>lee2532 <a><i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>좋아요</a><a><i aria-hidden="true" class="fa fa-comment-o fa-lg"></i>댓글</a></h5>
+            <p>여기 괜찮네요.</p>
+            <p>처음 가본 곳인데 마음에 듭니다. 특히 ...</p>
+            <a class="btn btn-default" href="menus/gallery">자세히</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

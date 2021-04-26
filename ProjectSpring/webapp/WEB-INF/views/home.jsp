@@ -4,6 +4,10 @@
 
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
+<style>
+	#main-bot {padding-bottom: 100px;}
+</style>
+
 <!-- 캐러셀1 -->
 <div id="myCarousel1" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
@@ -271,7 +275,7 @@
 </section>
 
 <!-- 포스트 -->
-<section class="blog-block">
+<section class="blog-block" id="main-bot">
   <div class="container">
     <div class="row offspace-45">
       <div class="view-set-block">
@@ -313,6 +317,3 @@
 </section>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
-</html>
