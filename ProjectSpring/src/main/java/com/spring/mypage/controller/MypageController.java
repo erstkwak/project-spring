@@ -58,7 +58,7 @@ public class MypageController {
 	}  
 
 	// 회원정보 수정
-	@RequestMapping(value="/memberUpdate" ,method = RequestMethod.POST)
+	@RequestMapping(value="/memberUpdate", method=RequestMethod.POST)
 	public ResponseEntity memberjoin(HttpSession session, @ModelAttribute("memberVo") MemberVo vo,
 			                HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
@@ -96,6 +96,7 @@ public class MypageController {
 				
 		return "mypage/memberDelForm";   
 	}
+	
 	@RequestMapping(value="/memberDelete", method=RequestMethod.POST)
 	public String memberDelete(MemberVo vo, HttpSession session, RedirectAttributes ratt) {
 		MemberVo member = (MemberVo) session.getAttribute("login");

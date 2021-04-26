@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.admin.dao.AdminDao;
 import com.spring.admin.vo.Criteria;
+import com.spring.admin.vo.GoodsVo;
+import com.spring.admin.vo.ImageFileVo;
 import com.spring.member.vo.MemberVo;
 
 @Repository("adminDao")
@@ -50,6 +52,7 @@ public class AdminDaoImpl implements AdminDao{
 	public MemberVo read(String mem_id) {
 		return sqlSession.selectOne("Admin.Read", mem_id);
 	}
+
 
 
 }

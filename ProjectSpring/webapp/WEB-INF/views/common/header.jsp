@@ -14,6 +14,7 @@
       <c:otherwise>
         <a href="/login">로그인</a>&nbsp;
         <a href="/join">회원가입</a>&nbsp;
+        <a href="/shopping/main">쇼핑하기</a>&nbsp;
       </c:otherwise>
     </c:choose>
     <c:if test="${isLogOn==true and login.mem_id=='admin' }">

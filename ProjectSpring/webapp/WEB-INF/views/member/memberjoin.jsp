@@ -57,8 +57,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               url: "/idcheck",
               dataType: "json",
               success: function (data) {
-            	  console.log(data)
-            	  alert(data);
                 if (data == '0') {
                     $("#id_check").text("사용가능한 아이디 입니다.");
                     $("#id_check").css("color", "blue");
