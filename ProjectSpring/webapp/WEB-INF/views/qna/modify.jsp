@@ -113,9 +113,9 @@
         $('.uploadResult ul li').each(function(i, obj) {
           var obj = $(obj);
           str += "<input type='hidden' name='attachList[" + i + "].a_filename' value='" + obj.data("filename") + "'>";
-          str += "<input type='hidden' name='attachList[" + i + "].a_uuid' value='" + obj.data("uuid") + "'>";
+          str += "<input type='hidden' name='attachList[" + i + "].a_uuid'     value='" + obj.data("uuid") + "'>";
           str += "<input type='hidden' name='attachList[" + i + "].a_savepath' value='" + obj.data("path") + "'>";
-          str += "<input type='hidden' name='attachList[" + i + "].a_isimage' value='" + obj.data("type") + "'>";
+          str += "<input type='hidden' name='attachList[" + i + "].a_isimage'  value='" + obj.data("type") + "'>";
         });
         form.append(str).submit();
       }
@@ -130,7 +130,7 @@
           if (attach.a_isimage) {
             var fileSavePath = encodeURIComponent(attach.a_savepath + '/s_' + attach.a_uuid + '_' + attach.a_filename);
             console.log(fileSavePath);
-            str += '<li data-path="' + attach.a_savepath + '" data-uuid=' + attach.a_uuid + '_' + ' data-filename="' + attach.a_filename + '" data-type="' + attach.a_isimage + '" >';
+            str += '<li data-path="' + attach.a_savepath + '" data-uuid=' + attach.a_uuid + ' data-filename="' + attach.a_filename + '" data-type="' + attach.a_isimage + '" >';
             str += '<div>';
             str += '<span>' + attach.a_filename + '</span>';
             str += '<button type="button" data-file="' + fileSavePath + '" data-type="image" class="btn"><i class="bi bi-trash"></i></button><br>';

@@ -15,10 +15,7 @@
 	#keywordInput {width: 200px;}
 	/* 페이징 스타일 */
 	#pagingDiv {display: flex; justify-content: center; align-items: center;}
-	#pagingDiv ul li {list-style: none; display: inline-block;}
-	#pagingDiv li.active a {color: #fff; background: #343A40; border-color: #343A40;}
 	.pagination>li>a, .pagination>li>span {color: black;}
-	.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {color: black;}
 </style>
 
 <section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
