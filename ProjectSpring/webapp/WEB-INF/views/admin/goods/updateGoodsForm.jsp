@@ -147,7 +147,7 @@
 </head>
 <body>
    <!-- Header -->
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+   <%@ include file="/WEB-INF/views/includes/header.jsp" %>
    
   <form action="/updateGoods" method="post" >
   <input type="hidden" name="goods_idx" value="${goodsInfo.goods_idx }"/>

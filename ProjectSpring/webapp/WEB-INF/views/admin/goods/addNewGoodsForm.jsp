@@ -131,7 +131,7 @@ $(document).ready(function(e) {
 </head>
 <body>
    <!-- Header -->
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+   <%@ include file="/WEB-INF/views/includes/header.jsp" %>
    
   <form action="/addNewGoods" method="post" >
 	<h1>새상품 등록</h1>
