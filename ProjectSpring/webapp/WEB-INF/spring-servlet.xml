@@ -51,6 +51,9 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.spring.qna.mapper" />
 	</bean>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'dj' of https://github.com/erstkwak/project-spring.git
 
 </beans>
