@@ -57,10 +57,8 @@ public class UploadController
 			String filename = file.getOriginalFilename();
 			filename = filename.substring(filename.lastIndexOf("\\") + 1);
 			attachFileVO.setA_filename(filename);
-			
 			UUID uuid = UUID.randomUUID();
 			filename = uuid.toString() + "_" + filename;
-			
 			try {
 				File saveFile = new File(uploadPath, filename);
 				file.transferTo(saveFile);

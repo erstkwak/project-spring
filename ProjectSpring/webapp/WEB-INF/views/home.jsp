@@ -222,7 +222,7 @@
             <div class="blog-view-box">
               <div class="media">
                 <div class="media-left">
-                  <img src="images/client1.png" class="media-object">
+                  <img src="images/icons/person.png" width="80px" height="80px" class="media-object">
                 </div>
                 <div class="media-body">
                   <h3 class="media-heading blog-title">김지성</h3>
@@ -238,7 +238,7 @@
             <div class="blog-view-box">
               <div class="media">
                 <div class="media-left">
-                  <img src="images/client2.png" class="media-object">
+                  <img src="images/icons/person.png" width="80px" height="80px" class="media-object">
                 </div>
                 <div class="media-body">
                   <h3 class="media-heading blog-title">서지석</h3>
@@ -254,10 +254,10 @@
             <div class="blog-view-box">
               <div class="media">
                 <div class="media-left">
-                  <img src="images/client3.png" class="media-object">
+                  <img src="images/icons/person.png" width="80px" height="80px" class="media-object">
                 </div>
                 <div class="media-body">
-                  <h3 class="media-heading blog-title">김지훈 님</h3>
+                  <h3 class="media-heading blog-title">김지훈</h3>
                   <h5 class="blog-rev">부산시 수영구</h5>
                 </div>
               </div>

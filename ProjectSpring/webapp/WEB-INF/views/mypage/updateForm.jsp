@@ -1,27 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원 정보관리</title>
-<style></style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- 부트스트랩 -->
+
 <link rel="stylesheet" href="/css/bootstrap.min.css">
-
-<!-- daum 도로명 주소 찾기 api  -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-
 <style type="text/css">
   td{
     border: 1px solid #000000;
     border-collapse: collapse;
   }
+	#updateForm-body {
+		margin-bottom: 0px;
+		padding-bottom: 100px;
+		padding-top: 100px;
+		font-size: 16px;
+		background-color: #e9e9e9;
+	}
+	#article-body {
+		text-align: left;
+	}
+	form {
+		width: 400px;
+		margin: 0 auto;
+	}
+	.form-control {
+		font-size: 16px;
+	}
 </style>
 
+<%@ include file="/WEB-INF/views/includes/header.jsp"%>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- daum 도로명 주소 찾기 api  -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 	// 모든 공백 정규식
 	var empJ = /\s/g;
@@ -183,92 +192,93 @@
 			} 
 		}).open();
 	}
-		
-
 </script>
-</head>
-<body>
 
-<%@ include file="/WEB-INF/views/includes/header.jsp" %>
-  <article class="container">
-    <div class="page-header">
-      <div class="col-md-6 col-md-offset-3">
-        <h3>회원정보 수정</h3>
-      </div>
-    </div>
-    
-    <div class="col-sm-6 col-md-offset-3">
-      <form action="memberUpdate" method="post" role="form" id="usercheck" name="member">
-        
-        <!-- 아이디 -->
-        <div class="form-group">
-          <label for="id">아이디</label>
-          <input type="text" class="form-control" id="mem_id" name="mem_id" value="${login.mem_id}" readonly/>
-          <!-- <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button> -->
-          <div class="eheck_font" id="id_check"></div>
-        </div>
-        <!-- 비밀번호 -->
-        <div class="form-group">
-          <label for="pw">새 비밀번호</label>
-          <input type="password" class="form-control" id="mem_pw" name="mem_pw" value="${login.mem_pw}"/>
-          <div class="eheck_font" id="pw_check"></div>
-        </div>
-        <!-- 비밀번호 확인 -->
-        <div class="form-group">
-          <label for="pw2">비밀번호 확인</label>
-          <input type="password" class="form-control" id="mem_pw2" name="mem_pw2" placeholder="Confirm Password"/>
-          <div class="eheck_font" id="pw2_check"></div>
-        </div>
-        <!-- 이름 -->
-        <div class="form-group">
-          <label for="mem_name">이름</label>
-          <input type="text" class="form-control" id="mem_name" name="mem_name" value="${login.mem_name}" readonly/>
-          <div class="eheck_font" id="name_check"></div>
-        </div>
-        <!-- 생년월일 -->
-        <div class="form-group">
-          <label for="mem_birth">생년월일</label>
-          <input type="tel" class="form-control" id="mem_birth" name="mem_birth" value="${login.mem_birth}"  readonly/>
-          <div class="eheck_font" id="birth_check"></div>
-        </div>
-        <!-- 성별 -->
-        <div class="form-group">
-          <label for="mem_gender">성별</label>
-          <input type="text" class="form-control" style="width: 40%; display: inline;" id="mem_gender" name="mem_gender" value="${login.mem_gender}" readonly>
-        </div>
-        <!-- 이메일 주소 -->
-        <div class="form-group">
-          <label for="mem_email">이메일 주소</label>
-          <input type="email" class="form-control" id="mem_email" name="mem_email" value="${login.mem_email}" />
-          <div class="eheck_font" id="email_check"></div>
-        </div>
-        <!-- 휴대폰 번호 -->
-        <div class="form-group">
-          <label for="mem_phone">휴대폰 번호('-'없이 번호만 입력해주세요)</label>
-          <input type="tel" class="form-control" id="mem_phone" name="mem_phone" value="${login.mem_phone}" />
-          <div class="eheck_font" id="phone_check"></div>
-        </div>
+<div id="updateForm-body">
+	<div id="wrap">
+		<div id="article-body">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<form action="memberUpdate" method="post" role="form" id="usercheck" name="member">
+							<legend style="text-align: center;">회원정보 수정</legend>
+							<!-- 아이디 -->
+							<div class="form-group">
+								<label for="id">아이디</label>
+								<input type="text" class="form-control" id="mem_id" name="mem_id" value="${login.mem_id}" readonly />
+								<!-- <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button> -->
+								<div class="eheck_font" id="id_check"></div>
+							</div>
+							<!-- 비밀번호 -->
+							<div class="form-group">
+								<label for="pw">새 비밀번호</label>
+								<input type="password" class="form-control" id="mem_pw" name="mem_pw" value="${login.mem_pw}" />
+								<div class="eheck_font" id="pw_check"></div>
+							</div>
+							<!-- 비밀번호 확인 -->
+							<div class="form-group">
+								<label for="pw2">비밀번호 확인</label>
+								<input type="password" class="form-control" id="mem_pw2" name="mem_pw2"
+									placeholder="Confirm Password" />
+								<div class="eheck_font" id="pw2_check"></div>
+							</div>
+							<!-- 이름 -->
+							<div class="form-group">
+								<label for="mem_name">이름</label>
+								<input type="text" class="form-control" id="mem_name" name="mem_name" value="${login.mem_name}"
+									readonly />
+								<div class="eheck_font" id="name_check"></div>
+							</div>
+							<!-- 생년월일 -->
+							<div class="form-group">
+								<label for="mem_birth">생년월일</label>
+								<input type="tel" class="form-control" id="mem_birth" name="mem_birth" value="${login.mem_birth}"
+									readonly />
+								<div class="eheck_font" id="birth_check"></div>
+							</div>
+							<!-- 성별 -->
+							<div class="form-group">
+								<label for="mem_gender">성별</label>
+								<input type="text" class="form-control" style="width: 40%; display: inline;" id="mem_gender"
+									name="mem_gender" value="${login.mem_gender}" readonly>
+							</div>
+							<!-- 이메일 주소 -->
+							<div class="form-group">
+								<label for="mem_email">이메일 주소</label>
+								<input type="email" class="form-control" id="mem_email" name="mem_email" value="${login.mem_email}" />
+								<div class="eheck_font" id="email_check"></div>
+							</div>
+							<!-- 휴대폰 번호 -->
+							<div class="form-group">
+								<label for="mem_phone">휴대폰 번호('-'없이 번호만 입력해주세요)</label>
+								<input type="tel" class="form-control" id="mem_phone" name="mem_phone" value="${login.mem_phone}" />
+								<div class="eheck_font" id="phone_check"></div>
+							</div>
+							<div class="form-group">
+								<input class="form-control" style="width: 40%; display: inline;" value="${login.mem_zipcode}"
+									name="mem_zipcode" id="mem_zipcode" type="text" readonly="readonly" />
+								<button type="button" class="btn btn-light" onclick="execPostcode();"><i class="fa fa-search"></i>우편번호
+									찾기</button>
+							</div>
+							<div class="form-group">
+								<input class="form-control" style="top: 5px;" value="${login.mem_address}" name="mem_address"
+									id="mem_address" type="text" readonly="readonly" />
+							</div>
+							<div class="form-group">
+								<input class="form-control" value="${login.mem_detailaddress}" name="mem_detailaddress"
+									id="mem_detailaddress" />
+							</div>
+							<div class="form-group text-center">
+								<button type="submit" class="btn btn-primary">수정하기</button>
+								<button type="button" class="cancle btn btn-danger">취소</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-        
-        <div class="form-group">
-          <input class="form-control" style="width: 40%; display: inline;" value="${login.mem_zipcode}" name="mem_zipcode" id="mem_zipcode" 
-          type="text" readonly="readonly"/>
-            <button type="button" class="btn btn-light" onclick="execPostcode();"><i class="fa fa-search"></i>우편번호 찾기</button>
-        </div>
-        <div class="form-group">
-          <input class="form-control" style="top: 5px;" value="${login.mem_address}"  name="mem_address" id="mem_address" type="text" readonly="readonly"/>
-        </div>
-        <div class="form-group">
-          <input class="form-control" value="${login.mem_detailaddress}" name="mem_detailaddress" id="mem_detailaddress" />
-        </div>
-        
-        <div class="form-group text-center">
-          <button type="submit" class="btn btn-primary">수정하기</button>
-          <button type="button" class="cancle btn btn-danger" >취소</button>
-        </div>
-        
-      </form>
-    </div>
-  </article>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

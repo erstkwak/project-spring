@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
-	footer {background-color: #2d2d2d;}
+	footer {background-color: #2d2d2d; margin-top: 0px;}
 </style>
 
   <footer>

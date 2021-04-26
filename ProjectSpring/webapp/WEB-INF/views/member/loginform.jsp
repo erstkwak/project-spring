@@ -8,7 +8,7 @@
 	#loginForm-body {margin-bottom: 0px; padding-bottom: 100px; font-size: 16px; background-color: #e9e9e9; }
 	footer {margin-top: 0px;}
 	#article-body {text-align: left;}
-	form {width: 300px; margin: 0 auto; }
+	form {width: 400px; margin: 0 auto; }
 	.form-control {font-size: 16px;}
 </style>
 
