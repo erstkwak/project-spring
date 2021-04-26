@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="AdminImage">
+   <resultMap id="adminGoodsMap"  type="com.spring.admin.vo.GoodsVo"  >
+     <result property="goods_idx"      column="GOODS_IDX"      javaType="int" /> 
+     <result property="goods_name"     column="GOODS_NAME"     javaType="string" /> 
+     <result property="goods_price"    column="GOODS_PRICE"    javaType="int" /> 
+     <result property="goods_point"    column="GOODS_POINT"    javaType="int" /> 
+     <result property="delivery_price" column="DELIVERY_PRICE" javaType="int" /> 
+     <result property="delivery_date"  column="DELIVERY_DATE"  javaType="string" /> 
+     <result property="goods_info"     column="GOODS_INFO"     javaType="string" /> 
+     <result property="goods_regdate"  column="GOODS_REGDATE"  javaType="string" /> 
+   </resultMap>
+   <resultMap id="adminImageMap" type="com.spring.admin.vo.ImageFileVo">
+     <result property="img_idx"     column="IMG_IDX"     javaType="int" />
+     <result property="goods_idx"   column="GOODS_IDX"   javaType="int" />
+     <result property="img_name"    column="IMG_NAME"    javaType="string" />
+     <result property="filename"    column="FILENAME"    javaType="string" />
+     <result property="filetype"    column="FILETYPE"    javaType="boolean" />
+     <result property="uploadpath"  column="UPLOADPATH"  javaType="string" />
+     <result property="img_regdate" column="IMG_REGDATE" javaType="string" />
+   </resultMap>
+
+	<insert id="InsertImage">
+	  <selectKey resultType="int" keyProperty="img_idx" order="BEFORE">
+  	    SELECT SEQ_IMG_IDX.NEXTVAL FROM DUAL
+	  </selectKey>
+	  INSERT INTO GOODS_IMG (
+	     IMG_IDX
+		,GOODS_IDX
+		,IMG_NAME
+		,FILENAME
+		,FILETYPE
+		,UPLOADPATH
+		,IMG_REGDATE
+	  )
+	    VALUES(
+	    #{img_idx}
+	    ,#{goods_idx}
+		,#{img_name}
+		,#{filename}
+		,#{filetype}
+		,#{uploadpath}
+		,sysdate
+	    )
+	</insert>
+
+    <select id="readImage" resultType="com.spring.admin.vo.ImageFileVo">
+		SELECT * FROM GOODS_IMG WHERE GOODS_IDX = #{goods_idx}
+	</select>
+	
+	<delete id="deleteList">
+		DELETE FROM GOODS_IMG WHERE GOODS_IDX = #{goods_idx}
+	</delete>
+	
+<!-- 	<delete id="deleteImage">
+	  DELETE FROM GOODS_IMG WHERE IMG_NAME = #{img_name}
+	</delete> -->
+      
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
