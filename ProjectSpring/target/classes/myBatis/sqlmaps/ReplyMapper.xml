@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.qna.mapper.ReplyMapper">
+
+	<insert id="create">
+		INSERT INTO qna_reply (r_no, r_reply, mem_id, p_no) VALUES (seq_reply.nextval, #{r_reply}, #{mem_id}, #{p_no})
+	</insert>
+
+	<select id="readList" resultType="com.spring.qna.vo.ReplyVO">
+  	<![CDATA[
+  	SELECT r_no, r_reply, mem_id, r_writedate, r_updatedate, p_no FROM
+  	(
+  	   SELECT rownum rn, r_no, r_reply, mem_id, r_writedate, r_updatedate, p_no
+  	   FROM 
+  	   	 (SELECT r_no, r_reply, mem_id, r_writedate, r_updatedate, p_no FROM qna_reply ORDER BY r_no DESC)
+  	   WHERE p_no = #{p_no} AND r_no > 0 AND rownum <= #{utilVO.pageNum} * #{utilVO.amount}
+  	)
+  	WHERE rn > (#{utilVO.pageNum} - 1) * #{utilVO.amount}
+		]]>
+	</select>
+
+	<select id="readOne" resultType="com.spring.qna.vo.ReplyVO">
+		SELECT * FROM qna_reply WHERE r_no = #{r_no}
+	</select>
+	
+	<update id="update">
+		UPDATE qna_reply SET r_reply = #{r_reply}, r_updateDate = sysdate WHERE r_no = #{r_no}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM qna_reply WHERE r_no = #{r_no}
+	</delete>
+
+	<select id="getReplyCount" resultType="int">
+		<![CDATA[
+		SELECT count(r_no) FROM qna_reply WHERE p_no = #{p_no}
+		]]>
+	</select>
+
+</mapper>
