@@ -39,66 +39,65 @@
   $(document).ready(function () {
     var address = $('#mem_detailaddress');
 
-    //아이디 중복확인
-    $("#mem_id").blur(function () {
-      if ($("#mem_id").val() == "") {
-        $("#id_check").text("아이디를 입력하세요.");
-        $("#id_check").css("color", "red");
-      } else if (idJ.test($("#mem_id").val()) != true) {
-        $("#id_check").text("4~12자의 영문 소문자, 숫자와 언더라인(_)만 사용 가능합니다.");
-        $("#id_check").css("color", "red");
-      } else if ($("#mem_id").val() != "") {
-        $.ajax({
-          async: true,
-          type: "POST",
-          data: { mem_id: $("#mem_id").val() },
-          url: "/idcheck",
-          dataType: "json",
-          success: function (data) {
-            console.log(data)
-            if (data == '0') {
-                $("#id_check").text("사용가능한 아이디 입니다.");
-                $("#id_check").css("color", "blue");
-                $("#usercheck").attr("disabled", false);
-            } else {
-              $("#id_check").text("중복된 아이디 입니다.");
-              $("#id_check").css("color", "red");
-              $("#usercheck").attr("disabled", true);
-            }
-          },
-        }); //ajax///
-      } //else if
-    }); //blur
-    
-    $("form").on("submit", function () {
-      var inval_Arr = new Array(8).fill(false);
-      if (idJ.test($("#mem_id").val())) {
-        inval_Arr[0] = true;
-      } else {
-        inval_Arr[0] = false;
-        alert("아이디를 확인하세요.");
-        return false;
-      } 
-      
-      // 비밀번호가 같은 경우 && 비밀번호 정규식
-      if (
-        $("#mem_pw").val() == $("#mem_pw2").val() &&
-        pwJ.test($("#mem_pw").val())
-      ) {
-        inval_Arr[1] = true;
-      } else {
-        inval_Arr[1] = false;
-        alert("비밀번호를 확인하세요.");
-        return false;
-      }
-      // 이름 정규식
-      if (nameJ.test($("#mem_name").val())) {
-        inval_Arr[2] = true;
-      } else {
-        inval_Arr[2] = false;
-        alert("이름을 확인하세요.");
-        return false;
-      }
+        //아이디 중복확인
+        $("#mem_id").blur(function () {
+          if ($("#mem_id").val() == "") {
+            $("#id_check").text("아이디를 입력하세요.");
+            $("#id_check").css("color", "red");
+          } else if (idJ.test($("#mem_id").val()) != true) {
+            $("#id_check").text("4~12자의 영문 소문자, 숫자와 언더라인(_)만 사용 가능합니다.");
+            $("#id_check").css("color", "red");
+          } else if ($("#mem_id").val() != "") {
+            $.ajax({
+              async: true,
+              type: "POST",
+              data: { mem_id: $("#mem_id").val() },
+              url: "/idcheck",
+              dataType: "json",
+              success: function (data) {
+                if (data == '0') {
+                    $("#id_check").text("사용가능한 아이디 입니다.");
+                    $("#id_check").css("color", "blue");
+                    $("#usercheck").attr("disabled", false);
+                } else {
+                  $("#id_check").text("중복된 아이디 입니다.");
+                  $("#id_check").css("color", "red");
+                  $("#usercheck").attr("disabled", true);
+                }
+              },
+            }); //ajax///
+          } //else if
+        }); //blur
+        
+        $("form").on("submit", function () {
+          var inval_Arr = new Array(8).fill(false);
+          if (idJ.test($("#mem_id").val())) {
+            inval_Arr[0] = true;
+          } else {
+            inval_Arr[0] = false;
+            alert("아이디를 확인하세요.");
+            return false;
+          } 
+          
+          // 비밀번호가 같은 경우 && 비밀번호 정규식
+          if (
+            $("#mem_pw").val() == $("#mem_pw2").val() &&
+            pwJ.test($("#mem_pw").val())
+          ) {
+            inval_Arr[1] = true;
+          } else {
+            inval_Arr[1] = false;
+            alert("비밀번호를 확인하세요.");
+            return false;
+          }
+          // 이름 정규식
+          if (nameJ.test($("#mem_name").val())) {
+            inval_Arr[2] = true;
+          } else {
+            inval_Arr[2] = false;
+            alert("이름을 확인하세요.");
+            return false;
+          }
 
       // 생년월일 정규식
       if (birthJ) {
