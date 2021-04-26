@@ -16,10 +16,11 @@
 </head>
 <body>
    <!-- Header -->
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
    
    <!-- 회원 조회 -->
    <a href="/memberList">회원조회</a>
+
    <a href="/addNewGoodsForm">상품등록</a>
    <hr>
    <caption>상품리스트</caption>
@@ -66,3 +67,5 @@
   </div>
 </body>
 </html>
+
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>

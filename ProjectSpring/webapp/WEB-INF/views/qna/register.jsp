@@ -2,82 +2,73 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ include file="/WEB-INF/views/include/header.jsp" %>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 
 <style>
+	#register-body {font-size: 18px;}
+	#wrap {display: flex; justify-content: center; align-items: center;}
+	#article-body {width: 1000px;}
+	.form-control {font-size: 18px;}
   .uploadPreview {width: 100%; background-color: #A2A2A2;}
   .uploadPreview ul {display: flex; flex-flow: row; justify-content: center; align-items: center;}
   .uploadPreview ul li {list-style: none; padding: 10px; align-content: center; text-align: center;}
   .uploadPreview ul li img {width: 100px;}
   .uploadPreview ul li span {color: white;}
-  #article-body {font-size: 18px;}
-  .form-control {font-size: 16px;}
 </style>
 
-<!-- 페이지 소개 이미지 -->
-<section class="image-head-wrapper" style="background-image: url('/img/qnabanner.jpg');">
+<section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
 	<div class="inner-wrapper">
-		<h1 style="font-size: 30px;">Q&A 게시판</h1>
+		<h1 style="font-size: 35px;">문의 게시판</h1>
 	</div>
 </section>
 <div class="clearfix"></div>
 
-<div id="wrap">
-  <div id="article-body">
-  <section class="blog" id="main">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-10 col-sm-10 col-xs-12">
-
-<form action="/qna/registerProc" method="post">
-  <div class="form-group">
-    <label for="p_title">제목</label>
-    <input class="form-control" name='p_title' id="p_title" placeholder="제목을 입력하세요.">
-  </div>
-  <div class="form-group">
-    <label for="p_content">내용</label>
-    <textarea class="form-control" rows="10" name='p_content' id="p_content" placeholder="내용을 입력하세요."></textarea>
-  </div>
-  <div class="form-group">
-    <label for="mem_id">작성자</label>
-    <input class="form-control" name='mem_id' id="mem_id" value="test" readonly>
-  </div>
-  <div class="form-group">
-    <label for="uploadFile">파일 첨부</label>
-    <input type="file" class="form-control-file" name="uploadFile" id="uploadFile" multiple>
-  </div>
-  <div class="uploadPreview">
-    <ul></ul>
-  </div>
-  <div style="text-align: center;">
-    <button class="btn btn-dark btn-lg" type="submit">글쓰기</button>&nbsp;
-    <button class="btn btn-dark btn-lg" type="button" id="golist">목록</button>
-  </div>
-</form>
-
+<div id="register-body">
+	<div id="wrap">
+		<div id="article-body">
+			<section class="blog" id="main">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-10 col-sm-10 col-xs-12">
+							<form action="/qna/registerProc" method="post">
+								<div class="form-group">
+									<label for="p_title">제목</label>
+									<input class="form-control" name='p_title' id="p_title" placeholder="제목을 입력하세요.">
+								</div>
+								<div class="form-group">
+									<label for="p_content">내용</label>
+									<textarea class="form-control" rows="10" name='p_content' id="p_content"
+										placeholder="내용을 입력하세요."></textarea>
+								</div>
+								<div class="form-group">
+									<label for="mem_id">작성자</label>
+									<input class="form-control" name='mem_id' id="mem_id" value="${login.mem_id}" readonly>
+								</div>
+								<div class="form-group">
+									<label for="uploadFile">파일 첨부</label>
+									<input type="file" class="form-control-file" name="uploadFile" id="uploadFile" multiple>
+								</div>
+								<div class="uploadPreview">
+									<ul></ul>
+								</div>
+								<div style="text-align: center;">
+									<button class="btn btn-default" type="submit">글쓰기</button>&nbsp;
+									<button class="btn btn-default" type="button" id="golist">목록</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
 </div>
-	<!-- 사이드 메뉴 -->
-  <aside class="col-md-2 col-sm-2 col-xs-12">
-    <div class="blog-list" id="side-menu">
-      <h4>사이드 메뉴</h4>
-      <ul>
-        <li><a href="#">사이드메뉴 1</a></li>
-        <li><a href="#">사이드메뉴 2</a></li>
-        <li><a href="#">사이드메뉴 3</a></li>
-        <li><a href="#">사이드메뉴 4</a></li>
-        <li><a href="#">사이드메뉴 5</a></li>
-        <li><a href="#">사이드메뉴 6</a></li>
-        <li><a href="#">사이드메뉴 7</a></li>
-      </ul>
-      <div class="clearfix"> </div>
-    </div>
-  </aside>
-</div>
-</div>
-</section>
 
-<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 <script>
   $(document).ready(function(e) {
 
@@ -180,7 +171,7 @@
           str += "  <div>"
           str += "    <span>" + obj.a_filename + "</span>";
           str += "    <button type='button' data-file=\'" + fileSavePath + "\' data-type='file' class='btn'><i class='bi bi-trash'></i></button><br>";
-          str += "    <img src='/img/attach.png'>";
+          str += "    <img src='/images/attach.png'>";
           str += "  </div>";
           str += "</li>";
         }
