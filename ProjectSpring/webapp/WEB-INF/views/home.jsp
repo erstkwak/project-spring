@@ -25,7 +25,7 @@
     <div class="item">
       <img src="images/slideimage2.jpg" style="width:100%; height: 500px" alt="Second slide">
       <div class="carousel-caption">
-				<a href="/menus/gallery"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;이용하신 분들의 후기를 살펴보세요!&nbsp;</span></a>
+				<a href="/PBoard/List?page=1&perPageNum=20"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;이용하신 분들의 후기를 살펴보세요!&nbsp;</span></a>
       </div>
     </div>
     <div class="item">
@@ -61,7 +61,7 @@
           <div class="service-image">
             <img alt="image" class="img-responsive" src="images/icons/community.png" width="48" height="48">
           </div>
-          <h4><a href="/menus/gallery">캠핑 후기</a></h4>
+          <h4><a href="/PBoard/List?page=1&perPageNum=6">캠핑 후기</a></h4>
         </div>
       </div>
       <div class="col-md-3 col-sm-3 col-xs-6 mt-25">
@@ -286,7 +286,7 @@
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12 side-in-image">
           <div class="event-blog-details">
-            <h4><a href="menus/gallery">캠핑 후기입니다 ...</a></h4>
+            <h4><a href="/PBoard/List?page=1&perPageNum=6">캠핑 후기입니다 ...</a></h4>
             <h5> jihoon143 <a><i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>좋아요</a><a><i aria-hidden="true" class="fa fa-comment-o fa-lg"></i>댓글</a></h5>
             <p>이 캠핑장 추천합니다.</p>
             <p>주변이 쾌적하고 한적해서 힐링 됐어요 ! ...</p>
@@ -304,7 +304,7 @@
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12 side-in-image">
           <div class="event-blog-details">
-            <h4><a href="menus/gallery">캠핑 후기 올립니다</a></h4>
+            <h4><a href="/PBoard/List?page=1&perPageNum=6">캠핑 후기 올립니다</a></h4>
             <h5>lee2532 <a><i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>좋아요</a><a><i aria-hidden="true" class="fa fa-comment-o fa-lg"></i>댓글</a></h5>
             <p>여기 괜찮네요.</p>
             <p>처음 가본 곳인데 마음에 듭니다. 특히 ...</p>
