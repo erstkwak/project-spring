@@ -6,18 +6,19 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 
 <style>
-	#register-body {font-size: 18px;}
+	#register-body {font-size: 16px; padding-bottom: 50px;}
 	#wrap {display: flex; justify-content: center; align-items: center;}
 	#article-body {width: 1000px;}
-	.form-control {font-size: 18px;}
+	.form-control {font-size: 16px;}
   .uploadPreview {width: 100%; background-color: #A2A2A2;}
   .uploadPreview ul {display: flex; flex-flow: row; justify-content: center; align-items: center;}
   .uploadPreview ul li {list-style: none; padding: 10px; align-content: center; text-align: center;}
   .uploadPreview ul li img {width: 100px;}
   .uploadPreview ul li span {color: white;}
 </style>
-
-<section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
+<section class="image-head-wrapper"
+	style="background-image: url('/images/qnabanner.jpg'); background-repeat: space; width:100%; height: 500px;"
+	>
 	<div class="inner-wrapper">
 		<h1 style="font-size: 35px;">문의 게시판</h1>
 	</div>
