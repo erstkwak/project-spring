@@ -16,10 +16,24 @@
 		padding-bottom: 50px;
 		background-color: #e9e9e9;
 	}
+	table, tr, td, th {
+		padding-top: 20px;
+		padding-bottom: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
+		border: 1px solid black;
+	}
 </style>
 
+<section class="image-head-wrapper"
+	style="background-image: url('/images/campingboard.jpg'); background-repeat: round; width:100%; height: 500px;">
+	<div class="inner-wrapper">
+		<h1 style="font-size: 35px;">캠핑 후기</h1>
+	</div>
+</section>
+
 <section class="contact-block" style="text-align:center;">
-	<table style="margin:0 auto;">
+	<table style="margin:0 auto; background-color: white;">
 		<tr>
 			<td style="text-align:center; width:100px; height:50px;">작성자</td>
 			<td><input type="text" name="writer" id="writer" class="form-control" value="${login.mem_id }"
@@ -51,7 +65,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" class="form-inline" style="padding-left: 80px;">
+			<td colspan="2" class="form-inline" style="text-align: center;">
 			<div class="form-group">
 				<input type="submit" value="확인" id="final-submit-btn" class="form-control" style="width: 150px;"/>
 			</div>
