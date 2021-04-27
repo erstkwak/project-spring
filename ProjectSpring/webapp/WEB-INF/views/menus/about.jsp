@@ -6,7 +6,7 @@
 <%@ include file="/WEB-INF/views/includes/header.jsp"%>
 
 <section class="image-head-wrapper"
-	style="background-image: url('/images/intro.jpeg'); background-repeat:round; width:100%; height: 500px;"
+	style="background-image: url('/images/projectpage.jpg'); background-repeat:space; width:100%; height: 500px;"
 	>
 	<div class="inner-wrapper">
 		<h1 style="font-size: 35px;">프로젝트 소개</h1>
