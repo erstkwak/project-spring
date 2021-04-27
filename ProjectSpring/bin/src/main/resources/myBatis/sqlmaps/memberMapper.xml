@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Member">
+   <resultMap id="memberMap"  type="com.spring.member.vo.MemberVo"  >
+     <result property="mem_idx"           column="MEM_idx"            javaType="int" /> 
+     <result property="mem_id"            column="MEM_ID"             javaType="string" /> 
+     <result property="mem_pw"            column="MEM_PW"             javaType="string" /> 
+     <result property="mem_name"          column="MEM_NAME"           javaType="string" /> 
+     <result property="mem_gender"        column="MEM_GENDER"         javaType="string" /> 
+     <result property="mem_birth"         column="MEM_BIRTH"          javaType="string" /> 
+     <result property="mem_email"         column="MEM_EMAIL"          javaType="string" /> 
+     <result property="mem_phone"         column="MEM_PHONE"          javaType="string" /> 
+     <result property="mem_zipcode"       column="MEM_ZIPCODE"        javaType="string" /> 
+     <result property="mem_address"       column="MEM_ADDRESS"        javaType="string" /> 
+     <result property="mem_detailaddress" column="MEM_DETAILADDRESS"  javaType="string" /> 
+     <result property="mem_regdate"       column="MEM_REGDATE"        javaType="string" /> 
+     <result property="mem_withdraw"      column="MEM_WITHDRAW"       javaType="string" /> 
+     <result property="mem_point"         column="MEM_POINT"          javaType="int" /> 
+   </resultMap>
+
+  <!-- 로그인 -->
+  <select id="MemberLogin" resultType="com.spring.member.vo.MemberVo" >
+    SELECT * FROM MEMBER
+      WHERE MEM_ID=#{mem_id}
+      AND MEM_PW=#{mem_pw}
+  </select>
+  
+  <!-- Stored Procedure Call  -->
+  <select id="MemberListSP" statementType="CALLABLE" parameterType="hashmap" resultType="com.spring.member.vo.MemberVo" >
+     {  CALL PKG_MEMBER.PROC_MEMBER_LIST(
+         #{result, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=memberMap  }
+     ) }
+  </select>
+  
+  <insert id="InsertMember" parameterType="hashmap" >
+     { CALL PKG_MEMBER.PROC_MEMBER_INSERT(
+        #{ mem_id, mode=IN, jdbcType=VARCHAR }
+        ,#{ mem_pw, mode=IN, jdbcType=VARCHAR }
+        ,#{ mem_name, mode=IN, jdbcType=VARCHAR }
+        ,#{ mem_gender, mode=IN, jdbcType=VARCHAR }
+        ,#{ mem_birth, mode=IN, jdbcType=VARCHAR }
+        ,#{ mem_email, mode=IN, jdbcType=VARCHAR }
+        ,#{ mem_phone, mode=IN, jdbcType=VARCHAR }
+        ,#{ mem_zipcode, mode=IN, jdbcType=VARCHAR }
+        ,#{ mem_address, mode=IN, jdbcType=VARCHAR }
+        ,#{ mem_detailaddress, mode=IN, jdbcType=VARCHAR }
+     ) }
+  </insert>
+  
+  <select id="IdCheck" resultType="int" >
+    SELECT COUNT(*) 
+      FROM MEMBER
+      WHERE MEM_ID  = #{mem_id}
+  </select>
+
+  
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
