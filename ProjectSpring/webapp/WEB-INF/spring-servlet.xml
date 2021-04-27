@@ -50,4 +50,7 @@
 		<property name="basePackage" value="com.spring.qna.mapper" />
 	</bean>
 
+	
+	<bean id="visitCountDao" class="com.spring.visitcount.dao.impl.VisitCountDaoImpl"></bean>
+
 </beans>

@@ -50,6 +50,22 @@
         <div class="col-md-3 col-sm-3 col-xs-12">
           <div class="footer-details">
             <h4>방문자 카운트</h4>
+
+            	<!-- 카운터 모듈 -->
+				<div class="counter">
+				    <h3>Counter</h3>
+				    <div class="box">
+				        <dl class="today-line">
+				            <dt>Today</dt>
+				            <dd>${sessionScope.todayCount} </dd>
+				        </dl>
+				        <dl class="total-line">
+				            <dt>Total</dt>
+				            <dd>${sessionScope.totalCount} </dd>
+				        </dl>
+				    </div>
+				</div>
+
           </div>
         </div>
        </div>
