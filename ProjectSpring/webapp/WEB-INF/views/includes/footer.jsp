@@ -39,7 +39,7 @@
             <h4>바로가기</h4>
 	            <ul class="list-unstyled footer-links">
 	              <li><a href="/menus/about">소개</a></li>
-	              <li><a href="/menus/rooms">캠핑장 검색</a></li>
+	              <li><a href="/menus/camplocation">캠핑장 검색</a></li>
 	              <li><a href="/PBoard/List?page=1&perPageNum=20">캠핑 후기</a></li>
 	              <li><a href="/menus/news">캠핑용품 구매</a></li>
 	              <li><a href="/qna/list">문의하기</a></li>
@@ -47,9 +47,11 @@
 	            </ul>
           </div>
         </div>
+
         <div class="col-md-4 col-sm-4 col-xs-12">
           <div class="footer-details" style="text-align: center;">
             <h4>방문자 수</h4>
+
 
             	<!-- 카운터 모듈 -->
 				<div class="counter">
@@ -64,7 +66,6 @@
 				        </dl>
 				    </div>
 				</div>
-
           </div>
         </div>
        </div>
