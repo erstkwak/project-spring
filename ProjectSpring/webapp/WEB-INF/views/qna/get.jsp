@@ -5,7 +5,7 @@
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
 <style>
-	#get-body {font-size: 16px;}
+	#get-body {font-size: 16px; padding-bottom: 50px;}
 	.form-control {font-size: 16px;}
 	#article-body {width: 1000px;}
 	#wrap {display: flex; justify-content: center; align-items: center;}
@@ -28,7 +28,9 @@
 	.pagination>.active>a:hover {color: #ffffff;}
 </style>
 
-<section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
+<section class="image-head-wrapper"
+	style="background-image: url('/images/qnabanner.jpg'); background-repeat:space; ; width:100%; height: 500px;"
+	>
 	<div class="inner-wrapper">
 		<h1 style="font-size: 35px;">문의 게시판</h1>
 	</div>

@@ -6,10 +6,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 
 <style>
-  #modify-body {font-size: 18px;}
+  #modify-body {font-size: 16px; padding-bottom: 50px;}
 	#wrap {display: flex; justify-content: center; align-items: center;}
 	#article-body {width: 1000px;}
-	.form-control {font-size: 18px;}
+	.form-control {font-size: 16px;}
   .uploadResult {width: 100%; background-color: gray;}
   .uploadResult ul {display: flex; flex-flow: row; justify-content: center; align-items: center;}
   .uploadResult ul li {list-style: none; padding: 10px; align-content: center; text-align: center;}
@@ -20,8 +20,9 @@
   .picturePreview img {width: 600px;}
 </style>
 
-<section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
-	<div class="inner-wrapper">
+<section class="image-head-wrapper"
+	style="background-image: url('/images/qnabanner.jpg'); background-repeat: space; width:100%; height: 500px;"
+	><div class="inner-wrapper">
 		<h1 style="font-size: 35px;">문의 게시판</h1>
 	</div>
 </section>

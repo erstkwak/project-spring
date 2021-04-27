@@ -6,7 +6,7 @@
 
 <style>
 	/* 본문 */
-	#list-body {font-size: 16px;}
+	#list-body {font-size: 16px; padding-bottom: 50px;}
 	tr, th, td {text-align: center;}
 	td:nth-of-type(2) {text-align: left;}
 	/* 검색폼 스타일 */
@@ -17,8 +17,9 @@
 	#pagingDiv {display: flex; justify-content: center; align-items: center;}
 	.pagination>li>a, .pagination>li>span {color: black;}
 </style>
-
-<section class="image-head-wrapper" style="background-image: url('/images/qnabanner.jpg');">
+<section class="image-head-wrapper"
+	style="background-image: url('/images/qnabanner.jpg'); background-repeat: space; width:100%; height: 500px;"
+	>
 	<div class="inner-wrapper">
 		<h1 style="font-size: 35px;">문의 게시판</h1>
 	</div>
