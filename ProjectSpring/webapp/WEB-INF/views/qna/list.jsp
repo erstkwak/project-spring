@@ -16,6 +16,7 @@
 	/* 페이징 스타일 */
 	#pagingDiv {display: flex; justify-content: center; align-items: center;}
 	.pagination>li>a, .pagination>li>span {color: black;}
+	.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {background-color: white; border-color: black; color: black}
 </style>
 <section class="image-head-wrapper"
 	style="background-image: url('/images/qnabanner.jpg'); background-repeat: space; width:100%; height: 500px;"
@@ -50,9 +51,9 @@
 							</tr>
 						</c:forEach>
 					</table>
-					<form id='searchForm' class="form-group" action="/qna/list" method='get'>
-						<div id="searchDiv" class="form-row">
-							<select class="custom-select input-group-lg" id="searchSelectTag" name='type'>
+					<form id='searchForm' class="form-group form-inline" action="/qna/list" method='get'>
+						<div id="searchDiv" class="form-row form group">
+							<select class="custom-select input-group-lg form-control" id="searchSelectTag" name='type'>
 								<option value="" <c:out value="${paging.util.type == null ? 'selected' : ''}" />>검색 조건</option>
 								<option value="T" <c:out value="${paging.util.type eq 'T' ? 'selected' : ''}" />>제목</option>
 								<option value="C" <c:out value="${paging.util.type eq 'C' ? 'selected' : ''}" />>내용</option>

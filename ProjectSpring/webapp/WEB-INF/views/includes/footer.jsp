@@ -32,12 +32,6 @@
               <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
               <a href="https://www.youtube.com/"><i class="fa fa-youtube-play"></i></a>
             </div>
-            <div class="input-group" id="subscribe">
-              <input type="text" class="form-control subscribe-box" value="" name="subscribe" placeholder="이메일 주소 입력" style="width: 250px;">
-              <span class="input-group-btn" style="float: left;">
-                <button type="button" class="btn subscribe-button"><i class="fa fa-paper-plane fa-lg"></i></button>
-              </span>
-            </div>
           </div>
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12">
@@ -59,7 +53,7 @@
           </div>
         </div>
        </div>
-      <div class="copyright">
+      <div class="copyright" style="padding-top: 50px;">
         &copy; 2017 All right reserved. Designed by <a href="http://www.themevault.net/" target="_blank">ThemeVault.</a>
       </div>
     </div>
