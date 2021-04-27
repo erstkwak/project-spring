@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="PBoard">
+  <resultMap id="PBoardListMap"  type="com.spring.pboard.vo.PBoardVo"  >
+   	 <result property="idx"                column="IDX"             javaType="int" /> 
+   	 <result property="title"              column="TITLE"             javaType="string" /> 
+   	 <result property="mem_id"             column="MEM_ID"             javaType="string" /> 
+   	 <result property="img_url"            column="IMG_URL"             javaType="string" /> 
+   	 <result property="cont"               column="CONT"             javaType="string" /> 
+   	 <result property="regdate"            column="REGDATE"             javaType="string" /> 
+   </resultMap>
+   <resultMap id="SearchMap"  type="com.spring.pboard.vo.Search"  >
+   		<result property= "keyword" column="keyword"             javaType="string" />
+   		<result property= "searchType" column="searchType"             javaType="string" />
+   </resultMap>
+  <select id="PBoardList"
+           statementType="CALLABLE" 
+           parameterType="hashmap"
+           resultType="com.spring.pboard.vo.PBoardVo"   >
+    SELECT IDX, TITLE, MEM_ID, IMG_URL, CONT, REGDATE FROM PBOARD 
+
+		<if test='searchType.equals("title")'>
+			WHERE TITLE LIKE '%' ||  #{keyword} || '%'
+		</if>
+		
+		<if test='searchType.equals("cont")'>
+			WHERE CONT LIKE '%' ||  #{keyword} || '%'
+		</if>
+		
+		<if test='searchType.equals("title_cont")'>
+			WHERE TITLE LIKE '%' ||  #{keyword} || '%' 
+				or CONT LIKE '%' ||  #{keyword} || '%'
+		</if>
+		
+		<if test='searchType.equals("mem_id")'>
+			WHERE MEM_ID LIKE '%' ||  #{keyword} || '%'
+		</if>
+		
+	      ORDER BY IDX DESC
+  </select>
+    <select id="PBoardListWithPaging"
+           resultType="com.spring.pboard.vo.PBoardVo"
+           parameterType="com.spring.pboard.vo.Criteria"
+              >
+    SELECT IDX, TITLE, MEM_ID, IMG_URL, CONT, REGDATE 
+    FROM (
+    		SELECT
+    				IDX,
+    				TITLE,
+    				MEM_ID,
+    				IMG_URL,
+    				CONT,
+    				REGDATE,
+    				ROW_NUMBER() OVER(ORDER BY IDX DESC) AS rNUM
+    		FROM PBOARD		
+     )	MP 
+     	WHERE rNUM BETWEEN #{rowStart} AND #{rowEnd}
+     	ORDER BY IDX DESC
+  </select>
+   <select id="ListCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(IDX)
+		  FROM PBOARD
+		 WHERE IDX > 0
+	]]>
+	</select>
+  
+  <insert id="PBoardInsert"
+  			statementType="CALLABLE"
+       		parameterType="hashmap">
+    INSERT INTO PBOARD (IDX, TITLE, MEM_ID, IMG_URL, CONT, REGDATE)
+      VALUES ( 
+        ( SELECT NVL(MAX(IDX), 0) + 1 FROM PBOARD ), 
+    	#{title, jdbcType=VARCHAR}, 
+        #{mem_id, jdbcType=VARCHAR}, 
+        #{img_url, jdbcType=VARCHAR}, 
+        #{cont, jdbcType=VARCHAR}, 
+        #{regdate, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+<select id="PBoardView"
+    resultType="com.spring.pboard.vo.PBoardVo" >         
+       SELECT IDX, TITLE, MEM_ID, IMG_URL, CONT, REGDATE 
+       FROM  PBOARD
+       WHERE  IDX = #{idx} 
+</select>
+<update 	id="PBoardUpdate"
+		parameterType="com.spring.pboard.vo.PBoardVo" >
+   UPDATE   PBOARD
+     SET    TITLE 		=  #{title, jdbcType=VARCHAR},
+            CONT  		=  #{cont, jdbcType=VARCHAR},
+            IMG_URL  	=  #{img_url, jdbcType=VARCHAR}
+     WHERE  idx   =  #{idx}
+</update>	
+
+<delete id="PBoardDelete">
+   DELETE   FROM  PBOARD
+    WHERE   IDX  = #{idx}
+</delete>
+
+  <select id="Read" parameterType="com.spring.pboard.vo.PBoardVo" resultType="com.spring.pboard.vo.PBoardVo">
+    SELECT 
+      	IDX,
+		TITLE,
+		MEM_ID,
+		IMG_URL,
+		CONT,
+		REGDATE
+    FROM PBOARD
+    WHERE IDX = #{idx}
+  </select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
