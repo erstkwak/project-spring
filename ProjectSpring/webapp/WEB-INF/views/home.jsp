@@ -19,7 +19,7 @@
     <div class="item active">
       <img src="images/slideimage3.jpg" style="width:100%; height: 500px" alt="First slide">
       <div class="carousel-caption" >
-        <a href="/menus/rooms"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;캠핑장 위치가 궁금하신가요?&nbsp;</span></a>
+        <a href="/menus/camplocation"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;캠핑장 위치가 궁금하신가요?&nbsp;</span></a>
       </div>
     </div>
     <div class="item">
@@ -53,7 +53,7 @@
           <div class="service-image">
             <img alt="image" class="img-responsive" src="images/icons/tent.png" width="48" height="48">
           </div>
-          <h4><a href="/menus/rooms">캠핑장 검색</a></h4>
+          <h4><a href="/menus/camplocation">캠핑장 검색</a></h4>
         </div>
       </div>
       <div class="col-md-3 col-sm-3 col-xs-6 width-50">

@@ -90,7 +90,7 @@
                 <div class="collapse navigation navbar-collapse navbar-ex1-collapse remove-space">
                   <ul class="list-unstyled nav1 cl-effect-10">
                     <li><a data-hover="소개" href="/menus/about"><span>소개</span></a></li>
-                    <li><a data-hover="캠핑장 검색" href="/menus/rooms"><span>캠핑장 검색</span></a></li>
+                    <li><a data-hover="캠핑장 검색" href="/menus/camplocation"><span>캠핑장 검색</span></a></li>
                     <li><a data-hover="캠핑 후기" href="/PBoard/List?page=1&perPageNum=20"><span>캠핑 후기</span></a></li>
                     <!-- <li><a data-hover="메뉴" href="/menus/dinning"><span>메뉴</span></a></li> -->
                     <li><a data-hover="캠핑용품 구매" href="/menus/news"><span>캠핑용품 구매</span></a></li>

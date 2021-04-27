@@ -18,29 +18,22 @@ public class VisitCountController implements HttpSessionListener{
 	 */
 	@Override
     public void sessionCreated(HttpSessionEvent arg0) {
-		
+		System.out.println("-----리스너 실행-----");
 		HttpSession session = arg0.getSession(); 
 		WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(session.getServletContext());
 		VisitCountDao visitCountDao = (VisitCountDao)wac.getBean("visitCountDao");
-    	System.out.println("리스너 실행1111------------------");
     	System.out.println(visitCountDao);
-    	System.out.println("리스너 실행1111------------------");
+    	
         int todayCount = 0;
         int totalCount = 0;
         // 전체 방문자 수 +1
         try {
-        	System.out.println("리스너 실행2------------------");
-
         	visitCountDao.setVisitTotalCount();
-         	System.out.println("리스너 실행3333------------------");
 
             // 오늘 방문자 수
             todayCount = visitCountDao.getVisitTodayCount();
-         	System.out.println("리스너 실행4------------------");
-
             // 전체 방문자 수
             totalCount = visitCountDao.getVisitTotalCount();
-         	System.out.println("리스너 실행55555------------------");
          	System.out.println("todayCount =" + todayCount);
          	System.out.println("totalCount =" + totalCount);
         } catch (Exception e) {
