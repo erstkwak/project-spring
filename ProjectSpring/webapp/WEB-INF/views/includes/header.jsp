@@ -92,7 +92,7 @@
                     <li><a data-hover="캠핑장 검색" href="/menus/camplocation"><span>캠핑장 검색</span></a></li>
                     <li><a data-hover="캠핑 후기" href="/PBoard/List?page=1&perPageNum=20"><span>캠핑 후기</span></a></li>
                     <!-- <li><a data-hover="메뉴" href="/menus/dinning"><span>메뉴</span></a></li> -->
-                    <li><a data-hover="캠핑용품 구매" href="/menus/news"><span>캠핑용품 구매</span></a></li>
+                    <li><a data-hover="캠핑용품 구매" href="/shopping"><span>캠핑용품 구매</span></a></li>
                     <li><a data-hover="문의하기" href="/qna/list"><span>문의하기</span></a>
                     </li>
                   </ul>

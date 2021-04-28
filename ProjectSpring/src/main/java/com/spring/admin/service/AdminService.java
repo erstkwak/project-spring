@@ -5,6 +5,7 @@ import java.util.List;
 import com.spring.admin.vo.Criteria;
 import com.spring.admin.vo.GoodsVo;
 import com.spring.admin.vo.ImageFileVo;
+import com.spring.admin.vo.ShoppingVo;
 import com.spring.member.vo.MemberVo;
 
 public interface AdminService {
@@ -34,6 +35,8 @@ public interface AdminService {
 	List<ImageFileVo> getImageList(int goods_idx);
 
 	boolean delete(int goods_idx);
+
+	List<ShoppingVo>  getShoppingList(Criteria cri);
 
 
 }
