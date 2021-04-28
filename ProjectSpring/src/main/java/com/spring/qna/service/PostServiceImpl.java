@@ -37,11 +37,13 @@ public class PostServiceImpl implements PostService
 
 	public List<PostVO> getList(UtilVO utilVO) 
 	{
+		System.out.println(postMapper.readList(utilVO));
 		return postMapper.readList(utilVO);
 	}
 
 	public PostVO getOne(Long p_no) 
 	{
+		System.out.println(postMapper.readOne(p_no));
 		return postMapper.readOne(p_no);
 	}
 

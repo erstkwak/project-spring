@@ -326,13 +326,12 @@ ul{
     color: #ff4157;
 }
 .vacation-offer-bgbanner {
-    background: rgba(0, 0, 0, 0) url("../images/vacation-banner.png") no-repeat scroll center center / cover ;
+    background: rgba(0, 0, 0, 0) no-repeat scroll center center / cover ;
     color: #fff;
     position: relative;
     padding: 65px;
 }
 .vacation-offer-bgbanner::before {
-    background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0;
     content: "";
     display: block;
     height: 100%;
