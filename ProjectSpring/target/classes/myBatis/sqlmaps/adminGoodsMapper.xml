@@ -52,26 +52,41 @@
 
 	<select id="GoodsList" resultType="com.spring.admin.vo.GoodsVo"  parameterType="com.spring.admin.vo.Criteria">
 	    SELECT 
-			GOODS_IDX
-			,GOODS_NAME
-			,GOODS_PRICE
-			,GOODS_POINT
-			,DELIVERY_PRICE
-			,DELIVERY_DATE
-			,GOODS_INFO
-			,GOODS_REGDATE         
+            GOODS_IDX
+            ,GOODS_NAME
+            ,GOODS_PRICE
+            ,GOODS_POINT
+            ,DELIVERY_PRICE
+            ,DELIVERY_DATE
+            ,GOODS_INFO
+            ,GOODS_REGDATE    
+            ,IMG_IDX
+            ,IMG_NAME
+            ,FILENAME
+            ,FILETYPE
+            ,IMG_REGDATE
+            ,UPLOADPATH
+            ,rNUM
 	  FROM (
-	    SELECT
-			GOODS_IDX
-			,GOODS_NAME
-			,GOODS_PRICE
-			,GOODS_POINT
-			,DELIVERY_PRICE
-			,DELIVERY_DATE
-			,GOODS_INFO
-			,GOODS_REGDATE  
-	      	,ROW_NUMBER() OVER(ORDER BY GOODS_IDX DESC) AS rNUM
-	    FROM SHOPPING_GOODS
+	    SELECT 
+            G.GOODS_IDX
+            ,G.GOODS_NAME
+            ,G.GOODS_PRICE
+            ,G.GOODS_POINT
+            ,G.DELIVERY_PRICE
+            ,G.DELIVERY_DATE
+            ,G.GOODS_INFO
+            ,G.GOODS_REGDATE   
+            ,I.IMG_IDX
+            ,I.IMG_NAME
+            ,I.FILENAME
+            ,I.FILETYPE
+            ,I.IMG_REGDATE
+            ,I.UPLOADPATH
+	      	,ROW_NUMBER() OVER(ORDER BY G.GOODS_IDX DESC) AS rNUM
+	    FROM SHOPPING_GOODS G left join
+             GOODS_IMG I
+             on G.GOODS_IDX = I.GOODS_IDX
 	  ) MP
 	  WHERE rNUM BETWEEN #{rowStart} AND #{rowEnd}
 	  ORDER BY GOODS_IDX DESC
@@ -106,6 +121,49 @@
 	<delete id="delete">
 		DELETE FROM SHOPPING_GOODS WHERE GOODS_IDX = #{goods_idx}
 	</delete>
+      
+    <select id="ShoppingList" resultType="com.spring.admin.vo.ShoppingVo"  parameterType="com.spring.admin.vo.Criteria">
+	    SELECT 
+            GOODS_IDX
+            ,GOODS_NAME
+            ,GOODS_PRICE
+            ,GOODS_POINT
+            ,DELIVERY_PRICE
+            ,DELIVERY_DATE
+            ,GOODS_INFO
+            ,GOODS_REGDATE    
+            ,IMG_IDX
+            ,IMG_NAME
+            ,FILENAME
+            ,FILETYPE
+            ,IMG_REGDATE
+            ,UPLOADPATH
+            ,rNUM
+	  FROM (
+	    SELECT 
+            G.GOODS_IDX
+            ,G.GOODS_NAME
+            ,G.GOODS_PRICE
+            ,G.GOODS_POINT
+            ,G.DELIVERY_PRICE
+            ,G.DELIVERY_DATE
+            ,G.GOODS_INFO
+            ,G.GOODS_REGDATE   
+            ,I.IMG_IDX
+            ,I.IMG_NAME
+            ,I.FILENAME
+            ,I.FILETYPE
+            ,I.IMG_REGDATE
+            ,I.UPLOADPATH
+	      	,ROW_NUMBER() OVER(ORDER BY G.GOODS_IDX DESC) AS rNUM
+	    FROM SHOPPING_GOODS G left join
+             GOODS_IMG I
+             on G.GOODS_IDX = I.GOODS_IDX
+	  ) MP
+	  WHERE rNUM BETWEEN #{rowStart} AND #{rowEnd}
+	  ORDER BY GOODS_IDX DESC
+	  </select>
+
       
 </mapper>
 
