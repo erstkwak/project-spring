@@ -128,25 +128,27 @@
 
 <!-- 배너 -->
 <section class="vacation-offer-block">
-  <div class="vacation-offer-bgbanner">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-5 col-sm-6 col-xs-12">
-          <div class="vacation-offer-details">
-            <h1>날씨 API 추가할 공간</h1>
-            <h4>날씨 API</h4>
-            <button type="button" class="btn btn-default" onclick="javascript:searchWithLatLng();">현재위치 날씨 검색</button>
-            <!-- 현재 날씨, 실시간 날씨-->
-			<div style="margin-left:50px; margin-top:15px; color:blue; font-weight:bold">
+	<div class="vacation-offer-bgbanner" style="background-color: #3d3d3d; height: 350px;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="vacation-offer-details">
+		        <div class="col-md-6 col-sm-6 col-xs-12" style="text-align: center;">
+							<h1 style="padding-top: 40px;">날씨 정보</h1><br>
+							<h4>캠핑장 가기전에 미리 날씨 확인해보세요 !</h4>
+							<button type="button" class="btn btn-default"
+								onclick="javascript:searchWithLatLng();">지금 이곳의 날씨는?</button>
+						</div>
+		        <div class="col-md-6 col-sm-6 col-xs-12">
+							<div id="weather"></div>
+		        </div>
+					</div>
+				</div>
 			</div>
-				<div id="weather">
-			</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+		</div>
+	</div>
 </section>
+
 <!-- 배너 날씨 찾기 위도/경도 -->
 <link rel="stylesheet" href="/css/weather.css"/>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -201,29 +203,29 @@ function getWeatherEngineData(LAT, LNG, MODE)
 		console.log(weath);
 	    //날씨 아이콘에 css 형태 만들기
    		if (weath === 'clear sky') {
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon sun'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:center;' class='weather-card'><div class='weather-icon sun'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	} else if(weath === 'few clouds'){
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	} else if(weath === 'scattered clouds'){
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	} else if(weath === 'broken clouds'){
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	} else if(weath === 'overcast clouds'){
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	} else if(weath === 'shower rain'){
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	} else if(weath === 'light rain'){
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	} else if(weath === 'moderate rain'){
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	} else if(weath === 'Rain'){
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	} else if(weath === 'Thunderstorm'){
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재온도 = "+feels_like+"</h1><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	} else if(weath === 'snow'){
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon snow2'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon snow2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	} else if(weath === 'mist'){
-    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
     	}
 		
 	});

@@ -75,7 +75,6 @@
               </div>
             </div>
             <div class="col-sm-6 visible-sm">
-              <div class="text-right"><button type="button" class="book-now-btn">예약하기</button></div>
             </div>
             <div class="col-md-8 col-sm-12 col-xs-12 remove-padd">
               <nav class="navbar navbar-default">
