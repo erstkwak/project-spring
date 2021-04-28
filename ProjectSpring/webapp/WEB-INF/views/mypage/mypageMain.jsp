@@ -5,11 +5,12 @@
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
 <style>
-	#myPage-body {margin-bottom: 0px; padding-bottom: 100px; font-size: 16px; background-color: #e9e9e9; }
+	#myPage-body {margin-bottom: 0px; padding-bottom: 50px; font-size: 16px; background-color: #e9e9e9; }
 	.table {background-color: white;}
 	#wrapper {width: 1000px;}
 	.table>tbody>tr>td {padding: 30px;}
 	.table>tbody>tr>td:nth-of-type(1) {text-align: center;}
+	#main {padding-top: 50px;}
 </style>
 
 <div id="myPage-body">
