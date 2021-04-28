@@ -5,11 +5,12 @@
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
 <style>
-	#loginForm-body {margin-bottom: 0px; padding-bottom: 100px; font-size: 16px; background-color: #e9e9e9; }
+	#loginForm-body {margin-bottom: 0px; padding-bottom: 50px; font-size: 16px; background-color: #e9e9e9; }
 	footer {margin-top: 0px;}
 	#article-body {text-align: left;}
 	form {width: 400px; margin: 0 auto; }
 	.form-control {font-size: 16px;}
+	#main {padding-top: 50px;}
 </style>
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>

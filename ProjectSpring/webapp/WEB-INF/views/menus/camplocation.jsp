@@ -34,8 +34,10 @@
 	</style>
 	
 	
-	<div id="location-body">
-	<br><br><br>
+	<div id="location-body" style="padding-top: 20px;">
+	<br><br>
+	<h2 style="text-align: center;">──── 캠핑장 검색하기 ────</h2>
+	<br>
 	<!-- 지도위에 marker 띄우기 -->
 	<div id="map"></div>
 	<br>
