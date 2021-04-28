@@ -135,13 +135,102 @@
           <div class="vacation-offer-details">
             <h1>날씨 API 추가할 공간</h1>
             <h4>날씨 API</h4>
-            <button type="button" class="btn btn-default">임시 버튼</button>
+            <button type="button" class="btn btn-default" onclick="javascript:searchWithLatLng();">현재위치 날씨 검색</button>
+            <!-- 현재 날씨, 실시간 날씨-->
+			<div style="margin-left:50px; margin-top:15px; color:blue; font-weight:bold">
+			</div>
+				<div id="weather">
+			</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+<!-- 배너 날씨 찾기 위도/경도 -->
+<link rel="stylesheet" href="/css/weather.css"/>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+//lat 위도 lon 경도
+function searchWithLatLng() //현재 위치로 검색 - 브라우저에서 GPS 값을 가져올수 있다
+{	
+	if (navigator.geolocation) 
+	{	
+		navigator.geolocation.getCurrentPosition (function(pos){ //getCurrentPosition 브라우저에 내장되어 있는 객체, pos 변수에 위도 경도 잇음
+			//pos.coords.longitude : 경도 , pos.coords.latitude : 위도
+			getWeatherEngineData(pos.coords.latitude, pos.coords.longitude, "");
+		})
+	}
+}
+function getWeatherEngineData(LAT, LNG, MODE)
+{	
+	console.log(LAT)
+	console.log(LNG)
+	console.log(MODE)
+	var LAT = LAT;
+	var LNG = LNG;
+	var MODE = MODE;
+	var addr_json = {
+		"LAT" : LAT,
+		"LNG" : LNG,
+		"MODE" : MODE
+	};
+	$.ajax({
+		type: 'GET',
+		dataType: 'json',
+		url: "/camp/weather",
+		data: addr_json,
+	})
+	.done(function(result){
+		console.log(result);
+		//api에서 받는 데이터
+		//체감온도
+		var feels_like = result.current.feels_like;
+		console.log(feels_like);
+		//오늘 날짜 
+		var now = new Date();
+		var nows = now.toString();
+		console.log(now);
+	    var year= now.getFullYear();
+	    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+	    var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+	    var today = year + '-' + mon + '-' + day;
+		console.log(today);
+		//현재 날씨상태
+		var weath = result.current.weather[0].description;
+		console.log(weath);
+	    //날씨 아이콘에 css 형태 만들기
+   		if (weath === 'clear sky') {
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon sun'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    	} else if(weath === 'few clouds'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    	} else if(weath === 'scattered clouds'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    	} else if(weath === 'broken clouds'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    	} else if(weath === 'overcast clouds'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    	} else if(weath === 'shower rain'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    	} else if(weath === 'light rain'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    	} else if(weath === 'moderate rain'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    	} else if(weath === 'Rain'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    	} else if(weath === 'Thunderstorm'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재온도 = "+feels_like+"</h1><p>"+today+"</p></div>");
+    	} else if(weath === 'snow'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon snow2'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    	} else if(weath === 'mist'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재온도 = "+feels_like+"</h3><p>"+today+"</p></div>");
+    	}
+		
+	});
+}
+</script>
+
+
 
 <!-- 더보기 4 x 2 -->
 <section class="resort-overview-block">
