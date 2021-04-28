@@ -10,16 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.rest.vo.Address;
+import com.spring.rest.vo.WeatherVo;
 
 //@RestController : @Controller + @ResponseBody
 @RestController
 @RequestMapping("/camp")
 public class APIRestController {
 	
-	//검색 목록 가져오기
+	//캠핑 위치 검색 목록 가져오기
 	@RequestMapping(value="/searchText" ,  produces = "application/text; charset=utf8")
 	public String searchText(HttpServletRequest req, HttpServletResponse response, Address address) {
 		
@@ -57,4 +59,40 @@ public class APIRestController {
 		return sb.toString();
 	}
 	
+	//캠핑 날씨 가져오기
+	@RequestMapping(value="/weather", produces = "application/text;", method = RequestMethod.GET)
+	public String weather(HttpServletRequest req, HttpServletResponse response, WeatherVo weatherVo) {
+		System.out.println("apiRestController");
+		String appID = "65fd3083cf05e3a296f75d4695829012";
+		String lat = weatherVo.getLAT();  
+		String lon = weatherVo.getLNG();
+		String mode = weatherVo.getMODE();
+		String apiUrl = "";
+		System.out.println(lat);
+		System.out.println(lon);
+		
+		StringBuffer sb = null;
+		BufferedReader br = null;
+		
+		//http://api.openweathermap.org/data/2.5/onecall?&lat="+lat+"&lon="+lon+"&appid="+appID+"&exclude="+mode+"&units=metric&lang=kr"
+		//apiUrl = "http://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid="+appID+"&exclude="+mode+"&units=metric";
+		apiUrl = "http://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&appid="+appID+"&exclude="+mode+"&units=metric";
+		try {		
+			URL url = new URL(apiUrl);
+			br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+			sb = new StringBuffer();
+			String tempStr = null;
+
+			while (true) {
+				tempStr = br.readLine();
+				if (tempStr == null)
+					break;
+				sb.append(tempStr);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return sb.toString();
+	}
 }
