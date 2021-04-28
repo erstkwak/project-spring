@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="VisitCountMapper">
+
+	<insert id="insertVisitor">
+		INSERT INTO TB_VISITOR (VISIT_TIME) VALUES (sysdate)
+	</insert>
+	
+	<!-- [getVisitTodayCount()] -  금일 등록된 방문자를 카운트 한다.  -->
+	<select id="todayCount" resultType="int">
+  		SELECT COUNT(*) AS count from TB_VISITOR
+  		WHERE to_char(VISIT_TIME,'YYYY-MM-DD') = to_char(SYSDATE,'YYYY-MM-DD')
+	</select>
+ <!-- FORMAT(VISIT_TIME, 'YYYY-MM-DD') = FORMAT(sysdate, 'YYYY-MM-DD') 
+ 	  WHERE to_char(VISIT_TIME,'YYYY-MM-DD') = to_char(SYSDATE,'YYYY-MM-DD') -->
+ 
+	<!-- [getVisitTotalCount()] - 전체 방문자를 카운트 한다. -->
+	<select id="totalCount" resultType="int">
+		SELECT COUNT(*) AS count from TB_VISITOR
+	</select>
+
+</mapper>

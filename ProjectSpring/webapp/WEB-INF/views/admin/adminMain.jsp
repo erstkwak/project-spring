@@ -1,22 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Member List</title>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<!-- 부트스트랩 -->
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<style>
-</style>
 
-</head>
-<body>
-   <!-- Header -->
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
+
    
    <!-- 회원 조회 -->
    <a href="/memberList">회원조회</a>
@@ -65,6 +52,8 @@
     	<li class="page-item"><a class="page-link" href="admin${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
     </c:if> 
     </ul>
+
   </div>
-</body>
-</html>
+</section>
+            
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
