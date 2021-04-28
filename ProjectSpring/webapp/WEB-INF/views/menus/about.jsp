@@ -1,40 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%@ include file="/WEB-INF/views/includes/header.jsp" %>
+<%@ include file="/WEB-INF/views/includes/header.jsp"%>
 
-<section class="image-head-wrapper" style="background-image: url('/images/banner3.jpg');">
-  <div class="inner-wrapper">
-    <h1>About us</h1>
-  </div>
+<section class="image-head-wrapper"
+	style="background-image: url('/images/projectpage.jpg'); background-repeat:space; width:100%; height: 500px;"
+	>
+	<div class="inner-wrapper">
+		<h1 style="font-size: 35px;">프로젝트 소개</h1>
+	</div>
 </section>
 <div class="clearfix"></div>
-
-<section class="about-block">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-5 about-left">
-        <p>Lorem <label>ipsum</label> dol <span>-sitamet</span></p>
-      </div>
-      <div class="col-md-7 about-right">
-        <h3>Lorem ipsum dolor sit amet, consec</h3>
-        <p>Donec bibendum massa metus, vel aliquet nunc varius eu. Curabitur nec scelerisque dui.
-          Quisque mattis libero et enim ultricies gravida. Nulla ut commodo massa, eget tincidunt
-          ligula. Vivamus eu ante tincidunt, fermentum risus nec, pharetra turpis. Donec rhoncus eros
-          sed felis aliquet tincidunt. In consectetur tempor quam</p>
-        <ul class="list-unstyled list-inline">
-          <li>Sed vitae facilisis nisi, in finibus lacus. Duis vel nulla orci.</li>
-          <li>fringilla, at ultrices felis dignissim. Integer ultricies posuere odio</li>
-          <li>Sed vestibulum mattis laoreet. Donec sollicitudin justo luctus nulla consectetur</li>
-          <li>Nam dolor tellus, dictum sit amet libero eu, semper placerat massa.</li>
-          <li>consectetur tempor quam, aliquam dignissim diam hendrerit nec. Cras sodales at nisl</li>
-        </ul>
-        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>
-      </div>
-    </div>
-    <div class="clearfix"> </div>
-  </div>
+<br>
+<br>
+<br>
+<br>
+<section style="text-align: center;">
+	<img src="/images/about.png" />
 </section>
+<br>
+<br>
+<br>
 
-<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
+<%@ include file="/WEB-INF/views/includes/footer.jsp"%>

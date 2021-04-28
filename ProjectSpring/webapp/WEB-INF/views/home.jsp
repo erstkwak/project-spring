@@ -4,6 +4,10 @@
 
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
+<style>
+	#main-bot {padding-bottom: 100px;}
+</style>
+
 <!-- 캐러셀1 -->
 <div id="myCarousel1" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
@@ -15,13 +19,13 @@
     <div class="item active">
       <img src="images/slideimage3.jpg" style="width:100%; height: 500px" alt="First slide">
       <div class="carousel-caption" >
-        <a href="/menus/rooms"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;캠핑장 위치가 궁금하신가요?&nbsp;</span></a>
+        <a href="/menus/camplocation"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;캠핑장 위치가 궁금하신가요?&nbsp;</span></a>
       </div>
     </div>
     <div class="item">
       <img src="images/slideimage2.jpg" style="width:100%; height: 500px" alt="Second slide">
       <div class="carousel-caption">
-				<a href="/menus/gallery"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;이용하신 분들의 후기를 살펴보세요!&nbsp;</span></a>
+				<a href="/PBoard/List?page=1&perPageNum=20"><span style="font-size: 40px; color: #888888; background-color: white; border-radius: 20px;">&nbsp;이용하신 분들의 후기를 살펴보세요!&nbsp;</span></a>
       </div>
     </div>
     <div class="item">
@@ -49,7 +53,7 @@
           <div class="service-image">
             <img alt="image" class="img-responsive" src="images/icons/tent.png" width="48" height="48">
           </div>
-          <h4><a href="/menus/rooms">캠핑장 검색</a></h4>
+          <h4><a href="/menus/camplocation">캠핑장 검색</a></h4>
         </div>
       </div>
       <div class="col-md-3 col-sm-3 col-xs-6 width-50">
@@ -57,7 +61,9 @@
           <div class="service-image">
             <img alt="image" class="img-responsive" src="images/icons/community.png" width="48" height="48">
           </div>
-          <h4><a href="/menus/gallery">캠핑 후기</a></h4>
+
+          <h4><a href="/PBoard/List?page=1&perPageNum=20">캠핑 후기</a></h4>
+
         </div>
       </div>
       <div class="col-md-3 col-sm-3 col-xs-6 mt-25">
@@ -122,20 +128,111 @@
 
 <!-- 배너 -->
 <section class="vacation-offer-block">
-  <div class="vacation-offer-bgbanner">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-5 col-sm-6 col-xs-12">
-          <div class="vacation-offer-details">
-            <h1>날씨 API 추가할 공간</h1>
-            <h4>날씨 API</h4>
-            <button type="button" class="btn btn-default">임시 버튼</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="vacation-offer-bgbanner" style="background-color: #3d3d3d; height: 350px;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="vacation-offer-details">
+		        <div class="col-md-6 col-sm-6 col-xs-12" style="text-align: center;">
+							<h1 style="padding-top: 40px;">날씨 정보</h1><br>
+							<h4>캠핑장 가기전에 미리 날씨 확인해보세요 !</h4>
+							<button type="button" class="btn btn-default"
+								onclick="javascript:searchWithLatLng();">지금 이곳의 날씨는?</button>
+						</div>
+		        <div class="col-md-6 col-sm-6 col-xs-12">
+							<div id="weather"></div>
+		        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
+
+<!-- 배너 날씨 찾기 위도/경도 -->
+<link rel="stylesheet" href="/css/weather.css"/>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+//lat 위도 lon 경도
+function searchWithLatLng() //현재 위치로 검색 - 브라우저에서 GPS 값을 가져올수 있다
+{	
+	if (navigator.geolocation) 
+	{	
+		navigator.geolocation.getCurrentPosition (function(pos){ //getCurrentPosition 브라우저에 내장되어 있는 객체, pos 변수에 위도 경도 잇음
+			//pos.coords.longitude : 경도 , pos.coords.latitude : 위도
+			getWeatherEngineData(pos.coords.latitude, pos.coords.longitude, "");
+		})
+	}
+}
+function getWeatherEngineData(LAT, LNG, MODE)
+{	
+	console.log(LAT)
+	console.log(LNG)
+	console.log(MODE)
+	var LAT = LAT;
+	var LNG = LNG;
+	var MODE = MODE;
+	var addr_json = {
+		"LAT" : LAT,
+		"LNG" : LNG,
+		"MODE" : MODE
+	};
+	$.ajax({
+		type: 'GET',
+		dataType: 'json',
+		url: "/camp/weather",
+		data: addr_json,
+	})
+	.done(function(result){
+		console.log(result);
+		//api에서 받는 데이터
+		//체감온도
+		var feels_like = result.current.feels_like;
+		console.log(feels_like);
+		//오늘 날짜 
+		var now = new Date();
+		var nows = now.toString();
+		console.log(now);
+	    var year= now.getFullYear();
+	    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+	    var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+	    var today = year + '-' + mon + '-' + day;
+		console.log(today);
+		//현재 날씨상태
+		var weath = result.current.weather[0].description;
+		console.log(weath);
+	    //날씨 아이콘에 css 형태 만들기
+   		if (weath === 'clear sky') {
+    		$("#weather").append("<div style='float:center;' class='weather-card'><div class='weather-icon sun'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	} else if(weath === 'few clouds'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	} else if(weath === 'scattered clouds'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	} else if(weath === 'broken clouds'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	} else if(weath === 'overcast clouds'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	} else if(weath === 'shower rain'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	} else if(weath === 'light rain'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	} else if(weath === 'moderate rain'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	} else if(weath === 'Rain'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	} else if(weath === 'Thunderstorm'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon rain2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	} else if(weath === 'snow'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon snow2'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	} else if(weath === 'mist'){
+    		$("#weather").append("<div style='float:left;' class='weather-card'><div class='weather-icon cloud'></div><h3>현재 온도<br> "+feels_like+" ℃<br>오늘 날짜<br>"+today+"<br></h3></div>");
+    	}
+		
+	});
+}
+</script>
+
+
 
 <!-- 더보기 4 x 2 -->
 <section class="resort-overview-block">
@@ -271,7 +368,7 @@
 </section>
 
 <!-- 포스트 -->
-<section class="blog-block">
+<section class="blog-block" id="main-bot">
   <div class="container">
     <div class="row offspace-45">
       <div class="view-set-block">
@@ -282,7 +379,9 @@
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12 side-in-image">
           <div class="event-blog-details">
-            <h4><a href="menus/gallery">캠핑 후기입니다 ...</a></h4>
+
+            <h4><a href="/PBoard/List?page=1&perPageNum=20">캠핑 후기입니다 ...</a></h4>
+
             <h5> jihoon143 <a><i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>좋아요</a><a><i aria-hidden="true" class="fa fa-comment-o fa-lg"></i>댓글</a></h5>
             <p>이 캠핑장 추천합니다.</p>
             <p>주변이 쾌적하고 한적해서 힐링 됐어요 ! ...</p>
@@ -300,7 +399,8 @@
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12 side-in-image">
           <div class="event-blog-details">
-            <h4><a href="menus/gallery">캠핑 후기 올립니다</a></h4>
+            <h4><a href="/PBoard/List?page=1&perPageNum=20">캠핑 후기 올립니다</a></h4>
+
             <h5>lee2532 <a><i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>좋아요</a><a><i aria-hidden="true" class="fa fa-comment-o fa-lg"></i>댓글</a></h5>
             <p>여기 괜찮네요.</p>
             <p>처음 가본 곳인데 마음에 듭니다. 특히 ...</p>
@@ -313,6 +413,3 @@
 </section>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
-</html>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="AdminGoods">
+   <resultMap id="adminGoodsMap"  type="com.spring.admin.vo.GoodsVo"  >
+     <result property="goods_idx"      column="GOODS_IDX"      javaType="int" /> 
+     <result property="goods_name"     column="GOODS_NAME"     javaType="string" /> 
+     <result property="goods_price"    column="GOODS_PRICE"    javaType="int" /> 
+     <result property="goods_point"    column="GOODS_POINT"    javaType="int" /> 
+     <result property="delivery_price" column="DELIVERY_PRICE" javaType="int" /> 
+     <result property="delivery_date"  column="DELIVERY_DATE"  javaType="string" /> 
+     <result property="goods_info"     column="GOODS_INFO"     javaType="string" /> 
+     <result property="goods_regdate"  column="GOODS_REGDATE"  javaType="string" /> 
+   </resultMap>
+   <resultMap id="adminImageMap" type="com.spring.admin.vo.ImageFileVo">
+     <result property="img_idx"     column="IMG_IDX"     javaType="int" />
+     <result property="goods_idx"   column="GOODS_IDX"   javaType="int" />
+     <result property="img_name"    column="IMG_NAME"    javaType="string" />
+     <result property="filename"    column="FILENAME"    javaType="string" />
+     <result property="filetype"    column="FILETYPE"    javaType="boolean" />
+     <result property="uploadpath"  column="UPLOADPATH"  javaType="string" />
+     <result property="img_regdate" column="IMG_REGDATE" javaType="string" />
+   </resultMap>
+
+  <!-- 상품 추가전 sequence값 가져와서 goods_idx에 대입 -->
+	<insert id="InsertSelectKey">
+	  <selectKey resultType="int" keyProperty="goods_idx" order="BEFORE">
+  	    SELECT SEQ_GOODS_IDX.NEXTVAL FROM DUAL
+	  </selectKey>
+	  INSERT INTO SHOPPING_GOODS(
+	     GOODS_IDX
+	    ,GOODS_NAME
+		,GOODS_PRICE
+		,GOODS_POINT
+		,DELIVERY_PRICE
+		,DELIVERY_DATE
+		,GOODS_INFO
+		,GOODS_REGDATE
+	  )
+	    VALUES(
+	     #{goods_idx}
+	    ,#{goods_name}
+		,#{goods_price}
+		,#{goods_point}
+		,#{delivery_price}
+		,#{delivery_date}
+		,#{goods_info}
+		,#{goods_regdate}
+	    )
+	</insert>
+
+	<select id="GoodsList" resultType="com.spring.admin.vo.GoodsVo"  parameterType="com.spring.admin.vo.Criteria">
+	    SELECT 
+			GOODS_IDX
+			,GOODS_NAME
+			,GOODS_PRICE
+			,GOODS_POINT
+			,DELIVERY_PRICE
+			,DELIVERY_DATE
+			,GOODS_INFO
+			,GOODS_REGDATE         
+	  FROM (
+	    SELECT
+			GOODS_IDX
+			,GOODS_NAME
+			,GOODS_PRICE
+			,GOODS_POINT
+			,DELIVERY_PRICE
+			,DELIVERY_DATE
+			,GOODS_INFO
+			,GOODS_REGDATE  
+	      	,ROW_NUMBER() OVER(ORDER BY GOODS_IDX DESC) AS rNUM
+	    FROM SHOPPING_GOODS
+	  ) MP
+	  WHERE rNUM BETWEEN #{rowStart} AND #{rowEnd}
+	  ORDER BY GOODS_IDX DESC
+	  </select>
+	  
+	  <select id="GoodsListCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(GOODS_IDX)
+			  FROM SHOPPING_GOODS
+			 WHERE GOODS_IDX > 0
+		]]>
+		</select>
+	
+	<select id="GoodsInfo" resultType="com.spring.admin.vo.GoodsVo">
+		SELECT * FROM SHOPPING_GOODS WHERE GOODS_IDX = #{goods_idx}
+	</select>
+	
+	<update id="UpdateGoods" parameterType="hashmap" >
+		UPDATE SHOPPING_GOODS 
+		  SET 
+			  GOODS_NAME = #{goods_name}
+			, GOODS_PRICE = #{goods_price}
+			, GOODS_POINT = #{goods_point}
+			, DELIVERY_PRICE = #{delivery_price}
+			, DELIVERY_DATE = #{delivery_date}
+			, GOODS_INFO = #{goods_info}
+			, GOODS_REGDATE = sysdate 
+		  WHERE 
+		    GOODS_IDX = #{goods_idx}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM SHOPPING_GOODS WHERE GOODS_IDX = #{goods_idx}
+	</delete>
+      
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

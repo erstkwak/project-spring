@@ -9,11 +9,12 @@
     border: 1px solid #000000;
     border-collapse: collapse;
   }
-	#joinForm-body {margin-bottom: 0px; padding-bottom: 100px; font-size: 16px; background-color: #e9e9e9; }
+	#joinForm-body {margin-bottom: 0px; padding-bottom: 50px; font-size: 16px; background-color: #e9e9e9; }
 	footer {margin-top: 0px;}
 	#article-body {text-align: left;}
 	form {width: 400px; margin: 0 auto; }
 	.form-control {font-size: 16px;}
+	#main {padding-top: 50px;}
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
