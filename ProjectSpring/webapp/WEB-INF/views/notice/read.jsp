@@ -149,6 +149,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 <script src="/js/reply.js"></script>
+
 <script>
 	$(document).ready(function () {
 //게시판
@@ -296,6 +297,7 @@
 	                +  "<p>내용: <span class='nr_content'>" + this.nr_content+ "</span></p><br>"
 	                +  "<p>작성자: <span class='mem_id'>" + this.mem_id + "</span></p><br>"
 	                +  "<button type='button' class='btn btn-success' data-toggle='modal' data-target='#modifyModal'>댓글 수정</button>"
+
 	                +  "</li>"
 	                +  "<hr/>";
 	        });
