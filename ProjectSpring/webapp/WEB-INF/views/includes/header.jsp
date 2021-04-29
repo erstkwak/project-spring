@@ -22,6 +22,11 @@
   <link rel="stylesheet" href="/css/responsive.css">
   <style>
   	.cl-effect-10 a {font-size: 16px;}
+  
+  	.dropdown {font-size: 16px; position: relative; display: inline-block; }
+  	.dropdown-content {list-style: none; display: none; position: absolute; background-color: black; right:0px; min-width: 120px; }
+	.dropdown-content a { color: black; padding: 8px 12px; text-decoration: none; display: block; }
+	.dropdown:hover .dropdown-content { display: block; }
   </style>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
@@ -55,7 +60,13 @@
                   </c:otherwise>
                 </c:choose>
                 <c:if test="${isLogOn == true and login.mem_id=='admin'}">
-                  <li><a href="/admin">관리자</a></li>
+                <li class="dropdown" >
+				  관리자
+				  <ul class="dropdown-content">
+				    <li><a href="/admin">상품관리</a></li>
+				    <li><a href="/memberList">회원관리</a></li>
+				  </ul>
+                  </li>
                 </c:if>
                 <li><a href="#">장바구니</a></li>
                 <li><a href="/notice/list">공지사항</a></li>
@@ -105,4 +116,6 @@
           </div>
         </div>
       </div>
+      
     </header>
+      </div>
