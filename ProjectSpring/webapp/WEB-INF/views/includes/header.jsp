@@ -69,7 +69,7 @@
                   </li>
                 </c:if>
                 <li><a href="#">장바구니</a></li>
-                <li><a href="#">공지사항</a></li>
+                <li><a href="/notice/list">공지사항</a></li>
               </ul>
             </div>
           </div>

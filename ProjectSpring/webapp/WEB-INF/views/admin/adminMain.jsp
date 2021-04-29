@@ -4,6 +4,7 @@
 
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
+
 <style>
 	/* 본문 */
 	#list-body {font-size: 16px; padding-bottom: 50px; }
