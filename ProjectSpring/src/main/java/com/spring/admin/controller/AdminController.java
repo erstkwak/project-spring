@@ -77,7 +77,7 @@ public class AdminController {
 		
 		model.addAttribute("update", adminService.read(vo.getMem_id()));
 		
-		return "admin/updateForm";
+		return "mypage/updateForm";
 	}
 	
 	@RequestMapping(value="/updateMember", method=RequestMethod.GET)
@@ -191,7 +191,6 @@ public class AdminController {
 		response.setContentType("text/html;charset=utf-8");
 		
 		model.addAttribute("shoppingList", adminService.getShoppingList(cri));
-		System.out.println(adminService.getShoppingList(cri));
 		
 		// paging
 		PageMaker pageMaker = new PageMaker();

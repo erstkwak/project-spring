@@ -15,42 +15,42 @@
 
 <div id="myPage-body">
 <section class="blog" id="main">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 col-sm-12 col-xs-12">
-				<div id="wrapper" style="margin: 0 auto;">
-					<table class="table">
-						<caption>
-							<h2 style="text-align: center;">회원 정보</h2>
-						</caption>
-						<tr>
-							<td>이름</td>
-							<td colspan="2">${login.mem_name}</td>
-						</tr>
-						<tr>
-							<td>이메일</td>
-							<td colspan="2">${login.mem_email}</td>
-						</tr>
-						<tr>
-							<td>전화번호</td>
-							<td colspan="2">${login.mem_phone}</td>
-						</tr>
-						<tr>
-							<td>주소</td>
-							<td>${login.mem_address }</td>
-							<td>${login.mem_detailaddress }</td>
-						</tr>
-						<tr style="text-align: center;">
-							<td colspan="3">
-								<input type="button" class="btn btn-success" value="회원정보관리" id="btnUpdate" />
-								<input type="button" class="cancle btn btn-danger" value="회원탈퇴" id="btnDelete" />
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="container">
+	<div class="row">
+	  <div class="col-md-12 col-sm-12 col-xs-12">
+		<div id="wrapper" style="margin: 0 auto;">
+		  <table class="table">
+			<caption>
+			  <h2 style="text-align: center;">회원 정보</h2>
+			</caption>
+			<tr>
+			  <td>이름</td>
+			  <td colspan="2">${login.mem_name}</td>
+			</tr>
+			<tr>
+			  <td>이메일</td>
+			  <td colspan="2">${login.mem_email}</td>
+			</tr>
+			<tr>
+			  <td>전화번호</td>
+			  <td colspan="2">${login.mem_phone}</td>
+			</tr>
+			<tr>
+			  <td>주소</td>
+			  <td>${login.mem_address }</td>
+			  <td>${login.mem_detailaddress }</td>
+			</tr>
+			<tr style="text-align: center;">
+			  <td colspan="3">
+			    <input type="button" class="btn btn-success" value="회원정보관리" id="btnUpdate" />
+			    <input type="button" class="cancle btn btn-danger" value="회원탈퇴" id="btnDelete" />
+			  </td>
+			</tr>
+		</table>
+	    </div>
+	  </div>
+    </div>
+  </div>
 </section>
 </div>
 

@@ -1,18 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>상품추가</title>
 <style>
-  .uploadPreview {width: 100%; background-color: gray;}
-  .uploadPreview ul {displayImg: flex; flex-flow: row; justify-content: center; align-items: center;}
-  .uploadPreview ul li {list-style: none; padding: 10px; }
-  .uploadPreview ul li img {width: 20px;}
+  .uploadPreview {width: 100%; background-color: #A2A2A2;}
+  .uploadPreview ul {display: flex; flex-flow: row; justify-content: center; align-items: center;}
+  .uploadPreview ul li {list-style: none; padding: 10px; align-content: center; text-align: center;}
+  .uploadPreview ul li img {width: 100px;}
+  .uploadPreview ul li span {color: white;}
+  
+  	#myPage-body {margin-bottom: 0px; padding-bottom: 50px; font-size: 16px; background-color: #e9e9e9; }
+	.table {background-color: white;}
+	#wrapper {width: 1000px;}
+	.table>tbody>tr>td {padding: 30px;}
+	.table>tbody>tr>td:nth-of-type(1) {text-align: center;}
+	#main {padding-top: 50px;}
+	
 </style>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
 	$(document).ready(function() {
 	    var form = $('form');
@@ -146,87 +157,76 @@
 </script>
 </head>
 <body>
-   <!-- Header -->
-   <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-   
+
   <form action="/updateGoods" method="post" >
+  <div id="myPage-body">
   <input type="hidden" name="goods_idx" value="${goodsInfo.goods_idx }"/>
-	<h1>상품수정</h1>
-    <div class="tab_container">
-      <!-- 내용 들어 가는 곳 -->
-      <div class="tab_container" id="container">
-        <div class="tab_container">
-          <div class="tab_content" id="tab1">
-            <table>
+  <section class="blog" id="main">
+  <div class="container">
+	<div class="row">
+	  <div class="col-md-12 col-sm-12 col-xs-12">
+		<div id="wrapper" style="margin: 0 auto;">
+		  <table class="table">
+			<caption>
+			  <h2 style="text-align: center;">상품수정</h2>
+			</caption>
               <tr>
                 <td>제품이름</td>
-                <td><input name="goods_name" type="text" size="40" value="${goodsInfo.goods_name }"/></td>
+                <td colspan="2"><input name="goods_name" type="text" value="${goodsInfo.goods_name }"/></td>
               </tr>
               <tr>
                 <td>제품가격</td>
-                <td><input name="goods_price" type="text" size="40" value="${goodsInfo.goods_price }"/></td>
+                <td colspan="2"><input name="goods_price" type="text" value="${goodsInfo.goods_price }"/>원</td>
               </tr>
               <tr>
                 <td>제품 구매 포인트</td>
-                <td><input name="goods_point" type="text" size="40" value="${goodsInfo.goods_point }"/></td>
+                <td colspan="2"><input name="goods_point" type="text" value="${goodsInfo.goods_point }"/></td>
               </tr>
               <tr>
                 <td>제품등록일</td>
-                <td>
-                  <input name="goods_regdate" type="text" size="40" value="${goodsInfo.goods_regdate }"/>
-                </td>
+                <td colspan="2"><input name="goods_regdate" type="text" value="${goodsInfo.goods_regdate }"/></td>
               </tr>
               <tr>
                 <td>제품 배송비</td>
-                <td>
-                  <input name="delivery_price" type="text" size="40" value="${goodsInfo.delivery_price }"/>
-                </td>
+                <td colspan="2"><input name="delivery_price" type="text" value="${goodsInfo.delivery_price }"/>원</td>
               </tr>
               <tr>
                 <td>제품 도착 예정일</td>
-                <td>
-                  <input name="delivery_date" type="text" size="40" value="${goodsInfo.delivery_date }"/>
-                </td>
+                <td colspan="2"><input name="delivery_date" type="text" size="40" value="${goodsInfo.delivery_date }"/></td>
               </tr>
-              <tr>
-                <td><br /></td>
-              </tr>
-            </table>
-          </div>
-          
-          <div class="tab_content" id="tab1">
-            <H4>상품소개</H4>
-            <table>
               <tr>
                 <td>상품소개</td>
-                <td>
-                  <textarea rows="30" cols="80" name="goods_info" >${goodsInfo.goods_info }</textarea>
+                <td colspan="2">
+                  <textarea rows="10" cols="50" name="goods_info" >${goodsInfo.goods_info }</textarea>
+                </td>
+              </tr>              
+              <tr>
+                <td>상품이미지</td>
+                <td colspan="2">
+		          <div class="form-group uploadDiv">
+		            <input type="file" name="uploadFile" multiple>
+		          </div>
+           		  <div class="uploadResult">
+	                <ul></ul>
+	              </div>
+	      	      <div class='picturePreviewWrapper'>
+	                <div class='picturePreview'></div>
+	              </div>
                 </td>
               </tr>
             </table>
-            </div>
-          
-		  <div>첨부파일</div>
-		  <div class="form-group uploadDiv">
-		    <input type="file" name="uploadFile" multiple>
-		  </div>
-	      <div class="uploadResult">
-	        <ul></ul>
-	      </div>
-	      <div class='picturePreviewWrapper'>
-	        <div class='picturePreview'></div>
-	      </div>
-          
-          
+            
         </div>
       </div>
-      
-        <div style="text-align: center;">
-    		<button type="submit">상품 수정</button>&nbsp;
-   	 		<button type="button" id="cancel">취소</button>
-  		</div>
+      </div>
     </div>
-  
+    </section>
+      <div style="text-align: center;">
+    	<button type="submit" class="btn btn-success">상품 수정</button>&nbsp;
+   	 	<button type="button" id="cancel" class="cancle btn btn-danger">취소</button>
+      </div>
+      </div>
   </form>
 </body>
 </html>
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
