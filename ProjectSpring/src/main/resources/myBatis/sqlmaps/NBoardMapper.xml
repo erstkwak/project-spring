@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NBoardMapper">
+    
+    <resultMap id="BoardResultMap" type="com.spring.notice.vo.BoardVO">
+     	<id property="nb_no" column="nb_no"/>
+       <result property="mem_id"		column="MEM_ID"		javaType="string" />   
+       <result property="nb_title"		column="NB_TITLE"	javaType="string" />   
+       <result property="nb_content"	column="NB_CONTENT"	javaType="string" />   
+       <result property="nb_regdate"	column="NB_REGDATE"	javaType="date" />   
+       <result property="nb_modate"		column="NB_MODATE"	javaType="date" />   
+       <result property="nb_replycount"	column="NB_REPLYCOUNT"	javaType="int" />   
+       <result property="nb_count"		column="NB_COUNT"	javaType="int" />   
+       <result property="nb_likecheck"	column="NB_LIKECHECK"	javaType="int" />   
+       <result property="nb_available"	column="NB_AVAILABLE"	javaType="int" />   
+    </resultMap> 
+    
+	<!-- 게시판 리스트 : select -->
+	<select id="list" resultMap="BoardResultMap">
+		select *
+		from(
+			select rownum rnum, nb_no, nb_title, mem_id, nb_regdate, nb_count, nb_replycount
+			from(
+				select nb_no, nb_title, mem_id, nb_regdate, nb_count, nb_replycount
+				from notice_board
+				where nb_no > 0
+				<include refid="search"></include>
+				order by nb_no desc
+				)
+			)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+
+	<!-- 게시판 글보기 : select => view, update form -->
+	<select id="view" resultType="com.spring.notice.vo.BoardVO">
+		select nb_no, nb_title, nb_content, mem_id, nb_regdate, nb_count
+			from notice_board
+			where nb_no = #{nb_no}
+	</select>
+
+	<!-- 조회수 증가 : increase -->
+	<update id="increase">
+		update notice_board
+			set nb_count = nb_count + 1
+			where nb_no = #{nb_no}
+	</update>
+
+	<!-- 게시판 글쓰기 : write (SELECT NVL(MAX(nb_no), 0)+1 FROM notice_board) => 시퀀스로 변경 board_seq.nextval-->
+	<insert id="write">
+		insert into notice_board(
+					nb_no
+					, nb_title
+					, nb_content
+					, mem_id
+					)
+			values(
+				NBOARD_SEQ.NEXTVAL
+				, #{nb_title}
+				, #{nb_content}
+				, #{mem_id}
+				)
+	</insert>
+
+	<!-- 게시판 글수정 : update -->
+	<update id="update">
+		update notice_board
+			set nb_title = #{nb_title}, nb_content = #{nb_content}, mem_id = #{mem_id}, nb_modate = SYSDATE
+			where nb_no = #{nb_no}
+	</update>
+
+	<!-- 게시판 글삭제 : delete -->
+	<delete id="delete">
+		delete from notice_board where nb_no = #{nb_no}
+	</delete>
+
+	<!-- 전체 데이터의 갯수를 세는 처리 -->
+	<select id="totalCount" resultType="Integer">
+		select count(*) 
+			from notice_board
+			where nb_no > 0
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 게시글 하나 - 댓글의 수 -->
+	<update id="updateReplyCnt">
+    	UPDATE notice_board
+	    	SET nb_replycount = nb_replycount + #{amount}
+	    	WHERE nb_no = #{nb_no}
+	</update>
+	
+	<!-- 댓글 삭제되었을떄 - 댓글의 게시글 번호 조회 메서드 선언 및 구현 -->
+	<select id="getArticleNo" resultType="int">
+	    SELECT
+	        nb_no
+	    FROM notice_reply
+	    WHERE nr_no = #{nr_no}
+	</select>
+	
+	<!-- 검색을 위한 조건 처리문 : list, totalCount에서 각각 사용한다. -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and ( nb_title like '%' || #{keyword} || '%' )
+			</if>
+			<if test="searchType == 'c'.toString()">
+				and ( nb_content like '%' || #{keyword} || '%' ) 
+			</if>
+			<if test="searchType == 'w'.toString()">
+				and ( mem_id like '%' || #{keyword} || '%' ) 
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and ( nb_title like '%' || #{keyword} || '%' 
+				or nb_content like '%' || #{keyword} || '%' ) 
+			</if>
+			<if test="searchType == 'cw'.toString()">
+				and ( nb_content like '%' || #{keyword} || '%'  
+				or and mem_id like '%' || #{keyword} || '%' ) 
+			</if>
+			<if test="searchType == 'tcw'.toString()">
+				and ( nb_title like '%' || #{keyword} || '%' 
+				or nb_content like '%' || #{keyword} || '%' 
+				or and mem_id like '%' || #{keyword} || '%' ) 
+			</if>
+		</if>
+	</sql>
+	
+	
+</mapper>

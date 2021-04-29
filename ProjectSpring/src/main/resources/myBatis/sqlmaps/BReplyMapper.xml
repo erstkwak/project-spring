@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BReplyMapper">
+	
+	<select id="list" resultMap="ReplyResultMap">
+        SELECT
+          nb_no
+          , mem_id
+          , nr_no
+          , nr_content
+          , nr_regdate
+          , nr_modate
+          , nr_available
+        FROM notice_reply
+        WHERE nb_no = #{nb_no}
+        ORDER BY nr_no
+    </select>
+
+    <insert id="create">
+        INSERT INTO notice_reply (
+            nb_no
+            ,nr_no
+            , mem_id
+            , nr_content
+        ) VALUES (
+            #{nb_no}
+            , NREPLY_SEQ.NEXTVAL
+            , #{mem_id}
+            , #{nr_content}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE notice_reply
+        SET
+            nr_content = #{nr_content}
+            , nr_modate = sysdate
+        WHERE nr_no = #{nr_no}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM notice_reply
+        	WHERE nr_no = #{nr_no}
+    </delete>
+	
+	<resultMap id="ReplyResultMap" type="com.spring.notice.vo.BoardReplyVO">
+		<id property="nr_no" column="nr_no"/>
+		<result property="mem_id"		column="mem_id"		javaType="string" />   
+		<result property="nr_content"	column="nr_content"	javaType="string" />   
+		<result property="nr_regdate"	column="nr_regdate"	javaType="date" />   
+		<result property="nr_modate"	column="nr_modate"	javaType="date" />   
+		<result property="nr_available"	column="nr_available" javaType="int" />
+		<result property="nb_no"		column="nb_no"		javaType="int" />    
+    </resultMap>
+	
+	<resultMap id="BoardResultMap" type="com.spring.notice.vo.BoardVO">
+		<id property="nb_no" column="nb_no"/>
+		<result property="nb_no"		column="nb_no"		javaType="int" />  
+		<result property="mem_id"		column="mem_id"			javaType="string" />   
+		<result property="nb_title"		column="nb_title"		javaType="string" />   
+		<result property="nb_content"	column="nb_content"		javaType="string" />   
+		<result property="nb_regdate"	column="nb_regdate"		javaType="date" />   
+		<result property="nb_modate"	column="nb_modate"		javaType="date" />   
+		<result property="nb_replycount" column="nb_replycount"	javaType="int" />   
+		<result property="nb_count"		column="nb_count"		javaType="int" />   
+		<result property="nb_likecheck"	column="nb_likecheck"	javaType="int" />   
+		<result property="nb_available"	column="nb_available"	javaType="int" />   
+    </resultMap>
+    
+    <!-- 댓글페이징 -->
+    <select id="listPaging" resultMap="ReplyResultMap">
+	    select *
+		from(
+			select rownum rnum, nr_no, nb_no, nr_content, mem_id, nr_regdate, nr_modate
+			from(
+				select nr_no, nb_no, nr_content, mem_id, nr_regdate, nr_modate
+				from notice_reply
+				where nb_no = #{nb_no} AND nr_no > 0
+				order by nr_no DESC
+				)
+			)
+		where rnum between #{criteria.startRow} and #{criteria.endRow}
+	</select>
+	<!-- mySql 페이징
+		SELECT
+	        nr_no
+	        , nb_no
+	        , nr_content
+	        , mem_id
+	        , nr_regdate
+	        , nr_modate
+	    FROM notice_reply
+	    WHERE nb_no = #{nb_no}
+	    ORDER BY nr_no
+	    LIMIT #{criteria.pageStart}, #{criteria.perPageNum}
+	 -->
+
+    <select id="countReplies" resultType="int">
+	    SELECT
+	        COUNT(nb_no)
+	    FROM notice_reply
+	    WHERE nb_no = #{nb_no}
+	</select>
+    
+    <select id="getArticleNo" resultType="int">
+	    SELECT
+	        nb_no
+	    FROM notice_reply
+	    WHERE nr_no = #{nr_no}
+	</select>
+	
+</mapper>

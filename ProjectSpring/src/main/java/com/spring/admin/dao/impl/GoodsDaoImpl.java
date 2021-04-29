@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.admin.dao.GoodsDao;
 import com.spring.admin.vo.Criteria;
 import com.spring.admin.vo.GoodsVo;
+import com.spring.admin.vo.ShoppingVo;
 
 @Repository("goodsDao")
 public class GoodsDaoImpl implements GoodsDao {
@@ -45,6 +46,11 @@ public class GoodsDaoImpl implements GoodsDao {
 	@Override
 	public int delete(int goods_idx) {
 		return sqlSession.delete("AdminGoods.delete", goods_idx);
+	}
+
+	@Override
+	public List<ShoppingVo> getShoppingList(Criteria cri) {
+		return sqlSession.selectList("AdminGoods.ShoppingList", cri ); 
 	}
 
 }

@@ -43,7 +43,7 @@
 	              <li><a href="/PBoard/List?page=1&perPageNum=20">캠핑 후기</a></li>
 	              <li><a href="/menus/news">캠핑용품 구매</a></li>
 	              <li><a href="/qna/list">문의하기</a></li>
-	              <li><a href="#">공지사항</a></li>
+	              <li><a href="/notice/list">공지사항</a></li>
 	            </ul>
           </div>
         </div>

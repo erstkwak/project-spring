@@ -13,6 +13,7 @@ import com.spring.admin.service.AdminService;
 import com.spring.admin.vo.Criteria;
 import com.spring.admin.vo.GoodsVo;
 import com.spring.admin.vo.ImageFileVo;
+import com.spring.admin.vo.ShoppingVo;
 import com.spring.member.vo.MemberVo;
 import com.spring.qna.vo.PostVO;
 
@@ -115,6 +116,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<ImageFileVo> getImageList(int goods_idx) {
 		return imageFileDao.getImageList(goods_idx);
+	}
+
+	@Override
+	public List<ShoppingVo> getShoppingList(Criteria cri) {
+		return goodsDao.getShoppingList(cri);
 	}
 
 
