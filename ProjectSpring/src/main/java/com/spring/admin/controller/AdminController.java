@@ -5,6 +5,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +26,7 @@ import com.spring.admin.vo.Criteria;
 import com.spring.admin.vo.GoodsVo;
 import com.spring.admin.vo.ImageFileVo;
 import com.spring.admin.vo.PageMaker;
+import com.spring.admin.vo.ShoppingVo;
 import com.spring.member.vo.MemberVo;
 
 
@@ -159,7 +163,6 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 
-	
 	private void deleteFiles(List<ImageFileVo> imageList){
 		if (imageList == null || imageList.size() == 0) {
 			return;
@@ -182,10 +185,23 @@ public class AdminController {
 	}
 	
 	
-	
-	
-	
-	
+	@RequestMapping(value="/shopping", method=RequestMethod.GET)
+	public String shopping(Criteria cri, Model model, HttpServletRequest request, HttpServletResponse response) {
+
+		response.setContentType("text/html;charset=utf-8");
+		
+		model.addAttribute("shoppingList", adminService.getShoppingList(cri));
+		System.out.println(adminService.getShoppingList(cri));
+		
+		// paging
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(adminService.goodsListCount());
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "menus/shopping";
+	}
 	
 	
 	
