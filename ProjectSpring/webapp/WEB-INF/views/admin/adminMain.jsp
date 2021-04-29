@@ -3,8 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-
-   
    <!-- 회원 조회 -->
    <a href="/memberList">회원조회</a>
 
@@ -52,7 +50,6 @@
     	<li class="page-item"><a class="page-link" href="admin${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
     </c:if> 
     </ul>
-
   </div>
 </section>
             
