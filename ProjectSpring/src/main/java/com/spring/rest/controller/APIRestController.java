@@ -55,11 +55,6 @@ public class APIRestController {
 			}
 		} catch (Exception e) {
 		}finally {
-			try {
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 		return sb.toString();
 	}

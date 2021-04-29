@@ -1,15 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>캠핑위치</title>
 	<style>
 		#map{
-			width:600px;
-			height:300px;
+			width:1000px;
+			height:500px;
 			margin:0 auto; 
 		}
 		#test {
@@ -23,34 +18,43 @@
 		#searchType {
 			width: 140px;
 		}
+		#location-body {
+			background-color: #e9e9e9;
+		}
+	.table {background-color: white;}
 	</style>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<!--  부트스트랩 js 사용 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-</head>
-<body>
 	<%@ include file="/WEB-INF/views/includes/header.jsp" %>
 	
-	<br><br><hr><br><br>
+	<style>
+		.table>tbody>tr.info>td, .table>tbody>tr.info>th, .table>tbody>tr>td.info, .table>tbody>tr>th.info, .table>tfoot>tr.info>td, .table>tfoot>tr.info>th, .table>tfoot>tr>td.info, .table>tfoot>tr>th.info, .table>thead>tr.info>td, .table>thead>tr.info>th, .table>thead>tr>td.info, .table>thead>tr>th.info {background-color: white;}
+	</style>
+	
+	
+	<div id="location-body" style="padding-top: 20px;">
+	<br><br>
+	<h2 style="text-align: center;">──── 캠핑장 검색하기 ────</h2>
+	<br>
 	<!-- 지도위에 marker 띄우기 -->
 	<div id="map"></div>
-	<br><br><hr><br><br>
+	<br>
 		<div id="test">
 				<input class="form-control" type='text' id='input_search_text' name='input_search_text' placeholder="검색어"/>
 				&nbsp;
-				<input type="button" id="search_text" class="btn btn-primary" value="검색" />
-		</div>
+				<input type="button" id="search_text" class="btn btn-default" value="검색" />
+		</div><br>
 		<!-- 검색한기본정보 목록 -->
-		<div style="margin-left:50px; margin-top:15px; color:blue; font-weight:bold">
-			검색결과 [캠핑기본목록 리스트]
-		</div>
+		<div style="text-align: center; color:black;">
+			<h3>캠핑장 검색 결과 [캠핑 기본 목록 리스트]</h3>
+		</div><br>
 		<div id="resultCampingBoot" style="display:none;">
 		</div>
-	<br><br><hr><br><br>
 		<div id="paging" style="text-align: center"></div>
-	<br><br><hr><br><br>
-	
+	<br><br><br>
+	</div>
 	<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a6b28e8f54b0d140fdafafa41ba8e544&libraries=LIBRARY"></script>	
 <script>
@@ -137,7 +141,7 @@
 						} 
 						
 						if(myItem) { //검색 캠핑장
-							resultHTML +=   '<tr class="info">';
+							resultHTML +=   '<tr class="active">';
 							resultHTML +=      '<td>'+ myItem.facltNm +'</td>';
 							resultHTML +=      '<td>'+ date +'</td>';
 							resultHTML +=      '<td>'+ myItem.induty +'</td>';
@@ -261,8 +265,9 @@
 	    $("#paging").html(html);    // 페이지 목록 생성
 	    $("#paging a").css("color", "black");
 	    $("#paging a#" + currentPage).css({"text-decoration":"none", 
-	                                       "color":"red", 
-	                                       "font-weight":"bold"});    // 현재 페이지 표시
+	                                       "color":"white", 
+	                                       "font-weight":"bold",
+	                                       "background-color":"black"});    // 현재 페이지 표시
 	    $("#paging a").click(function(){ // 아래 페이징을 클릭했을때 발생하는 이벤트 
 	        var $item = $(this);
 	        var $id = $item.attr("id");
