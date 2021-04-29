@@ -148,7 +148,6 @@
 		    alert("게시글 삭제가 완료되었습니다.");
 		}
 		
-		
 		$('#writeBtn').on('click', function() {
 			location = '/notice/write';
 		});
@@ -164,8 +163,9 @@
 		});
 		// 게시글에 대한 tr 이벤트 처리
 		$(".data").click(function(){
-			var no = $(this).find("td:first").text();
-			location = "/notice/view?no="+no		// 글번호를 전달한다.
+			//var no = $(this).find("td:first").text();
+			//location = "/notice/view?no="+no		// 글번호를 전달한다.
+			location = "${path}/notice/read?nb_no=${board.nb_no}" // 글번호를 전달한다.
 					+"&page=${cri.page}"	// 페이지 전달.
 					+"&perPageNum=${cri.perPageNum}"  // 한 페이지에 몇 개를 출력할지 결정.
 					+"&searchType=${cri.searchType}"  // 서치 타입을 결정
@@ -173,9 +173,10 @@
 		});
 		// 표시하는 글 수를 바꾸면 이벤트 처리를 해서 다시 리스트를 불러온다.
 		$("#perPageNum").change(function(){
-//	 		alert("select change!");
+	 		alert("select change!");
 			location = "/notice/list?"
-				+"page="+$("#page").val() // 페이지 전달한다.
+				//+"page="+$("#page").val() // 페이지 전달한다.
+				+"page=1" // 페이지 전달한다.
 				+"&perPageNum="+$("#perPageNum").val() // 페이지 당 글수 전달
 				+"&searchType=${cri.searchType}"  // 서치 타입을 결정
 				+"&keyword=${cri.keyword}";   // 키워드 설정
