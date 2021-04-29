@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spring.admin.vo.Criteria;
 import com.spring.admin.vo.GoodsVo;
+import com.spring.admin.vo.ShoppingVo;
 
 public interface GoodsDao {
 
@@ -18,5 +19,7 @@ public interface GoodsDao {
 	int updateGoods(GoodsVo goodsVo);
 
 	int delete(int goods_idx);
+
+	List<ShoppingVo> getShoppingList(Criteria cri);
 
 }
