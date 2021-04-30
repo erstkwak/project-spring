@@ -2,7 +2,7 @@
 
 ## 팀 (가나다 순)
 - 곽대희: 팀장, 프로젝트 디자인, 문의 게시판
-- 송현우: 캠핑 후기 게시판, 캠핑용품 구매 관련 장바구니 기능
+- 송현우: 캠핑 후기 게시판, 캠핑용품 구매 관련 장바구니 기능, 소개 페이지
 - 이동준: 회원 기능, 관리자 기능, 캠핑용품 구매 관련 상품 관리 기능
 - 최성완: 캠핑장 검색 기능, 공지사항 게시판, 방문자 수 카운트 기능
 
@@ -20,3 +20,12 @@
 - DBMS Server: Oracle Database 11g Express Edition
 - WS & WAS: Apache & Tomcat 9
 - Library & Framework : Spring, MyBatis, Lombok 등
+
+## 실행화면
+![](./images/1.png)
+![](./images/2.png)
+![](./images/3.png)
+![](./images/4.png)
+![](./images/5.png)
+![](./images/6.png)
+![](./images/7.png)
